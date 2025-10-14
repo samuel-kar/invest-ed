@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import {
   Home,
   Menu,
@@ -19,18 +19,43 @@ export default function Header() {
   const [isDarkMode, setIsDarkMode] = useState(true) // Default to dark mode
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode)
-    // TODO: Implement actual theme switching logic
+    const newTheme = !isDarkMode
+    setIsDarkMode(newTheme)
+
+    // Apply theme to document
+    document.documentElement.setAttribute(
+      'data-theme',
+      newTheme ? 'dark' : 'light',
+    )
+
+    // Store theme preference in localStorage
+    localStorage.setItem('theme', newTheme ? 'dark' : 'light')
   }
+
+  // Initialize theme on component mount
+  React.useEffect(() => {
+    const savedTheme = localStorage.getItem('theme')
+    const prefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)',
+    ).matches
+
+    const shouldUseDark = savedTheme ? savedTheme === 'dark' : prefersDark
+    setIsDarkMode(shouldUseDark)
+    document.documentElement.setAttribute(
+      'data-theme',
+      shouldUseDark ? 'dark' : 'light',
+    )
+  }, [])
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-30 p-4 flex items-center justify-between shadow-lg ${
-          isDarkMode
-            ? 'bg-gray-800 text-white'
-            : 'bg-white text-gray-900 border-b border-gray-200'
-        }`}
+        className="fixed top-0 left-0 right-0 z-30 p-4 flex items-center justify-between shadow-lg"
+        style={{
+          backgroundColor: 'var(--bg-primary)',
+          color: 'var(--text-primary)',
+          borderBottom: '1px solid var(--border-color)',
+        }}
       >
         {/* Mobile menu button - only visible on mobile */}
         <button
@@ -56,18 +81,18 @@ export default function Header() {
           <div className="relative w-full">
             <Search
               size={20}
-              className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${
-                isDarkMode ? 'text-gray-400' : 'text-gray-500'
-              }`}
+              className="absolute left-3 top-1/2 transform -translate-y-1/2"
+              style={{ color: 'var(--text-muted)' }}
             />
             <input
               type="text"
               placeholder="Search companies..."
-              className={`w-full pl-10 pr-4 py-2 rounded-lg border transition-colors ${
-                isDarkMode
-                  ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-emerald-500 focus:ring-emerald-500'
-                  : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-emerald-500 focus:ring-emerald-500'
-              } focus:outline-none focus:ring-2`}
+              className="w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+              style={{
+                backgroundColor: 'var(--bg-secondary)',
+                borderColor: 'var(--border-color)',
+                color: 'var(--text-primary)',
+              }}
             />
           </div>
         </div>
@@ -75,9 +100,8 @@ export default function Header() {
         {/* Theme toggle */}
         <button
           onClick={toggleTheme}
-          className={`p-2 rounded-lg transition-colors ${
-            isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'
-          }`}
+          className="p-2 rounded-lg transition-colors hover:opacity-80"
+          style={{ backgroundColor: 'var(--bg-tertiary)' }}
           aria-label={
             isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
           }
@@ -96,15 +120,23 @@ export default function Header() {
 
       {/* Mobile sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-80 bg-gray-900 text-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col lg:hidden ${
+        className={`fixed top-0 left-0 h-full w-80 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col lg:hidden ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
+        style={{
+          backgroundColor: 'var(--sidebar-bg)',
+          color: 'var(--sidebar-text)',
+        }}
       >
-        <div className="flex items-center justify-between p-4 border-b border-gray-700">
+        <div
+          className="flex items-center justify-between p-4 border-b"
+          style={{ borderColor: 'var(--border-color)' }}
+        >
           <h2 className="text-xl font-bold">Navigation</h2>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+            className="p-2 rounded-lg transition-colors hover:opacity-80"
+            style={{ backgroundColor: 'var(--sidebar-hover)' }}
             aria-label="Close menu"
           >
             <X size={24} />
@@ -115,10 +147,12 @@ export default function Header() {
           <Link
             to="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+              style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
             <Home size={20} />
@@ -128,10 +162,12 @@ export default function Header() {
           <Link
             to="/learn"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+              style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
             <BookOpen size={20} />
@@ -141,10 +177,12 @@ export default function Header() {
           <Link
             to="/calculators"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+              style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
             <Calculator size={20} />
@@ -154,10 +192,12 @@ export default function Header() {
           <Link
             to="/companies"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+              style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
             <Building2 size={20} />
@@ -167,10 +207,12 @@ export default function Header() {
           <Link
             to="/savings"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+              style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
             <PiggyBank size={20} />
@@ -180,10 +222,12 @@ export default function Header() {
           <Link
             to="/settings"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+              style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
             <Settings size={20} />

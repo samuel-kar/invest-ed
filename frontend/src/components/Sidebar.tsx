@@ -10,14 +10,22 @@ import {
 
 export default function Sidebar() {
   return (
-    <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:top-16 lg:bottom-0 lg:left-0 lg:pb-6 lg:bg-gray-900 lg:text-white">
+    <aside
+      className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:top-16 lg:bottom-0 lg:left-0 lg:pb-6"
+      style={{
+        backgroundColor: 'var(--sidebar-bg)',
+        color: 'var(--sidebar-text)',
+      }}
+    >
       <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
         <Link
           to="/"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+            style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
           <Home size={20} />
@@ -26,10 +34,12 @@ export default function Sidebar() {
 
         <Link
           to="/learn"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+            style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
           <BookOpen size={20} />
@@ -38,10 +48,12 @@ export default function Sidebar() {
 
         <Link
           to="/calculators"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+            style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
           <Calculator size={20} />
@@ -50,10 +62,12 @@ export default function Sidebar() {
 
         <Link
           to="/companies"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+            style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
           <Building2 size={20} />
@@ -62,10 +76,12 @@ export default function Sidebar() {
 
         <Link
           to="/savings"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+            style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
           <PiggyBank size={20} />
@@ -74,10 +90,12 @@ export default function Sidebar() {
 
         <Link
           to="/settings"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+            style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
           <Settings size={20} />
