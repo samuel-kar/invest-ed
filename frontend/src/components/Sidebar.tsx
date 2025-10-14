@@ -10,7 +10,7 @@ import {
 
 export default function Sidebar() {
   return (
-    <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 lg:pt-20 lg:pb-6 lg:bg-gray-900 lg:text-white">
+    <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:top-16 lg:bottom-0 lg:left-0 lg:pb-6 lg:bg-gray-900 lg:text-white">
       <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
         <Link
           to="/"
