@@ -21,6 +21,26 @@ function SavingsGoalPage() {
     months,
   )
 
+  // Calculate alternative payment with extended timeline
+  const calculateAlternativeYears = () => {
+    if (years < 5) {
+      return years * 2 // Double if less than 5 years
+    } else if (years < 10) {
+      return years + 5 // Add 5 years if between 5-10
+    } else {
+      return years + 2 // Add 2 years if 10 or more
+    }
+  }
+
+  const alternativeYears = calculateAlternativeYears()
+  const alternativeMonthlyPayment = savingsGoalCalculator(
+    goalAmount,
+    currentSavings,
+    annualRate,
+    alternativeYears,
+    months,
+  )
+
   const amountNeeded = goalAmount - currentSavings
   return (
     <div className="max-w-6xl mx-auto">
@@ -246,7 +266,7 @@ function SavingsGoalPage() {
               </div>
             </div>
 
-            {/* Additional Information */}
+            {/* Adjust Your Plan */}
             <div
               className="p-4 rounded-lg"
               style={{ backgroundColor: 'var(--bg-tertiary)' }}
@@ -255,16 +275,29 @@ function SavingsGoalPage() {
                 className="font-semibold mb-2"
                 style={{ color: 'var(--accent-color)' }}
               >
-                Key Insights:
+                Adjust Your Plan
               </h4>
+              <p
+                className="text-sm mb-3"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                If ${Math.round(monthlyPayment).toLocaleString()}/month seems
+                too high, consider:
+              </p>
               <ul
                 className="text-sm space-y-1"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                <li>• Regular contributions help you reach goals faster</li>
-                <li>• Higher interest rates reduce time to goal</li>
-                <li>• Starting with existing savings accelerates progress</li>
-                <li>• Compound interest works in your favor over time</li>
+                <li>
+                  • Extending your timeline to {alternativeYears} years
+                  {months > 0 ? ` ${months} months` : ''} would reduce it to $
+                  {Math.round(alternativeMonthlyPayment).toLocaleString()}/month
+                </li>
+                <li>• Starting with a larger initial amount</li>
+                <li>
+                  • Looking for higher-return investments (with appropriate
+                  risk)
+                </li>
               </ul>
             </div>
 
