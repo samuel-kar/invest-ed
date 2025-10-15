@@ -56,7 +56,7 @@ function SavingsPage() {
               Savings Goal
             </Link>
             <Link
-              to="/savings/Name3"
+              to="/savings/retirement4percent"
               className="px-4 py-2 rounded-t-lg font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
@@ -70,7 +70,7 @@ function SavingsPage() {
                 },
               }}
             >
-              Name3
+              Retirement (4% rule)
             </Link>
           </nav>
         </div>
