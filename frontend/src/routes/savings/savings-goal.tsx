@@ -251,7 +251,15 @@ function SavingsGoalPage() {
                 <p className="mb-2">
                   <strong>Special case (r = 0):</strong>
                 </p>
-                <p className="mb-2">PMT = ( FV - PV ) ÷ n</p>
+                <p className="mb-2">
+                  PMT =
+                  <span className="inline-block align-middle mx-1">
+                    <span className="block text-center border-b border-current pb-0.5">
+                      FV - PV
+                    </span>
+                    <span className="block text-center pt-0.5">n</span>
+                  </span>
+                </p>
                 <p
                   className="text-xs mt-1"
                   style={{ color: 'var(--text-muted)' }}
