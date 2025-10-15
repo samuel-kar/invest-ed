@@ -22,7 +22,7 @@ function SavingsPage() {
         <div className="mb-8">
           <nav className="tab-nav" role="tablist">
             <Link
-              to="/savings/Name1"
+              to="/savings/CompoundInterest"
               className="px-4 py-2 rounded-t-lg font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
@@ -36,7 +36,7 @@ function SavingsPage() {
                 },
               }}
             >
-              Name1
+              Compound Interest
             </Link>
             <Link
               to="/savings/Name2"

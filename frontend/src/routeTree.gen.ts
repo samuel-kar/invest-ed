@@ -17,7 +17,7 @@ import { Route as CalculatorsRouteImport } from './routes/calculators'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SavingsName3RouteImport } from './routes/savings/Name3'
 import { Route as SavingsName2RouteImport } from './routes/savings/Name2'
-import { Route as SavingsName1RouteImport } from './routes/savings/Name1'
+import { Route as SavingsCompoundInterestRouteImport } from './routes/savings/CompoundInterest'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
@@ -59,9 +59,9 @@ const SavingsName2Route = SavingsName2RouteImport.update({
   path: '/Name2',
   getParentRoute: () => SavingsRoute,
 } as any)
-const SavingsName1Route = SavingsName1RouteImport.update({
-  id: '/Name1',
-  path: '/Name1',
+const SavingsCompoundInterestRoute = SavingsCompoundInterestRouteImport.update({
+  id: '/CompoundInterest',
+  path: '/CompoundInterest',
   getParentRoute: () => SavingsRoute,
 } as any)
 
@@ -72,7 +72,7 @@ export interface FileRoutesByFullPath {
   '/learn': typeof LearnRoute
   '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
-  '/savings/Name1': typeof SavingsName1Route
+  '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
   '/savings/Name2': typeof SavingsName2Route
   '/savings/Name3': typeof SavingsName3Route
 }
@@ -83,7 +83,7 @@ export interface FileRoutesByTo {
   '/learn': typeof LearnRoute
   '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
-  '/savings/Name1': typeof SavingsName1Route
+  '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
   '/savings/Name2': typeof SavingsName2Route
   '/savings/Name3': typeof SavingsName3Route
 }
@@ -95,7 +95,7 @@ export interface FileRoutesById {
   '/learn': typeof LearnRoute
   '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
-  '/savings/Name1': typeof SavingsName1Route
+  '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
   '/savings/Name2': typeof SavingsName2Route
   '/savings/Name3': typeof SavingsName3Route
 }
@@ -108,7 +108,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/savings'
     | '/settings'
-    | '/savings/Name1'
+    | '/savings/CompoundInterest'
     | '/savings/Name2'
     | '/savings/Name3'
   fileRoutesByTo: FileRoutesByTo
@@ -119,7 +119,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/savings'
     | '/settings'
-    | '/savings/Name1'
+    | '/savings/CompoundInterest'
     | '/savings/Name2'
     | '/savings/Name3'
   id:
@@ -130,7 +130,7 @@ export interface FileRouteTypes {
     | '/learn'
     | '/savings'
     | '/settings'
-    | '/savings/Name1'
+    | '/savings/CompoundInterest'
     | '/savings/Name2'
     | '/savings/Name3'
   fileRoutesById: FileRoutesById
@@ -202,24 +202,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SavingsName2RouteImport
       parentRoute: typeof SavingsRoute
     }
-    '/savings/Name1': {
-      id: '/savings/Name1'
-      path: '/Name1'
-      fullPath: '/savings/Name1'
-      preLoaderRoute: typeof SavingsName1RouteImport
+    '/savings/CompoundInterest': {
+      id: '/savings/CompoundInterest'
+      path: '/CompoundInterest'
+      fullPath: '/savings/CompoundInterest'
+      preLoaderRoute: typeof SavingsCompoundInterestRouteImport
       parentRoute: typeof SavingsRoute
     }
   }
 }
 
 interface SavingsRouteChildren {
-  SavingsName1Route: typeof SavingsName1Route
+  SavingsCompoundInterestRoute: typeof SavingsCompoundInterestRoute
   SavingsName2Route: typeof SavingsName2Route
   SavingsName3Route: typeof SavingsName3Route
 }
 
 const SavingsRouteChildren: SavingsRouteChildren = {
-  SavingsName1Route: SavingsName1Route,
+  SavingsCompoundInterestRoute: SavingsCompoundInterestRoute,
   SavingsName2Route: SavingsName2Route,
   SavingsName3Route: SavingsName3Route,
 }
