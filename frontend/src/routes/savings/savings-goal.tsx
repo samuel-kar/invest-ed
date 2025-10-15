@@ -97,7 +97,7 @@ function SavingsGoalPage() {
                 className="block text-sm font-medium mb-2"
                 style={{ color: 'var(--text-primary)' }}
               >
-                Annual Interest Rate (%)
+                Expected return per year (%)
               </label>
               <input
                 type="number"
