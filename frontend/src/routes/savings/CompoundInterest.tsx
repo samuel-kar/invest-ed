@@ -57,12 +57,11 @@ function CompoundInterestPage() {
                 type="number"
                 value={startValue}
                 onChange={(e) => setStartValue(Number(e.target.value))}
-                className="w-full p-3 rounded-md transition-colors focus:ring-2 focus:ring-offset-2"
+                className="w-full p-3 rounded-md transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
                 style={{
                   backgroundColor: 'var(--bg-secondary)',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
-                  focusRingColor: 'var(--accent-color)',
                 }}
                 min="0"
                 step="100"
@@ -80,12 +79,11 @@ function CompoundInterestPage() {
                 type="number"
                 value={annualRate}
                 onChange={(e) => setAnnualRate(Number(e.target.value))}
-                className="w-full p-3 rounded-md transition-colors focus:ring-2 focus:ring-offset-2"
+                className="w-full p-3 rounded-md transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
                 style={{
                   backgroundColor: 'var(--bg-secondary)',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
-                  focusRingColor: 'var(--accent-color)',
                 }}
                 min="0"
                 max="100"
@@ -104,12 +102,11 @@ function CompoundInterestPage() {
                 type="number"
                 value={years}
                 onChange={(e) => setYears(Number(e.target.value))}
-                className="w-full p-3 rounded-md transition-colors focus:ring-2 focus:ring-offset-2"
+                className="w-full p-3 rounded-md transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
                 style={{
                   backgroundColor: 'var(--bg-secondary)',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
-                  focusRingColor: 'var(--accent-color)',
                 }}
                 min="1"
                 max="50"
@@ -128,12 +125,11 @@ function CompoundInterestPage() {
                 type="number"
                 value={monthlyInput}
                 onChange={(e) => setMonthlyInput(Number(e.target.value))}
-                className="w-full p-3 rounded-md transition-colors focus:ring-2 focus:ring-offset-2"
+                className="w-full p-3 rounded-md transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
                 style={{
                   backgroundColor: 'var(--bg-secondary)',
                   border: '1px solid var(--border-color)',
                   color: 'var(--text-primary)',
-                  focusRingColor: 'var(--accent-color)',
                 }}
                 min="0"
                 step="50"
