@@ -17,3 +17,27 @@ export const monthlyCompoundInterestCalculator = (
     (monthlyInput * (Math.pow(1 + monthlyRate, months) - 1)) / monthlyRate
   )
 }
+
+export const savingsGoalCalculator = (
+  goalAmount: number,
+  currentSavings: number,
+  annualRate: number,
+  years: number,
+  months: number,
+): number => {
+  const monthlyRate = annualRate / 12 / 100
+  const totalMonths = years * 12 + months
+
+  // Handle special case when rate is 0
+  if (monthlyRate === 0) {
+    return (goalAmount - currentSavings) / totalMonths
+  }
+
+  // General formula
+  const futureValueOfCurrentSavings =
+    currentSavings * Math.pow(1 + monthlyRate, totalMonths)
+  const numerator = monthlyRate * (goalAmount - futureValueOfCurrentSavings)
+  const denominator = Math.pow(1 + monthlyRate, totalMonths) - 1
+
+  return numerator / denominator
+}

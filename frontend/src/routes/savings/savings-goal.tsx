@@ -1,10 +1,27 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useState } from 'react'
+import { savingsGoalCalculator } from '../../utils/calculations'
 
 export const Route = createFileRoute('/savings/savings-goal')({
   component: SavingsGoalPage,
 })
 
 function SavingsGoalPage() {
+  const [goalAmount, setGoalAmount] = useState<number>(50000)
+  const [currentSavings, setCurrentSavings] = useState<number>(10000)
+  const [annualRate, setAnnualRate] = useState<number>(5)
+  const [years, setYears] = useState<number>(5)
+  const [months, setMonths] = useState<number>(0)
+
+  const monthlyPayment = savingsGoalCalculator(
+    goalAmount,
+    currentSavings,
+    annualRate,
+    years,
+    months,
+  )
+
+  const amountNeeded = goalAmount - currentSavings
   return (
     <div className="max-w-6xl mx-auto">
       <div className="p-6">
@@ -38,6 +55,8 @@ function SavingsGoalPage() {
               </label>
               <input
                 type="number"
+                value={goalAmount}
+                onChange={(e) => setGoalAmount(Number(e.target.value))}
                 className="w-full p-3 rounded-md transition-colors"
                 style={{
                   backgroundColor: 'var(--bg-secondary)',
@@ -59,6 +78,8 @@ function SavingsGoalPage() {
               </label>
               <input
                 type="number"
+                value={currentSavings}
+                onChange={(e) => setCurrentSavings(Number(e.target.value))}
                 className="w-full p-3 rounded-md transition-colors"
                 style={{
                   backgroundColor: 'var(--bg-secondary)',
@@ -71,25 +92,52 @@ function SavingsGoalPage() {
               />
             </div>
 
-            <div>
-              <label
-                className="block text-sm font-medium mb-2"
-                style={{ color: 'var(--text-primary)' }}
-              >
-                Monthly Contribution ($)
-              </label>
-              <input
-                type="number"
-                className="w-full p-3 rounded-md transition-colors"
-                style={{
-                  backgroundColor: 'var(--bg-secondary)',
-                  border: '1px solid var(--border-color)',
-                  color: 'var(--text-primary)',
-                }}
-                min="0"
-                step="50"
-                placeholder="1000"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label
+                  className="block text-sm font-medium mb-2"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  Time Period (Years)
+                </label>
+                <input
+                  type="number"
+                  value={years}
+                  onChange={(e) => setYears(Number(e.target.value))}
+                  className="w-full p-3 rounded-md transition-colors"
+                  style={{
+                    backgroundColor: 'var(--bg-secondary)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-primary)',
+                  }}
+                  min="0"
+                  step="1"
+                  placeholder="5"
+                />
+              </div>
+              <div>
+                <label
+                  className="block text-sm font-medium mb-2"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  Months
+                </label>
+                <input
+                  type="number"
+                  value={months}
+                  onChange={(e) => setMonths(Number(e.target.value))}
+                  className="w-full p-3 rounded-md transition-colors"
+                  style={{
+                    backgroundColor: 'var(--bg-secondary)',
+                    border: '1px solid var(--border-color)',
+                    color: 'var(--text-primary)',
+                  }}
+                  min="0"
+                  max="11"
+                  step="1"
+                  placeholder="0"
+                />
+              </div>
             </div>
 
             <div>
@@ -101,6 +149,8 @@ function SavingsGoalPage() {
               </label>
               <input
                 type="number"
+                value={annualRate}
+                onChange={(e) => setAnnualRate(Number(e.target.value))}
                 className="w-full p-3 rounded-md transition-colors"
                 style={{
                   backgroundColor: 'var(--bg-secondary)',
@@ -137,7 +187,7 @@ function SavingsGoalPage() {
                     className="font-semibold"
                     style={{ color: 'var(--text-primary)' }}
                   >
-                    $0
+                    ${goalAmount.toLocaleString()}
                   </span>
                 </div>
 
@@ -149,7 +199,7 @@ function SavingsGoalPage() {
                     className="font-semibold"
                     style={{ color: 'var(--text-primary)' }}
                   >
-                    $0
+                    ${currentSavings.toLocaleString()}
                   </span>
                 </div>
 
@@ -161,7 +211,7 @@ function SavingsGoalPage() {
                     className="font-semibold"
                     style={{ color: 'var(--text-primary)' }}
                   >
-                    $0
+                    ${amountNeeded.toLocaleString()}
                   </span>
                 </div>
 
@@ -175,7 +225,7 @@ function SavingsGoalPage() {
                     className="font-semibold"
                     style={{ color: 'var(--accent-color)' }}
                   >
-                    -- years -- months
+                    {years} years {months} months
                   </span>
                 </div>
 
@@ -190,7 +240,7 @@ function SavingsGoalPage() {
                     className="font-bold"
                     style={{ color: 'var(--accent-color)' }}
                   >
-                    $0
+                    ${Math.round(monthlyPayment).toLocaleString()}
                   </span>
                 </div>
               </div>
