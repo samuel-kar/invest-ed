@@ -50,3 +50,36 @@ code {
   font-family:
     source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+/* Tab Navigation Styles */
+.tab-nav {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.tab-nav a {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-nav a:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.tab-nav a[aria-current='page'] {
+  background-color: var(--accent-color);
+  color: white;
+  border-bottom-color: var(--accent-color);
+}
+
+.tab-content {
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  min-height: 400px;
+}
