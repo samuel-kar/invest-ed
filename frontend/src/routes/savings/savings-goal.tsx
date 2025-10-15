@@ -237,8 +237,16 @@ function SavingsGoalPage() {
                   <strong>General (r ≠ 0):</strong>
                 </p>
                 <p className="mb-2">
-                  PMT = ( r × ( FV - ( PV × (1 + r)<sup>n</sup> ) ) ) ÷ ( (1 +
-                  r)<sup>n</sup> - 1 )
+                  PMT =
+                  <span className="inline-block align-middle mx-1">
+                    <span className="block text-center border-b border-current pb-0.5">
+                      r × ( FV - ( PV × (1 + r)<sup>n</sup> ) )
+                    </span>
+                    <span className="block text-center pt-0.5">
+                      (1 + r)
+                      <sup>n</sup> - 1
+                    </span>
+                  </span>
                 </p>
                 <p className="mb-2">
                   <strong>Special case (r = 0):</strong>
