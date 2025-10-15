@@ -17,6 +17,7 @@ import { Route as CalculatorsRouteImport } from './routes/calculators'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SavingsSavingsGoalRouteImport } from './routes/savings/savings-goal'
 import { Route as SavingsRetirement4percentRouteImport } from './routes/savings/retirement4percent'
+import { Route as SavingsRetirementDividendRouteImport } from './routes/savings/retirement-dividend'
 import { Route as SavingsCompoundInterestRouteImport } from './routes/savings/CompoundInterest'
 
 const SettingsRoute = SettingsRouteImport.update({
@@ -60,6 +61,12 @@ const SavingsRetirement4percentRoute =
     path: '/retirement4percent',
     getParentRoute: () => SavingsRoute,
   } as any)
+const SavingsRetirementDividendRoute =
+  SavingsRetirementDividendRouteImport.update({
+    id: '/retirement-dividend',
+    path: '/retirement-dividend',
+    getParentRoute: () => SavingsRoute,
+  } as any)
 const SavingsCompoundInterestRoute = SavingsCompoundInterestRouteImport.update({
   id: '/CompoundInterest',
   path: '/CompoundInterest',
@@ -74,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
+  '/savings/retirement-dividend': typeof SavingsRetirementDividendRoute
   '/savings/retirement4percent': typeof SavingsRetirement4percentRoute
   '/savings/savings-goal': typeof SavingsSavingsGoalRoute
 }
@@ -85,6 +93,7 @@ export interface FileRoutesByTo {
   '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
+  '/savings/retirement-dividend': typeof SavingsRetirementDividendRoute
   '/savings/retirement4percent': typeof SavingsRetirement4percentRoute
   '/savings/savings-goal': typeof SavingsSavingsGoalRoute
 }
@@ -97,6 +106,7 @@ export interface FileRoutesById {
   '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
+  '/savings/retirement-dividend': typeof SavingsRetirementDividendRoute
   '/savings/retirement4percent': typeof SavingsRetirement4percentRoute
   '/savings/savings-goal': typeof SavingsSavingsGoalRoute
 }
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/savings'
     | '/settings'
     | '/savings/CompoundInterest'
+    | '/savings/retirement-dividend'
     | '/savings/retirement4percent'
     | '/savings/savings-goal'
   fileRoutesByTo: FileRoutesByTo
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/savings'
     | '/settings'
     | '/savings/CompoundInterest'
+    | '/savings/retirement-dividend'
     | '/savings/retirement4percent'
     | '/savings/savings-goal'
   id:
@@ -132,6 +144,7 @@ export interface FileRouteTypes {
     | '/savings'
     | '/settings'
     | '/savings/CompoundInterest'
+    | '/savings/retirement-dividend'
     | '/savings/retirement4percent'
     | '/savings/savings-goal'
   fileRoutesById: FileRoutesById
@@ -203,6 +216,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SavingsRetirement4percentRouteImport
       parentRoute: typeof SavingsRoute
     }
+    '/savings/retirement-dividend': {
+      id: '/savings/retirement-dividend'
+      path: '/retirement-dividend'
+      fullPath: '/savings/retirement-dividend'
+      preLoaderRoute: typeof SavingsRetirementDividendRouteImport
+      parentRoute: typeof SavingsRoute
+    }
     '/savings/CompoundInterest': {
       id: '/savings/CompoundInterest'
       path: '/CompoundInterest'
@@ -215,12 +235,14 @@ declare module '@tanstack/react-router' {
 
 interface SavingsRouteChildren {
   SavingsCompoundInterestRoute: typeof SavingsCompoundInterestRoute
+  SavingsRetirementDividendRoute: typeof SavingsRetirementDividendRoute
   SavingsRetirement4percentRoute: typeof SavingsRetirement4percentRoute
   SavingsSavingsGoalRoute: typeof SavingsSavingsGoalRoute
 }
 
 const SavingsRouteChildren: SavingsRouteChildren = {
   SavingsCompoundInterestRoute: SavingsCompoundInterestRoute,
+  SavingsRetirementDividendRoute: SavingsRetirementDividendRoute,
   SavingsRetirement4percentRoute: SavingsRetirement4percentRoute,
   SavingsSavingsGoalRoute: SavingsSavingsGoalRoute,
 }

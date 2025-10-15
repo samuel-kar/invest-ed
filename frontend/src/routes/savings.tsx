@@ -72,6 +72,23 @@ function SavingsPage() {
             >
               Retirement (4% rule)
             </Link>
+            <Link
+              to="/savings/retirement-dividend"
+              className="px-4 py-2 rounded-t-lg font-medium transition-colors duration-200"
+              style={{
+                backgroundColor: 'var(--bg-secondary)',
+                color: 'var(--text-primary)',
+                borderBottom: '2px solid var(--accent-color)',
+              }}
+              activeProps={{
+                style: {
+                  backgroundColor: 'var(--accent-color)',
+                  color: 'white',
+                },
+              }}
+            >
+              Retirement (dividend)
+            </Link>
           </nav>
         </div>
 
