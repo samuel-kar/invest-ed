@@ -1,22 +1,38 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { LabeledInput } from '../components/InputsGroup'
-import MetricRow from '../components/MetricRow'
 import FormulaBlock from '../components/FormulaBlock'
 
 export default function RetirementDividendContainer() {
   const [desiredMonthlyIncome, setDesiredMonthlyIncome] = useState<number>(3000)
   const [dividendYieldPercent, setDividendYieldPercent] = useState<number>(4)
+  const [yearsUntilIncome, setYearsUntilIncome] = useState<number>(0)
+  const [annualGrowthRate, setAnnualGrowthRate] = useState<number>(3)
 
-  const { portfolioSize, annualIncome, yieldDecimal } = useMemo(() => {
-    const y = Math.max(0, dividendYieldPercent) / 100
-    const annual = desiredMonthlyIncome * 12
-    const size = y === 0 ? Infinity : annual / y
-    return {
-      portfolioSize: size,
-      annualIncome: annual,
-      yieldDecimal: y,
-    }
-  }, [desiredMonthlyIncome, dividendYieldPercent])
+  const { portfolioNeedToday, portfolioNeededAtYearT, annualIncome } =
+    useMemo(() => {
+      const y = Math.max(0, dividendYieldPercent) / 100
+      const g = Math.max(0, annualGrowthRate) / 100
+      const annual = desiredMonthlyIncome * 12
+      const T = Math.max(0, yearsUntilIncome)
+
+      // Enhanced formula: PORTFOLIO_NOW = (Annual Income) / (Yield × (1 + g)^T)
+      const growthFactor = Math.pow(1 + g, T)
+      const portfolioToday = y === 0 ? Infinity : annual / (y * growthFactor)
+
+      // Simple formula for portfolio needed at year T: (Annual Income) / Yield
+      const portfolioAtYearT = y === 0 ? Infinity : annual / y
+
+      return {
+        portfolioNeedToday: portfolioToday,
+        portfolioNeededAtYearT: portfolioAtYearT,
+        annualIncome: annual,
+      }
+    }, [
+      desiredMonthlyIncome,
+      dividendYieldPercent,
+      yearsUntilIncome,
+      annualGrowthRate,
+    ])
 
   return (
     <div className="grid md:grid-cols-2 gap-8">
@@ -49,12 +65,33 @@ export default function RetirementDividendContainer() {
           step={0.1}
           placeholder="4"
         />
+
+        <LabeledInput
+          label="Years until income needed (T)"
+          type="number"
+          value={yearsUntilIncome}
+          onChange={(e) => setYearsUntilIncome(Number(e.target.value))}
+          min={0}
+          step={1}
+          placeholder="0"
+        />
+
+        <LabeledInput
+          label="Expected annual growth rate (%)"
+          type="number"
+          value={annualGrowthRate}
+          onChange={(e) => setAnnualGrowthRate(Number(e.target.value))}
+          min={0}
+          max={100}
+          step={0.1}
+          placeholder="3"
+        />
       </div>
 
       {/* Results Section */}
       <div className="space-y-6">
         {/* Top Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div
             className="p-4 rounded-lg border"
             style={{
@@ -66,15 +103,15 @@ export default function RetirementDividendContainer() {
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
             >
-              Portfolio size
+              Portfolio needed today
             </div>
             <div
               className="text-2xl font-bold"
               style={{ color: 'var(--accent-color)' }}
             >
-              {portfolioSize === Infinity
+              {portfolioNeedToday === Infinity
                 ? '∞'
-                : `$${Math.round(portfolioSize).toLocaleString()}`}
+                : `$${Math.round(portfolioNeedToday).toLocaleString()}`}
             </div>
           </div>
 
@@ -89,13 +126,15 @@ export default function RetirementDividendContainer() {
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
             >
-              Annual income
+              Portfolio at year {yearsUntilIncome}
             </div>
             <div
               className="text-2xl font-bold"
               style={{ color: 'var(--text-primary)' }}
             >
-              ${annualIncome.toLocaleString()}
+              {portfolioNeededAtYearT === Infinity
+                ? '∞'
+                : `$${Math.round(portfolioNeededAtYearT).toLocaleString()}`}
             </div>
           </div>
 
@@ -119,6 +158,27 @@ export default function RetirementDividendContainer() {
               {dividendYieldPercent}%
             </div>
           </div>
+
+          <div
+            className="p-4 rounded-lg border"
+            style={{
+              backgroundColor: 'var(--bg-secondary)',
+              borderColor: 'var(--border-color)',
+            }}
+          >
+            <div
+              className="text-sm mb-1"
+              style={{ color: 'var(--text-secondary)' }}
+            >
+              Years until income
+            </div>
+            <div
+              className="text-2xl font-bold"
+              style={{ color: 'var(--text-primary)' }}
+            >
+              {yearsUntilIncome}
+            </div>
+          </div>
         </div>
 
         {/* Projection */}
@@ -133,38 +193,96 @@ export default function RetirementDividendContainer() {
             Dividend Projection
           </h4>
           <ul className="space-y-3" style={{ color: 'var(--text-secondary)' }}>
-            <li>
-              • With a dividend yield of {dividendYieldPercent}% you would need
-              a portfolio of{' '}
-              {portfolioSize === Infinity
-                ? '∞'
-                : `$${Math.round(portfolioSize).toLocaleString()}`}{' '}
-              to target ${desiredMonthlyIncome.toLocaleString()} per month
-            </li>
-            <li>• Annual income target: ${annualIncome.toLocaleString()}</li>
-            <li>• Formula result shown below</li>
+            {yearsUntilIncome === 0 ? (
+              <>
+                <li>
+                  • For immediate income: You need a portfolio of{' '}
+                  {portfolioNeedToday === Infinity
+                    ? '∞'
+                    : `$${Math.round(portfolioNeedToday).toLocaleString()}`}{' '}
+                  today to generate ${desiredMonthlyIncome.toLocaleString()} per
+                  month
+                </li>
+                <li>
+                  • Annual income target: ${annualIncome.toLocaleString()}
+                </li>
+                <li>• This uses the simple formula (no growth assumptions)</li>
+              </>
+            ) : (
+              <>
+                <li>
+                  • For income in {yearsUntilIncome} years: You need{' '}
+                  {portfolioNeedToday === Infinity
+                    ? '∞'
+                    : `$${Math.round(portfolioNeedToday).toLocaleString()}`}{' '}
+                  today, which will grow to{' '}
+                  {portfolioNeededAtYearT === Infinity
+                    ? '∞'
+                    : `$${Math.round(portfolioNeededAtYearT).toLocaleString()}`}{' '}
+                  by year {yearsUntilIncome}
+                </li>
+                <li>
+                  • Assumes {annualGrowthRate}% annual growth in dividends
+                </li>
+                <li>
+                  • Annual income target: ${annualIncome.toLocaleString()}
+                </li>
+              </>
+            )}
           </ul>
         </div>
 
         {/* Info Block: Formula + Disclaimer */}
-        <FormulaBlock title="Dividend Income Formula">
-          <p className="mb-2">
-            Portfolio size =
-            <span className="inline-block align-middle mx-1">
-              <span className="block text-center border-b border-current pb-0.5">
-                Desired annual income
-              </span>
-              <span className="block text-center pt-0.5">
-                Dividend yield (decimal)
-              </span>
-            </span>
-          </p>
+        <FormulaBlock title="Dividend Income Formulas">
+          <div className="space-y-4">
+            <div>
+              <p className="mb-2 font-medium">
+                Enhanced Formula (with growth):
+              </p>
+              <p className="mb-2">
+                Portfolio needed today =
+                <span className="inline-block align-middle mx-1">
+                  <span className="block text-center border-b border-current pb-0.5">
+                    Desired annual income
+                  </span>
+                  <span className="block text-center pt-0.5">
+                    Dividend yield × (1 + g)^T
+                  </span>
+                </span>
+              </p>
+              <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+                Where g = growth rate (decimal), T = years until income
+              </p>
+            </div>
+
+            <div>
+              <p className="mb-2 font-medium">
+                Simple Formula (immediate income):
+              </p>
+              <p className="mb-2">
+                Portfolio size =
+                <span className="inline-block align-middle mx-1">
+                  <span className="block text-center border-b border-current pb-0.5">
+                    Desired annual income
+                  </span>
+                  <span className="block text-center pt-0.5">
+                    Dividend yield (decimal)
+                  </span>
+                </span>
+              </p>
+              <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+                Use when T = 0 (immediate income needed)
+              </p>
+            </div>
+          </div>
+
           <p
-            className="text-xs mt-2"
+            className="text-xs mt-4"
             style={{ color: 'var(--text-secondary)' }}
           >
-            Note: Dividend yields can change. “Yield on cost” may improve over
-            time as dividends grow while your initial investment stays constant.
+            Note: Dividend yields and growth rates can change. "Yield on cost"
+            may improve over time as dividends grow while your initial
+            investment stays constant.
           </p>
         </FormulaBlock>
       </div>
