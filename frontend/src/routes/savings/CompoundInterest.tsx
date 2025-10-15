@@ -24,13 +24,7 @@ function CompoundInterestPage() {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <div
-        className="rounded-lg p-6"
-        style={{
-          backgroundColor: 'var(--bg-primary)',
-          border: '1px solid var(--border-color)',
-        }}
-      >
+      <div className="p-6">
         <h2
           className="text-2xl font-bold mb-6"
           style={{ color: 'var(--text-primary)' }}
