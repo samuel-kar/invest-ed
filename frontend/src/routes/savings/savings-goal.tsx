@@ -218,7 +218,7 @@ function SavingsGoalPage() {
               </ul>
             </div>
 
-            {/* Progress Information */}
+            {/* Formula Information */}
             <div
               className="p-4 rounded-lg"
               style={{ backgroundColor: 'var(--bg-tertiary)' }}
@@ -227,22 +227,30 @@ function SavingsGoalPage() {
                 className="font-semibold mb-2"
                 style={{ color: 'var(--text-primary)' }}
               >
-                Progress Tracking:
+                Formula Used:
               </h4>
               <div
                 className="text-xs"
                 style={{ color: 'var(--text-secondary)' }}
               >
                 <p className="mb-2">
-                  Track your progress toward your financial goal with regular
-                  contributions and compound growth.
+                  <strong>General (r ≠ 0):</strong>
                 </p>
+                <p className="mb-2">
+                  PMT = ( r × ( FV - ( PV × (1 + r)<sup>n</sup> ) ) ) ÷ ( (1 +
+                  r)<sup>n</sup> - 1 )
+                </p>
+                <p className="mb-2">
+                  <strong>Special case (r = 0):</strong>
+                </p>
+                <p className="mb-2">PMT = ( FV - PV ) ÷ n</p>
                 <p
                   className="text-xs mt-1"
                   style={{ color: 'var(--text-muted)' }}
                 >
-                  The calculator considers your current savings, monthly
-                  contributions, and expected returns to determine the timeline.
+                  Where: PMT = Monthly Payment, FV = Future Value (Goal), PV =
+                  Present Value (Current Savings), r = Monthly Rate, n = Number
+                  of Months
                 </p>
               </div>
             </div>
