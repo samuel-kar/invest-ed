@@ -39,7 +39,7 @@ function SavingsPage() {
               Compound Interest
             </Link>
             <Link
-              to="/savings/Name2"
+              to="/savings/savings-goal"
               className="px-4 py-2 rounded-t-lg font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
@@ -53,7 +53,7 @@ function SavingsPage() {
                 },
               }}
             >
-              Name2
+              Savings Goal
             </Link>
             <Link
               to="/savings/Name3"

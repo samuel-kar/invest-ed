@@ -15,8 +15,8 @@ import { Route as LearnRouteImport } from './routes/learn'
 import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as CalculatorsRouteImport } from './routes/calculators'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SavingsSavingsGoalRouteImport } from './routes/savings/savings-goal'
 import { Route as SavingsName3RouteImport } from './routes/savings/Name3'
-import { Route as SavingsName2RouteImport } from './routes/savings/Name2'
 import { Route as SavingsCompoundInterestRouteImport } from './routes/savings/CompoundInterest'
 
 const SettingsRoute = SettingsRouteImport.update({
@@ -49,14 +49,14 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SavingsSavingsGoalRoute = SavingsSavingsGoalRouteImport.update({
+  id: '/savings-goal',
+  path: '/savings-goal',
+  getParentRoute: () => SavingsRoute,
+} as any)
 const SavingsName3Route = SavingsName3RouteImport.update({
   id: '/Name3',
   path: '/Name3',
-  getParentRoute: () => SavingsRoute,
-} as any)
-const SavingsName2Route = SavingsName2RouteImport.update({
-  id: '/Name2',
-  path: '/Name2',
   getParentRoute: () => SavingsRoute,
 } as any)
 const SavingsCompoundInterestRoute = SavingsCompoundInterestRouteImport.update({
@@ -73,8 +73,8 @@ export interface FileRoutesByFullPath {
   '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
-  '/savings/Name2': typeof SavingsName2Route
   '/savings/Name3': typeof SavingsName3Route
+  '/savings/savings-goal': typeof SavingsSavingsGoalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -84,8 +84,8 @@ export interface FileRoutesByTo {
   '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
-  '/savings/Name2': typeof SavingsName2Route
   '/savings/Name3': typeof SavingsName3Route
+  '/savings/savings-goal': typeof SavingsSavingsGoalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -96,8 +96,8 @@ export interface FileRoutesById {
   '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
-  '/savings/Name2': typeof SavingsName2Route
   '/savings/Name3': typeof SavingsName3Route
+  '/savings/savings-goal': typeof SavingsSavingsGoalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -109,8 +109,8 @@ export interface FileRouteTypes {
     | '/savings'
     | '/settings'
     | '/savings/CompoundInterest'
-    | '/savings/Name2'
     | '/savings/Name3'
+    | '/savings/savings-goal'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -120,8 +120,8 @@ export interface FileRouteTypes {
     | '/savings'
     | '/settings'
     | '/savings/CompoundInterest'
-    | '/savings/Name2'
     | '/savings/Name3'
+    | '/savings/savings-goal'
   id:
     | '__root__'
     | '/'
@@ -131,8 +131,8 @@ export interface FileRouteTypes {
     | '/savings'
     | '/settings'
     | '/savings/CompoundInterest'
-    | '/savings/Name2'
     | '/savings/Name3'
+    | '/savings/savings-goal'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -188,18 +188,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/savings/savings-goal': {
+      id: '/savings/savings-goal'
+      path: '/savings-goal'
+      fullPath: '/savings/savings-goal'
+      preLoaderRoute: typeof SavingsSavingsGoalRouteImport
+      parentRoute: typeof SavingsRoute
+    }
     '/savings/Name3': {
       id: '/savings/Name3'
       path: '/Name3'
       fullPath: '/savings/Name3'
       preLoaderRoute: typeof SavingsName3RouteImport
-      parentRoute: typeof SavingsRoute
-    }
-    '/savings/Name2': {
-      id: '/savings/Name2'
-      path: '/Name2'
-      fullPath: '/savings/Name2'
-      preLoaderRoute: typeof SavingsName2RouteImport
       parentRoute: typeof SavingsRoute
     }
     '/savings/CompoundInterest': {
@@ -214,14 +214,14 @@ declare module '@tanstack/react-router' {
 
 interface SavingsRouteChildren {
   SavingsCompoundInterestRoute: typeof SavingsCompoundInterestRoute
-  SavingsName2Route: typeof SavingsName2Route
   SavingsName3Route: typeof SavingsName3Route
+  SavingsSavingsGoalRoute: typeof SavingsSavingsGoalRoute
 }
 
 const SavingsRouteChildren: SavingsRouteChildren = {
   SavingsCompoundInterestRoute: SavingsCompoundInterestRoute,
-  SavingsName2Route: SavingsName2Route,
   SavingsName3Route: SavingsName3Route,
+  SavingsSavingsGoalRoute: SavingsSavingsGoalRoute,
 }
 
 const SavingsRouteWithChildren =
