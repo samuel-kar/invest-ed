@@ -1,3 +1,5 @@
+import { Link } from '@tanstack/react-router'
+
 export default function SavingsOverview() {
   return (
     <div className="max-w-6xl mx-auto">
@@ -14,8 +16,9 @@ export default function SavingsOverview() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div
-            className="p-6 rounded-lg shadow-sm border"
+          <Link
+            to="/savings/CompoundInterest"
+            className="block p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',
               borderColor: 'var(--border-color)',
@@ -39,10 +42,11 @@ export default function SavingsOverview() {
               <strong>Best for:</strong> Long-term investments, retirement
               planning, understanding compound growth
             </div>
-          </div>
+          </Link>
 
-          <div
-            className="p-6 rounded-lg shadow-sm border"
+          <Link
+            to="/savings/savings-goal"
+            className="block p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',
               borderColor: 'var(--border-color)',
@@ -66,10 +70,11 @@ export default function SavingsOverview() {
               <strong>Best for:</strong> Short-term goals, vacation planning,
               emergency fund building
             </div>
-          </div>
+          </Link>
 
-          <div
-            className="p-6 rounded-lg shadow-sm border"
+          <Link
+            to="/savings/retirement4percent"
+            className="block p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',
               borderColor: 'var(--border-color)',
@@ -93,10 +98,11 @@ export default function SavingsOverview() {
               <strong>Best for:</strong> Retirement planning, FIRE movement,
               traditional retirement strategies
             </div>
-          </div>
+          </Link>
 
-          <div
-            className="p-6 rounded-lg shadow-sm border"
+          <Link
+            to="/savings/retirement-dividend"
+            className="block p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',
               borderColor: 'var(--border-color)',
@@ -119,7 +125,7 @@ export default function SavingsOverview() {
               <strong>Best for:</strong> Dividend investing, passive income
               strategies, income-focused retirement
             </div>
-          </div>
+          </Link>
         </div>
 
         <div
