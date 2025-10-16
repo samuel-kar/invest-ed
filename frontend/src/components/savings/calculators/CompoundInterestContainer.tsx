@@ -3,12 +3,14 @@ import { monthlyCompoundInterestCalculator } from '../../../utils/calculations'
 import { LabeledInput } from '../shared/InputsGroup'
 import MetricRow from '../shared/MetricRow'
 import FormulaBlock from '../shared/FormulaBlock'
+import { useCurrency } from '../../../contexts/CurrencyContext'
 
 export default function CompoundInterestContainer() {
   const [startValue, setStartValue] = useState<number>(10000)
   const [annualRate, setAnnualRate] = useState<number>(7)
   const [years, setYears] = useState<number>(10)
   const [monthlyInput, setMonthlyInput] = useState<number>(500)
+  const { formatCurrency } = useCurrency()
 
   const finalValue = monthlyCompoundInterestCalculator(
     startValue,
@@ -86,24 +88,24 @@ export default function CompoundInterestContainer() {
           <div className="space-y-3">
             <MetricRow
               label="Initial Investment:"
-              value={`$${startValue.toLocaleString()}`}
+              value={formatCurrency(startValue)}
             />
             <MetricRow
               label="Total Contributions:"
-              value={`$${(monthlyInput * years * 12).toLocaleString()}`}
+              value={formatCurrency(monthlyInput * years * 12)}
             />
             <MetricRow
               label="Total Invested:"
-              value={`$${totalContributions.toLocaleString()}`}
+              value={formatCurrency(totalContributions)}
             />
             <hr style={{ borderColor: 'var(--border-color)' }} />
             <MetricRow
               label="Investment Gains:"
-              value={`$${totalGains.toLocaleString()}`}
+              value={formatCurrency(totalGains)}
             />
             <MetricRow
               label="Final Value:"
-              value={`$${finalValue.toLocaleString()}`}
+              value={formatCurrency(finalValue)}
               highlight
             />
           </div>

@@ -1,12 +1,14 @@
 import { useMemo, useState } from 'react'
 import { LabeledInput } from '../shared/InputsGroup'
 import FormulaBlock from '../shared/FormulaBlock'
+import { useCurrency } from '../../../contexts/CurrencyContext'
 
 export default function RetirementDividendContainer() {
   const [desiredMonthlyIncome, setDesiredMonthlyIncome] = useState<number>(3000)
   const [dividendYieldPercent, setDividendYieldPercent] = useState<number>(4)
   const [yearsUntilIncome, setYearsUntilIncome] = useState<number>(0)
   const [annualGrowthRate, setAnnualGrowthRate] = useState<number>(3)
+  const { formatCurrency } = useCurrency()
 
   const { portfolioNeedToday, portfolioNeededAtYearT, annualIncome } =
     useMemo(() => {
@@ -111,7 +113,7 @@ export default function RetirementDividendContainer() {
             >
               {portfolioNeedToday === Infinity
                 ? '∞'
-                : `$${Math.round(portfolioNeedToday).toLocaleString()}`}
+                : formatCurrency(Math.round(portfolioNeedToday))}
             </div>
           </div>
 
@@ -134,7 +136,7 @@ export default function RetirementDividendContainer() {
             >
               {portfolioNeededAtYearT === Infinity
                 ? '∞'
-                : `$${Math.round(portfolioNeededAtYearT).toLocaleString()}`}
+                : formatCurrency(Math.round(portfolioNeededAtYearT))}
             </div>
           </div>
 
@@ -199,12 +201,12 @@ export default function RetirementDividendContainer() {
                   • For immediate income: You need a portfolio of{' '}
                   {portfolioNeedToday === Infinity
                     ? '∞'
-                    : `$${Math.round(portfolioNeedToday).toLocaleString()}`}{' '}
-                  today to generate ${desiredMonthlyIncome.toLocaleString()} per
+                    : formatCurrency(Math.round(portfolioNeedToday))}{' '}
+                  today to generate {formatCurrency(desiredMonthlyIncome)} per
                   month
                 </li>
                 <li className="break-words">
-                  • Annual income target: ${annualIncome.toLocaleString()}
+                  • Annual income target: {formatCurrency(annualIncome)}
                 </li>
                 <li className="break-words">
                   • This uses the simple formula (no growth assumptions)
@@ -216,18 +218,18 @@ export default function RetirementDividendContainer() {
                   • For income in {yearsUntilIncome} years: You need{' '}
                   {portfolioNeedToday === Infinity
                     ? '∞'
-                    : `$${Math.round(portfolioNeedToday).toLocaleString()}`}{' '}
+                    : formatCurrency(Math.round(portfolioNeedToday))}{' '}
                   today, which will grow to{' '}
                   {portfolioNeededAtYearT === Infinity
                     ? '∞'
-                    : `$${Math.round(portfolioNeededAtYearT).toLocaleString()}`}{' '}
+                    : formatCurrency(Math.round(portfolioNeededAtYearT))}{' '}
                   by year {yearsUntilIncome}
                 </li>
                 <li className="break-words">
                   • Assumes {annualGrowthRate}% annual growth in dividends
                 </li>
                 <li className="break-words">
-                  • Annual income target: ${annualIncome.toLocaleString()}
+                  • Annual income target: {formatCurrency(annualIncome)}
                 </li>
               </>
             )}

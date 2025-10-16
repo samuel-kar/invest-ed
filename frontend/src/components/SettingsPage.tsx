@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Sun, Moon } from 'lucide-react'
+import { useCurrency, type Currency } from '../contexts/CurrencyContext'
 
 export default function SettingsPage() {
   const [isDarkMode, setIsDarkMode] = useState(true) // Default to dark mode
+  const { currency, setCurrency } = useCurrency()
 
   const toggleTheme = () => {
     const newTheme = !isDarkMode
@@ -106,6 +108,48 @@ export default function SettingsPage() {
                 )}
               </button>
             </div>
+          </div>
+
+          {/* Currency Settings */}
+          <div
+            className="flex items-center justify-between mt-6 pt-6"
+            style={{
+              borderColor: 'var(--border-color)',
+              borderTop: '1px solid',
+            }}
+          >
+            <div>
+              <h3
+                className="text-lg font-medium mb-1"
+                style={{ color: 'var(--text-primary)' }}
+              >
+                Currency
+              </h3>
+              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+                {currency === 'USD'
+                  ? 'US Dollar ($)'
+                  : currency === 'EUR'
+                    ? 'Euro (€)'
+                    : currency === 'SEK'
+                      ? 'Swedish Krona (kr)'
+                      : 'Polish Zloty (zł)'}
+              </p>
+            </div>
+            <select
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value as Currency)}
+              className="p-2 rounded-lg"
+              style={{
+                backgroundColor: 'var(--bg-tertiary)',
+                color: 'var(--text-primary)',
+                border: '1px solid var(--border-color)',
+              }}
+            >
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="SEK">SEK (kr)</option>
+              <option value="PLN">PLN (zł)</option>
+            </select>
           </div>
         </div>
       </div>

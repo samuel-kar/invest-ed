@@ -1,3 +1,5 @@
+import { useCurrency } from '../../../contexts/CurrencyContext'
+
 interface AdjustPlanProps {
   currentMonthly: number
   altYears: number
@@ -11,6 +13,7 @@ export default function AdjustPlan({
   altMonths,
   altMonthly,
 }: AdjustPlanProps) {
+  const { formatCurrency } = useCurrency()
   return (
     <div
       className="p-4 rounded-lg"
@@ -23,7 +26,7 @@ export default function AdjustPlan({
         Adjust Your Plan
       </h4>
       <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>
-        If ${Math.round(currentMonthly).toLocaleString()}/month seems too high,
+        If {formatCurrency(Math.round(currentMonthly))}/month seems too high,
         consider:
       </p>
       <ul
@@ -32,8 +35,8 @@ export default function AdjustPlan({
       >
         <li>
           • Extending your timeline to {altYears} years
-          {altMonths > 0 ? ` ${altMonths} months` : ''} would reduce it to $
-          {Math.round(altMonthly).toLocaleString()}/month
+          {altMonths > 0 ? ` ${altMonths} months` : ''} would reduce it to{' '}
+          {formatCurrency(Math.round(altMonthly))}/month
         </li>
         <li>• Starting with a larger initial amount</li>
         <li>• Looking for higher-return investments (with appropriate risk)</li>

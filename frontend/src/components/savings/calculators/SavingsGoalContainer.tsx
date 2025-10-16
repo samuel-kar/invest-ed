@@ -4,6 +4,7 @@ import { LabeledInput } from '../shared/InputsGroup'
 import MetricRow from '../shared/MetricRow'
 import AdjustPlan from '../shared/AdjustPlan'
 import FormulaBlock from '../shared/FormulaBlock'
+import { useCurrency } from '../../../contexts/CurrencyContext'
 
 export default function SavingsGoalContainer() {
   const [goalAmount, setGoalAmount] = useState<number>(50000)
@@ -11,6 +12,7 @@ export default function SavingsGoalContainer() {
   const [annualRate, setAnnualRate] = useState<number>(5)
   const [years, setYears] = useState<number>(5)
   const [months, setMonths] = useState<number>(0)
+  const { formatCurrency } = useCurrency()
 
   const monthlyPayment = savingsGoalCalculator(
     goalAmount,
@@ -118,15 +120,15 @@ export default function SavingsGoalContainer() {
           <div className="space-y-3">
             <MetricRow
               label="Goal Amount:"
-              value={`$${goalAmount.toLocaleString()}`}
+              value={formatCurrency(goalAmount)}
             />
             <MetricRow
               label="Current Savings:"
-              value={`$${currentSavings.toLocaleString()}`}
+              value={formatCurrency(currentSavings)}
             />
             <MetricRow
               label="Amount Needed:"
-              value={`$${amountNeeded.toLocaleString()}`}
+              value={formatCurrency(amountNeeded)}
             />
 
             <hr style={{ borderColor: 'var(--border-color)' }} />
@@ -137,7 +139,7 @@ export default function SavingsGoalContainer() {
             />
             <MetricRow
               label="Monthly Contribution:"
-              value={`$${Math.round(monthlyPayment).toLocaleString()}`}
+              value={formatCurrency(Math.round(monthlyPayment))}
               highlight
             />
           </div>

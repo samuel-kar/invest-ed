@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { LabeledInput } from '../shared/InputsGroup'
 import FormulaBlock from '../shared/FormulaBlock'
+import { useCurrency } from '../../../contexts/CurrencyContext'
 
 export default function Retirement4PercentContainer() {
   const [currentAge, setCurrentAge] = useState<number>(30)
@@ -8,6 +9,7 @@ export default function Retirement4PercentContainer() {
   const [currentSavings, setCurrentSavings] = useState<number>(50000)
   const [monthlyContribution, setMonthlyContribution] = useState<number>(1000)
   const [annualRate, setAnnualRate] = useState<number>(7)
+  const { formatCurrency } = useCurrency()
 
   const {
     yearsToRetirement,
@@ -138,7 +140,7 @@ export default function Retirement4PercentContainer() {
               className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
               style={{ color: 'var(--accent-color)' }}
             >
-              ${fundAtRetirement.toLocaleString()}
+              {formatCurrency(fundAtRetirement)}
             </div>
           </div>
 
@@ -159,7 +161,7 @@ export default function Retirement4PercentContainer() {
               className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
               style={{ color: 'var(--text-primary)' }}
             >
-              ${monthlyIncome.toLocaleString()}
+              {formatCurrency(monthlyIncome)}
             </div>
           </div>
 
@@ -201,20 +203,19 @@ export default function Retirement4PercentContainer() {
           </h4>
           <ul className="space-y-3" style={{ color: 'var(--text-secondary)' }}>
             <li className="break-words">
-              • Starting with ${currentSavings.toLocaleString()} will grow to $
-              {startingGrowthValue.toLocaleString()}
+              • Starting with {formatCurrency(currentSavings)} will grow to{' '}
+              {formatCurrency(startingGrowthValue)}
             </li>
             <li className="break-words">
-              • Monthly contributions of ${monthlyContribution.toLocaleString()}{' '}
-              will add ${contributionsValue.toLocaleString()}
+              • Monthly contributions of {formatCurrency(monthlyContribution)}{' '}
+              will add {formatCurrency(contributionsValue)}
             </li>
             <li className="break-words">
-              • Total at age {retirementAge}: $
-              {fundAtRetirement.toLocaleString()}
+              • Total at age {retirementAge}: {formatCurrency(fundAtRetirement)}
             </li>
             <li className="break-words">
-              You can safely withdraw ${monthlyIncome.toLocaleString()}/month ($
-              {annualIncome.toLocaleString()}/year)
+              You can safely withdraw {formatCurrency(monthlyIncome)}/month (
+              {formatCurrency(annualIncome)}/year)
             </li>
           </ul>
         </div>
