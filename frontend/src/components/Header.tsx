@@ -11,7 +11,6 @@ import {
   Settings,
   Sun,
   Moon,
-  TrendingUp,
 } from 'lucide-react'
 
 export default function Header() {

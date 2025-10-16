@@ -143,46 +143,51 @@ export default function SavingsGoalContainer() {
           </div>
         </div>
 
-        <AdjustPlan
-          currentMonthly={monthlyPayment}
-          altYears={alternativeYears}
-          altMonths={months}
-          altMonthly={alternativeMonthlyPayment}
-        />
+        <div className="max-w-lg">
+          <AdjustPlan
+            currentMonthly={monthlyPayment}
+            altYears={alternativeYears}
+            altMonths={months}
+            altMonthly={alternativeMonthlyPayment}
+          />
+        </div>
 
-        <FormulaBlock>
-          <p className="mb-2">
-            <strong>General (r ≠ 0):</strong>
-          </p>
-          <p className="mb-2">
-            PMT =
-            <span className="inline-block align-middle mx-1">
-              <span className="block text-center border-b border-current pb-0.5">
-                r × ( FV - ( PV × (1 + r)<sup>n</sup> ) )
+        <div className="max-w-lg">
+          <FormulaBlock>
+            <p className="mb-2">
+              <strong>General (r ≠ 0):</strong>
+            </p>
+            <p className="mb-2">
+              PMT =
+              <span className="inline-block align-middle mx-1">
+                <span className="block text-center border-b border-current pb-0.5">
+                  r × ( FV - ( PV × (1 + r)<sup>n</sup> ) )
+                </span>
+                <span className="block text-center pt-0.5">
+                  (1 + r)
+                  <sup>n</sup> - 1
+                </span>
               </span>
-              <span className="block text-center pt-0.5">
-                (1 + r)
-                <sup>n</sup> - 1
+            </p>
+            <p className="mb-2">
+              <strong>Special case (r = 0):</strong>
+            </p>
+            <p className="mb-2">
+              PMT =
+              <span className="inline-block align-middle mx-1">
+                <span className="block text-center border-b border-current pb-0.5">
+                  FV - PV
+                </span>
+                <span className="block text-center pt-0.5">n</span>
               </span>
-            </span>
-          </p>
-          <p className="mb-2">
-            <strong>Special case (r = 0):</strong>
-          </p>
-          <p className="mb-2">
-            PMT =
-            <span className="inline-block align-middle mx-1">
-              <span className="block text-center border-b border-current pb-0.5">
-                FV - PV
-              </span>
-              <span className="block text-center pt-0.5">n</span>
-            </span>
-          </p>
-          <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
-            Where: PMT = Monthly Payment, FV = Future Value (Goal), PV = Present
-            Value (Current Savings), r = Monthly Rate, n = Number of Months
-          </p>
-        </FormulaBlock>
+            </p>
+            <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
+              Where: PMT = Monthly Payment, FV = Future Value (Goal), PV =
+              Present Value (Current Savings), r = Monthly Rate, n = Number of
+              Months
+            </p>
+          </FormulaBlock>
+        </div>
       </div>
     </div>
   )

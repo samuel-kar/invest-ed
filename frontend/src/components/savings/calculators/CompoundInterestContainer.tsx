@@ -109,21 +109,23 @@ export default function CompoundInterestContainer() {
           </div>
         </div>
 
-        <FormulaBlock>
-          <p className="mb-2">
-            FV = PV × (1 + r)<sup>n</sup> + PMT ×
-            <span className="inline-block align-middle mx-1">
-              <span className="block text-center border-b border-current pb-0.5">
-                (1 + r)<sup>n</sup> - 1
+        <div className="max-w-lg">
+          <FormulaBlock>
+            <p className="mb-2">
+              FV = PV × (1 + r)<sup>n</sup> + PMT ×
+              <span className="inline-block align-middle mx-1">
+                <span className="block text-center border-b border-current pb-0.5">
+                  (1 + r)<sup>n</sup> - 1
+                </span>
+                <span className="block text-center pt-0.5">r</span>
               </span>
-              <span className="block text-center pt-0.5">r</span>
-            </span>
-          </p>
-          <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
-            Where: FV = Future Value, PV = Present Value, r = Monthly Rate, n =
-            Number of Months, PMT = Monthly Payment
-          </p>
-        </FormulaBlock>
+            </p>
+            <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
+              Where: FV = Future Value, PV = Present Value, r = Monthly Rate, n
+              = Number of Months, PMT = Monthly Payment
+            </p>
+          </FormulaBlock>
+        </div>
       </div>
     </div>
   )
