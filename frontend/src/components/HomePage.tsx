@@ -10,11 +10,9 @@ export default function HomePage() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center">
-          <h1
-            className="text-4xl font-bold mb-4"
-            style={{ color: 'var(--text-primary)' }}
-          >
-            Welcome to InvestEd
+          <h1 className="text-5xl font-bold mb-4">
+            <span className="text-emerald-600">Invest</span>
+            <span className="text-emerald-800">Ed</span>
           </h1>
           <p
             className="text-xl mb-8"
