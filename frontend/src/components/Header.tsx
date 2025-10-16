@@ -50,11 +50,9 @@ export default function Header() {
   return (
     <>
       <header
-        className="fixed top-0 left-0 right-0 z-30 p-4 flex items-center justify-between shadow-lg"
+        className="fixed top-0 left-0 right-0 z-30 p-4 flex items-center justify-between shadow-lg glass-header"
         style={{
-          backgroundColor: 'var(--bg-primary)',
           color: 'var(--text-primary)',
-          borderBottom: '1px solid var(--border-color)',
         }}
       >
         {/* Mobile menu button - only visible on mobile */}
