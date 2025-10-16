@@ -25,13 +25,6 @@ export default function SettingsPage() {
             className="p-6 rounded-lg"
             style={{ backgroundColor: 'var(--bg-secondary)' }}
           >
-            <h2
-              className="text-xl font-semibold mb-4"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              Appearance
-            </h2>
-
             <div className="flex items-center justify-between">
               <div>
                 <h3
@@ -83,56 +76,58 @@ export default function SettingsPage() {
 
           {/* Currency Settings */}
           <div
-            className="flex items-center justify-between mt-6 pt-6"
-            style={{
-              borderColor: 'var(--border-color)',
-              borderTop: '1px solid',
-            }}
+            className="p-6 rounded-lg"
+            style={{ backgroundColor: 'var(--bg-secondary)' }}
           >
-            <div>
-              <h3
-                className="text-lg font-medium mb-1"
-                style={{ color: 'var(--text-primary)' }}
+            <div className="flex items-center justify-between">
+              <div>
+                <h3
+                  className="text-lg font-medium mb-1"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  Currency
+                </h3>
+                <p
+                  className="text-sm"
+                  style={{ color: 'var(--text-secondary)' }}
+                >
+                  {currency === 'USD'
+                    ? 'US Dollar ($)'
+                    : currency === 'EUR'
+                      ? 'Euro (€)'
+                      : currency === 'SEK'
+                        ? 'Swedish Krona (kr)'
+                        : currency === 'PLN'
+                          ? 'Polish Zloty (zł)'
+                          : currency === 'DKK'
+                            ? 'Danish Krone (kr)'
+                            : currency === 'NOK'
+                              ? 'Norwegian Krone (kr)'
+                              : currency === 'CNY'
+                                ? 'Chinese Yuan (¥)'
+                                : 'Japanese Yen (¥)'}
+                </p>
+              </div>
+              <select
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value as Currency)}
+                className="p-2 rounded-lg"
+                style={{
+                  backgroundColor: 'var(--bg-tertiary)',
+                  color: 'var(--text-primary)',
+                  border: '1px solid var(--border-color)',
+                }}
               >
-                Currency
-              </h3>
-              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-                {currency === 'USD'
-                  ? 'US Dollar ($)'
-                  : currency === 'EUR'
-                    ? 'Euro (€)'
-                    : currency === 'SEK'
-                      ? 'Swedish Krona (kr)'
-                      : currency === 'PLN'
-                        ? 'Polish Zloty (zł)'
-                        : currency === 'DKK'
-                          ? 'Danish Krone (kr)'
-                          : currency === 'NOK'
-                            ? 'Norwegian Krone (kr)'
-                            : currency === 'CNY'
-                              ? 'Chinese Yuan (¥)'
-                              : 'Japanese Yen (¥)'}
-              </p>
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="SEK">SEK (kr)</option>
+                <option value="PLN">PLN (zł)</option>
+                <option value="DKK">DKK (kr)</option>
+                <option value="NOK">NOK (kr)</option>
+                <option value="CNY">CNY (¥)</option>
+                <option value="JPY">JPY (¥)</option>
+              </select>
             </div>
-            <select
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value as Currency)}
-              className="p-2 rounded-lg"
-              style={{
-                backgroundColor: 'var(--bg-tertiary)',
-                color: 'var(--text-primary)',
-                border: '1px solid var(--border-color)',
-              }}
-            >
-              <option value="USD">USD ($)</option>
-              <option value="EUR">EUR (€)</option>
-              <option value="SEK">SEK (kr)</option>
-              <option value="PLN">PLN (zł)</option>
-              <option value="DKK">DKK (kr)</option>
-              <option value="NOK">NOK (kr)</option>
-              <option value="CNY">CNY (¥)</option>
-              <option value="JPY">JPY (¥)</option>
-            </select>
           </div>
         </div>
       </div>
