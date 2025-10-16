@@ -5,11 +5,10 @@ import {
   Menu,
   X,
   BookOpen,
-  Calculator,
+  Search,
   Building2,
   PiggyBank,
   Settings,
-  Search,
   Sun,
   Moon,
 } from 'lucide-react'
@@ -173,6 +172,21 @@ export default function Header() {
           </Link>
 
           <Link
+            to="/savings"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            style={{ backgroundColor: 'var(--sidebar-hover)' }}
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+              style: { backgroundColor: 'var(--accent-color)' },
+            }}
+          >
+            <PiggyBank size={20} />
+            <span className="font-medium">Save goals</span>
+          </Link>
+
+          <Link
             to="/calculators"
             onClick={() => setIsMobileMenuOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
@@ -183,8 +197,8 @@ export default function Header() {
               style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
-            <Calculator size={20} />
-            <span className="font-medium">Calculators</span>
+            <Search size={20} />
+            <span className="font-medium">Analysis</span>
           </Link>
 
           <Link
@@ -200,21 +214,6 @@ export default function Header() {
           >
             <Building2 size={20} />
             <span className="font-medium">Companies</span>
-          </Link>
-
-          <Link
-            to="/savings"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
-            style={{ backgroundColor: 'var(--sidebar-hover)' }}
-            activeProps={{
-              className:
-                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
-              style: { backgroundColor: 'var(--accent-color)' },
-            }}
-          >
-            <PiggyBank size={20} />
-            <span className="font-medium">Savings</span>
           </Link>
 
           <Link

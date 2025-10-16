@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router'
 import {
   Home,
   BookOpen,
-  Calculator,
+  Search,
   Building2,
   PiggyBank,
   Settings,
@@ -47,6 +47,20 @@ export default function Sidebar() {
         </Link>
 
         <Link
+          to="/savings"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          style={{ backgroundColor: 'var(--sidebar-hover)' }}
+          activeProps={{
+            className:
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+            style: { backgroundColor: 'var(--accent-color)' },
+          }}
+        >
+          <PiggyBank size={20} />
+          <span className="font-medium">Save goals</span>
+        </Link>
+
+        <Link
           to="/calculators"
           className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
           style={{ backgroundColor: 'var(--sidebar-hover)' }}
@@ -56,8 +70,8 @@ export default function Sidebar() {
             style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
-          <Calculator size={20} />
-          <span className="font-medium">Calculators</span>
+          <Search size={20} />
+          <span className="font-medium">Analysis</span>
         </Link>
 
         <Link
@@ -72,20 +86,6 @@ export default function Sidebar() {
         >
           <Building2 size={20} />
           <span className="font-medium">Companies</span>
-        </Link>
-
-        <Link
-          to="/savings"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
-          style={{ backgroundColor: 'var(--sidebar-hover)' }}
-          activeProps={{
-            className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
-            style: { backgroundColor: 'var(--accent-color)' },
-          }}
-        >
-          <PiggyBank size={20} />
-          <span className="font-medium">Savings</span>
         </Link>
 
         <Link
