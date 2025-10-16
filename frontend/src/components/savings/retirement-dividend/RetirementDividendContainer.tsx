@@ -246,7 +246,7 @@ export default function RetirementDividendContainer() {
                     Desired annual income
                   </span>
                   <span className="block text-center pt-0.5">
-                    Dividend yield × (1 + g)^T
+                    Dividend yield × (1 + g)<sup>T</sup>
                   </span>
                 </span>
               </p>
