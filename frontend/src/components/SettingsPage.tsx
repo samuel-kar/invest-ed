@@ -1,39 +1,10 @@
-import { useState, useEffect } from 'react'
 import { Sun, Moon } from 'lucide-react'
+import { useTheme } from '../contexts/ThemeContext'
 import { useCurrency, type Currency } from '../contexts/CurrencyContext'
 
 export default function SettingsPage() {
-  const [isDarkMode, setIsDarkMode] = useState(true) // Default to dark mode
+  const { isDarkMode, toggleTheme } = useTheme()
   const { currency, setCurrency } = useCurrency()
-
-  const toggleTheme = () => {
-    const newTheme = !isDarkMode
-    setIsDarkMode(newTheme)
-
-    // Apply theme to document
-    document.documentElement.setAttribute(
-      'data-theme',
-      newTheme ? 'dark' : 'light',
-    )
-
-    // Store theme preference in localStorage
-    localStorage.setItem('theme', newTheme ? 'dark' : 'light')
-  }
-
-  // Initialize theme on component mount
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme')
-    const prefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)',
-    ).matches
-
-    const shouldUseDark = savedTheme ? savedTheme === 'dark' : prefersDark
-    setIsDarkMode(shouldUseDark)
-    document.documentElement.setAttribute(
-      'data-theme',
-      shouldUseDark ? 'dark' : 'light',
-    )
-  }, [])
 
   return (
     <div

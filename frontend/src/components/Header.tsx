@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
   Home,
   Menu,
@@ -12,39 +12,11 @@ import {
   Sun,
   Moon,
 } from 'lucide-react'
+import { useTheme } from '../contexts/ThemeContext'
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isDarkMode, setIsDarkMode] = useState(true) // Default to dark mode
-
-  const toggleTheme = () => {
-    const newTheme = !isDarkMode
-    setIsDarkMode(newTheme)
-
-    // Apply theme to document
-    document.documentElement.setAttribute(
-      'data-theme',
-      newTheme ? 'dark' : 'light',
-    )
-
-    // Store theme preference in localStorage
-    localStorage.setItem('theme', newTheme ? 'dark' : 'light')
-  }
-
-  // Initialize theme on component mount
-  React.useEffect(() => {
-    const savedTheme = localStorage.getItem('theme')
-    const prefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)',
-    ).matches
-
-    const shouldUseDark = savedTheme ? savedTheme === 'dark' : prefersDark
-    setIsDarkMode(shouldUseDark)
-    document.documentElement.setAttribute(
-      'data-theme',
-      shouldUseDark ? 'dark' : 'light',
-    )
-  }, [])
+  const { isDarkMode, toggleTheme } = useTheme()
 
   return (
     <>

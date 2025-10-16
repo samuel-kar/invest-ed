@@ -4,6 +4,7 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
+import { ThemeProvider } from './contexts/ThemeContext'
 import { CurrencyProvider } from './contexts/CurrencyContext'
 
 import './styles.css'
@@ -31,9 +32,11 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <CurrencyProvider>
-        <RouterProvider router={router} />
-      </CurrencyProvider>
+      <ThemeProvider>
+        <CurrencyProvider>
+          <RouterProvider router={router} />
+        </CurrencyProvider>
+      </ThemeProvider>
     </StrictMode>,
   )
 }
