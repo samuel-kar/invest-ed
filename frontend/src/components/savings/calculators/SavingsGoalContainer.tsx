@@ -38,9 +38,9 @@ export default function SavingsGoalContainer() {
   )
 
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid md:grid-cols-5 gap-8">
       {/* Input Section */}
-      <div className="space-y-6">
+      <div className="md:col-span-2 space-y-6">
         <h3
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
@@ -68,7 +68,7 @@ export default function SavingsGoalContainer() {
           placeholder="10000"
         />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <LabeledInput
             label="Time Period (Years)"
             type="number"
@@ -103,7 +103,7 @@ export default function SavingsGoalContainer() {
       </div>
 
       {/* Results Section */}
-      <div className="space-y-6">
+      <div className="md:col-span-3 space-y-6">
         <h3
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
@@ -112,7 +112,7 @@ export default function SavingsGoalContainer() {
         </h3>
 
         <div
-          className="p-4 rounded-lg"
+          className="p-4 rounded-lg max-w-lg"
           style={{ backgroundColor: 'var(--bg-tertiary)' }}
         >
           <div className="space-y-3">

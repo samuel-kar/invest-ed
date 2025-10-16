@@ -53,9 +53,9 @@ export default function Retirement4PercentContainer() {
   ])
 
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid md:grid-cols-5 gap-8">
       {/* Input Section */}
-      <div className="space-y-6">
+      <div className="md:col-span-2 space-y-6">
         <h3
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
@@ -118,9 +118,9 @@ export default function Retirement4PercentContainer() {
       </div>
 
       {/* Results Section */}
-      <div className="space-y-6">
+      <div className="md:col-span-3 space-y-6">
         {/* Top Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div
             className="p-4 rounded-lg border"
             style={{
@@ -135,7 +135,7 @@ export default function Retirement4PercentContainer() {
               At Retirement
             </div>
             <div
-              className="text-2xl font-bold"
+              className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
               style={{ color: 'var(--accent-color)' }}
             >
               ${fundAtRetirement.toLocaleString()}
@@ -156,7 +156,7 @@ export default function Retirement4PercentContainer() {
               Monthly Income
             </div>
             <div
-              className="text-2xl font-bold"
+              className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
               style={{ color: 'var(--text-primary)' }}
             >
               ${monthlyIncome.toLocaleString()}
@@ -200,19 +200,19 @@ export default function Retirement4PercentContainer() {
             Retirement Projection
           </h4>
           <ul className="space-y-3" style={{ color: 'var(--text-secondary)' }}>
-            <li>
+            <li className="break-words">
               • Starting with ${currentSavings.toLocaleString()} will grow to $
               {startingGrowthValue.toLocaleString()}
             </li>
-            <li>
+            <li className="break-words">
               • Monthly contributions of ${monthlyContribution.toLocaleString()}{' '}
               will add ${contributionsValue.toLocaleString()}
             </li>
-            <li>
+            <li className="break-words">
               • Total at age {retirementAge}: $
               {fundAtRetirement.toLocaleString()}
             </li>
-            <li>
+            <li className="break-words">
               You can safely withdraw ${monthlyIncome.toLocaleString()}/month ($
               {annualIncome.toLocaleString()}/year)
             </li>

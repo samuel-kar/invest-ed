@@ -35,9 +35,9 @@ export default function RetirementDividendContainer() {
     ])
 
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid md:grid-cols-5 gap-8">
       {/* Input Section */}
-      <div className="space-y-6">
+      <div className="md:col-span-2 space-y-6">
         <h3
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
@@ -89,9 +89,9 @@ export default function RetirementDividendContainer() {
       </div>
 
       {/* Results Section */}
-      <div className="space-y-6">
+      <div className="md:col-span-3 space-y-6">
         {/* Top Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div
             className="p-4 rounded-lg border"
             style={{
@@ -106,7 +106,7 @@ export default function RetirementDividendContainer() {
               Portfolio needed today
             </div>
             <div
-              className="text-2xl font-bold"
+              className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
               style={{ color: 'var(--accent-color)' }}
             >
               {portfolioNeedToday === Infinity
@@ -129,7 +129,7 @@ export default function RetirementDividendContainer() {
               Portfolio at year {yearsUntilIncome}
             </div>
             <div
-              className="text-2xl font-bold"
+              className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
               style={{ color: 'var(--text-primary)' }}
             >
               {portfolioNeededAtYearT === Infinity
@@ -195,7 +195,7 @@ export default function RetirementDividendContainer() {
           <ul className="space-y-3" style={{ color: 'var(--text-secondary)' }}>
             {yearsUntilIncome === 0 ? (
               <>
-                <li>
+                <li className="break-words">
                   • For immediate income: You need a portfolio of{' '}
                   {portfolioNeedToday === Infinity
                     ? '∞'
@@ -203,14 +203,16 @@ export default function RetirementDividendContainer() {
                   today to generate ${desiredMonthlyIncome.toLocaleString()} per
                   month
                 </li>
-                <li>
+                <li className="break-words">
                   • Annual income target: ${annualIncome.toLocaleString()}
                 </li>
-                <li>• This uses the simple formula (no growth assumptions)</li>
+                <li className="break-words">
+                  • This uses the simple formula (no growth assumptions)
+                </li>
               </>
             ) : (
               <>
-                <li>
+                <li className="break-words">
                   • For income in {yearsUntilIncome} years: You need{' '}
                   {portfolioNeedToday === Infinity
                     ? '∞'
@@ -221,10 +223,10 @@ export default function RetirementDividendContainer() {
                     : `$${Math.round(portfolioNeededAtYearT).toLocaleString()}`}{' '}
                   by year {yearsUntilIncome}
                 </li>
-                <li>
+                <li className="break-words">
                   • Assumes {annualGrowthRate}% annual growth in dividends
                 </li>
-                <li>
+                <li className="break-words">
                   • Annual income target: ${annualIncome.toLocaleString()}
                 </li>
               </>

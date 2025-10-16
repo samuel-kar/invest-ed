@@ -21,9 +21,9 @@ export default function CompoundInterestContainer() {
   const totalGains = finalValue - totalContributions
 
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid md:grid-cols-5 gap-8">
       {/* Input Section */}
-      <div className="space-y-6">
+      <div className="md:col-span-2 space-y-6">
         <h3
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
@@ -71,7 +71,7 @@ export default function CompoundInterestContainer() {
       </div>
 
       {/* Results Section */}
-      <div className="space-y-6">
+      <div className="md:col-span-3 space-y-6">
         <h3
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
@@ -80,7 +80,7 @@ export default function CompoundInterestContainer() {
         </h3>
 
         <div
-          className="p-4 rounded-lg"
+          className="p-4 rounded-lg max-w-lg"
           style={{ backgroundColor: 'var(--bg-tertiary)' }}
         >
           <div className="space-y-3">
