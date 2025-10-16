@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import CompoundInterestContainer from '../../components/savings/calculators/CompoundInterestContainer'
+import BackButton from '../../components/BackButton'
 
 export const Route = createFileRoute('/savings/CompoundInterest')({
   component: CompoundInterestPage,
@@ -9,6 +10,7 @@ function CompoundInterestPage() {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="p-6">
+        <BackButton to="/savings" label="Back to Savings" />
         <div className="flex justify-between items-center mb-6">
           <h2
             className="text-2xl font-bold"

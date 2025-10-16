@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Retirement4PercentContainer from '../../components/savings/calculators/Retirement4PercentContainer'
+import BackButton from '../../components/BackButton'
 
 export const Route = createFileRoute('/savings/retirement4percent')({
   component: Retirement4PercentPage,
@@ -9,6 +10,7 @@ function Retirement4PercentPage() {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="p-6">
+        <BackButton to="/savings" label="Back to Savings" />
         <div className="flex justify-between items-center mb-6">
           <h2
             className="text-2xl font-bold"
