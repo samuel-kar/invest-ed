@@ -11,6 +11,7 @@ import {
   Settings,
   Sun,
   Moon,
+  TrendingUp,
 } from 'lucide-react'
 
 export default function Header() {
@@ -67,9 +68,10 @@ export default function Header() {
         <div className="flex items-center">
           <Link
             to="/"
-            className="text-2xl font-bold text-emerald-600 hover:text-emerald-700 transition-colors"
+            className="text-2xl font-bold hover:opacity-80 transition-opacity"
           >
-            InvestEd
+            <span className="text-emerald-600">Invest</span>
+            <span className="text-emerald-800">Ed</span>
           </Link>
         </div>
 
