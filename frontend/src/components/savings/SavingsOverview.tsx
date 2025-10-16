@@ -14,7 +14,13 @@ export default function SavingsOverview() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          <div
+            className="p-6 rounded-lg shadow-sm border"
+            style={{
+              backgroundColor: 'var(--bg-secondary)',
+              borderColor: 'var(--border-color)',
+            }}
+          >
             <h3
               className="text-lg font-semibold mb-3"
               style={{ color: 'var(--text-primary)' }}
@@ -35,7 +41,13 @@ export default function SavingsOverview() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          <div
+            className="p-6 rounded-lg shadow-sm border"
+            style={{
+              backgroundColor: 'var(--bg-secondary)',
+              borderColor: 'var(--border-color)',
+            }}
+          >
             <h3
               className="text-lg font-semibold mb-3"
               style={{ color: 'var(--text-primary)' }}
@@ -56,7 +68,13 @@ export default function SavingsOverview() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          <div
+            className="p-6 rounded-lg shadow-sm border"
+            style={{
+              backgroundColor: 'var(--bg-secondary)',
+              borderColor: 'var(--border-color)',
+            }}
+          >
             <h3
               className="text-lg font-semibold mb-3"
               style={{ color: 'var(--text-primary)' }}
@@ -77,7 +95,13 @@ export default function SavingsOverview() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+          <div
+            className="p-6 rounded-lg shadow-sm border"
+            style={{
+              backgroundColor: 'var(--bg-secondary)',
+              borderColor: 'var(--border-color)',
+            }}
+          >
             <h3
               className="text-lg font-semibold mb-3"
               style={{ color: 'var(--text-primary)' }}
@@ -98,7 +122,13 @@ export default function SavingsOverview() {
           </div>
         </div>
 
-        <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+        <div
+          className="mt-8 p-4 rounded-lg border"
+          style={{
+            backgroundColor: 'var(--bg-tertiary)',
+            borderColor: 'var(--border-color)',
+          }}
+        >
           <h4
             className="font-semibold mb-2"
             style={{ color: 'var(--text-primary)' }}
