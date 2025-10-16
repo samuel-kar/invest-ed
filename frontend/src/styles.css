@@ -92,8 +92,8 @@ code {
     255,
     0.7
   ); /* 70% opacity - more transparent */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px); /* Safari support */
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
