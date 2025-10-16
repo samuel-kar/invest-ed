@@ -13,7 +13,7 @@ function CompoundInterestPage() {
           className="text-2xl font-bold mb-6"
           style={{ color: 'var(--text-primary)' }}
         >
-          Monthly Compound Interest Calculator
+          Compound Interest Calculator
         </h2>
         <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
           Calculate how your investment will grow over time with compound
