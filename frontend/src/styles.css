@@ -86,15 +86,11 @@ code {
 
 /* Glass Header Styles */
 .glass-header {
-  background-color: rgba(
-    255,
-    255,
-    255,
-    0.7
-  ); /* 70% opacity - more transparent */
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px); /* Safari support */
+  background-color: rgba(255, 255, 255, 0.75); /* 75% opacity */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); /* Safari support */
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
 }
 
 [data-theme='dark'] .glass-header {
@@ -102,7 +98,8 @@ code {
     17,
     24,
     39,
-    0.7
-  ); /* Dark theme equivalent - 70% opacity */
+    0.75
+  ); /* Dark theme equivalent - 75% opacity */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow for dark theme */
 }
