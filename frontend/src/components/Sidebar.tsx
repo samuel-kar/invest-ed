@@ -4,7 +4,7 @@ import {
   BookOpen,
   Search,
   Building2,
-  PiggyBank,
+  Calculator,
   Settings,
 } from 'lucide-react'
 
@@ -56,8 +56,8 @@ export default function Sidebar() {
             style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
-          <PiggyBank size={20} />
-          <span className="font-medium">Save goals</span>
+          <Calculator size={20} />
+          <span className="font-medium">Calculators</span>
         </Link>
 
         <Link

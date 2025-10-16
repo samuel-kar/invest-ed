@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { BookOpen, PiggyBank, Search, Building2 } from 'lucide-react'
+import { BookOpen, Calculator, Search, Building2 } from 'lucide-react'
 import Card from './savings/shared/Card'
 
 export default function HomePage() {
@@ -51,13 +51,13 @@ export default function HomePage() {
                 style={{ backgroundColor: 'var(--bg-secondary)' }}
               >
                 <div className="text-emerald-600 mb-4">
-                  <PiggyBank size={48} className="mx-auto" />
+                  <Calculator size={48} className="mx-auto" />
                 </div>
                 <h3
                   className="text-lg font-semibold mb-2"
                   style={{ color: 'var(--text-primary)' }}
                 >
-                  Save Goals
+                  Calculators
                 </h3>
                 <p style={{ color: 'var(--text-secondary)' }}>
                   Plan and track your savings goals with powerful calculators

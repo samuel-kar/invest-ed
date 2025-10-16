@@ -7,7 +7,7 @@ import {
   BookOpen,
   Search,
   Building2,
-  PiggyBank,
+  Calculator,
   Settings,
   Sun,
   Moon,
@@ -183,8 +183,8 @@ export default function Header() {
               style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
-            <PiggyBank size={20} />
-            <span className="font-medium">Save goals</span>
+            <Calculator size={20} />
+            <span className="font-medium">Calculators</span>
           </Link>
 
           <Link
