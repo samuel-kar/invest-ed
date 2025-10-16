@@ -86,29 +86,11 @@ code {
 
 /* Glass Header Styles */
 .glass-header {
-  /* Fallback for browsers that don't support backdrop-filter */
   background-color: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Progressive enhancement - only apply blur if browser supports it */
-@supports (backdrop-filter: blur(5px)) {
-  .glass-header {
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-  }
-}
-
 [data-theme='dark'] .glass-header {
-  /* Fallback for dark theme */
   background-color: rgba(17, 24, 39, 0.95);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Progressive enhancement for dark theme */
-@supports (backdrop-filter: blur(5px)) {
-  [data-theme='dark'] .glass-header {
-    background-color: rgba(17, 24, 39, 0.7);
-  }
 }
