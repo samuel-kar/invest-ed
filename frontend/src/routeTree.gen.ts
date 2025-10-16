@@ -15,6 +15,7 @@ import { Route as LearnRouteImport } from './routes/learn'
 import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as CalculatorsRouteImport } from './routes/calculators'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SavingsIndexRouteImport } from './routes/savings/index'
 import { Route as SavingsSavingsGoalRouteImport } from './routes/savings/savings-goal'
 import { Route as SavingsRetirement4percentRouteImport } from './routes/savings/retirement4percent'
 import { Route as SavingsRetirementDividendRouteImport } from './routes/savings/retirement-dividend'
@@ -50,6 +51,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SavingsIndexRoute = SavingsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SavingsRoute,
+} as any)
 const SavingsSavingsGoalRoute = SavingsSavingsGoalRouteImport.update({
   id: '/savings-goal',
   path: '/savings-goal',
@@ -84,18 +90,19 @@ export interface FileRoutesByFullPath {
   '/savings/retirement-dividend': typeof SavingsRetirementDividendRoute
   '/savings/retirement4percent': typeof SavingsRetirement4percentRoute
   '/savings/savings-goal': typeof SavingsSavingsGoalRoute
+  '/savings/': typeof SavingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calculators': typeof CalculatorsRoute
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
-  '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
   '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
   '/savings/retirement-dividend': typeof SavingsRetirementDividendRoute
   '/savings/retirement4percent': typeof SavingsRetirement4percentRoute
   '/savings/savings-goal': typeof SavingsSavingsGoalRoute
+  '/savings': typeof SavingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -109,6 +116,7 @@ export interface FileRoutesById {
   '/savings/retirement-dividend': typeof SavingsRetirementDividendRoute
   '/savings/retirement4percent': typeof SavingsRetirement4percentRoute
   '/savings/savings-goal': typeof SavingsSavingsGoalRoute
+  '/savings/': typeof SavingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -123,18 +131,19 @@ export interface FileRouteTypes {
     | '/savings/retirement-dividend'
     | '/savings/retirement4percent'
     | '/savings/savings-goal'
+    | '/savings/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/calculators'
     | '/companies'
     | '/learn'
-    | '/savings'
     | '/settings'
     | '/savings/CompoundInterest'
     | '/savings/retirement-dividend'
     | '/savings/retirement4percent'
     | '/savings/savings-goal'
+    | '/savings'
   id:
     | '__root__'
     | '/'
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/savings/retirement-dividend'
     | '/savings/retirement4percent'
     | '/savings/savings-goal'
+    | '/savings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -202,6 +212,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/savings/': {
+      id: '/savings/'
+      path: '/'
+      fullPath: '/savings/'
+      preLoaderRoute: typeof SavingsIndexRouteImport
+      parentRoute: typeof SavingsRoute
+    }
     '/savings/savings-goal': {
       id: '/savings/savings-goal'
       path: '/savings-goal'
@@ -238,6 +255,7 @@ interface SavingsRouteChildren {
   SavingsRetirementDividendRoute: typeof SavingsRetirementDividendRoute
   SavingsRetirement4percentRoute: typeof SavingsRetirement4percentRoute
   SavingsSavingsGoalRoute: typeof SavingsSavingsGoalRoute
+  SavingsIndexRoute: typeof SavingsIndexRoute
 }
 
 const SavingsRouteChildren: SavingsRouteChildren = {
@@ -245,6 +263,7 @@ const SavingsRouteChildren: SavingsRouteChildren = {
   SavingsRetirementDividendRoute: SavingsRetirementDividendRoute,
   SavingsRetirement4percentRoute: SavingsRetirement4percentRoute,
   SavingsSavingsGoalRoute: SavingsSavingsGoalRoute,
+  SavingsIndexRoute: SavingsIndexRoute,
 }
 
 const SavingsRouteWithChildren =
