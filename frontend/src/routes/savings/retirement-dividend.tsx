@@ -21,8 +21,6 @@ function RetirementDividendPage() {
         </div>
         <div className="flex justify-between items-center mb-6">
           <p style={{ color: 'var(--text-secondary)' }}>
-            Dividend Income Calculator
-            <br />
             Estimate required portfolio size for a target monthly income based
             on dividend yield.
           </p>

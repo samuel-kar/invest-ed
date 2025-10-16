@@ -21,8 +21,6 @@ function Retirement4PercentPage() {
         </div>
         <div className="flex justify-between items-center mb-6">
           <p style={{ color: 'var(--text-secondary)' }}>
-            Retirement Calculator
-            <br />
             Estimate your retirement savings and monthly income using the 4%
             withdrawal rule.
           </p>
