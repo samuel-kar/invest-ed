@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
-import { LabeledInput } from '../components/InputsGroup'
-import FormulaBlock from '../components/FormulaBlock'
+import { LabeledInput } from '../shared/InputsGroup'
+import FormulaBlock from '../shared/FormulaBlock'
 
 export default function RetirementDividendContainer() {
   const [desiredMonthlyIncome, setDesiredMonthlyIncome] = useState<number>(3000)

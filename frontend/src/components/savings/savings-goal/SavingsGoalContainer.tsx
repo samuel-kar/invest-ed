@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { savingsGoalCalculator } from '../../../utils/calculations'
-import { LabeledInput } from '../components/InputsGroup'
-import MetricRow from '../components/MetricRow'
-import AdjustPlan from '../components/AdjustPlan'
-import FormulaBlock from '../components/FormulaBlock'
+import { LabeledInput } from '../shared/InputsGroup'
+import MetricRow from '../shared/MetricRow'
+import AdjustPlan from '../shared/AdjustPlan'
+import FormulaBlock from '../shared/FormulaBlock'
 
 export default function SavingsGoalContainer() {
   const [goalAmount, setGoalAmount] = useState<number>(50000)

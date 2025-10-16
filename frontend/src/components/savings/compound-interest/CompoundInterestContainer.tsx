@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { monthlyCompoundInterestCalculator } from '../../../utils/calculations'
-import { LabeledInput } from '../components/InputsGroup'
-import MetricRow from '../components/MetricRow'
-import FormulaBlock from '../components/FormulaBlock'
+import { LabeledInput } from '../shared/InputsGroup'
+import MetricRow from '../shared/MetricRow'
+import FormulaBlock from '../shared/FormulaBlock'
 
 export default function CompoundInterestContainer() {
   const [startValue, setStartValue] = useState<number>(10000)
