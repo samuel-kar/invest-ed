@@ -19,6 +19,14 @@ export function LabeledInput({ label, ...props }: InputProps) {
         return 'kr'
       case 'PLN':
         return 'zł'
+      case 'DKK':
+        return 'kr'
+      case 'NOK':
+        return 'kr'
+      case 'CNY':
+        return '¥'
+      case 'JPY':
+        return '¥'
       default:
         return '$'
     }

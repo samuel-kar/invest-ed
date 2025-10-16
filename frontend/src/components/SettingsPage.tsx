@@ -132,7 +132,15 @@ export default function SettingsPage() {
                     ? 'Euro (€)'
                     : currency === 'SEK'
                       ? 'Swedish Krona (kr)'
-                      : 'Polish Zloty (zł)'}
+                      : currency === 'PLN'
+                        ? 'Polish Zloty (zł)'
+                        : currency === 'DKK'
+                          ? 'Danish Krone (kr)'
+                          : currency === 'NOK'
+                            ? 'Norwegian Krone (kr)'
+                            : currency === 'CNY'
+                              ? 'Chinese Yuan (¥)'
+                              : 'Japanese Yen (¥)'}
               </p>
             </div>
             <select
@@ -149,6 +157,10 @@ export default function SettingsPage() {
               <option value="EUR">EUR (€)</option>
               <option value="SEK">SEK (kr)</option>
               <option value="PLN">PLN (zł)</option>
+              <option value="DKK">DKK (kr)</option>
+              <option value="NOK">NOK (kr)</option>
+              <option value="CNY">CNY (¥)</option>
+              <option value="JPY">JPY (¥)</option>
             </select>
           </div>
         </div>

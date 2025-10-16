@@ -1,6 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 
-export type Currency = 'USD' | 'EUR' | 'SEK' | 'PLN'
+export type Currency =
+  | 'USD'
+  | 'EUR'
+  | 'SEK'
+  | 'PLN'
+  | 'DKK'
+  | 'NOK'
+  | 'CNY'
+  | 'JPY'
 
 interface CurrencyContextType {
   currency: Currency
@@ -17,7 +25,10 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const saved = localStorage.getItem('currency') as Currency
-    if (saved && ['USD', 'EUR', 'SEK', 'PLN'].includes(saved)) {
+    if (
+      saved &&
+      ['USD', 'EUR', 'SEK', 'PLN', 'DKK', 'NOK', 'CNY', 'JPY'].includes(saved)
+    ) {
       setCurrencyState(saved)
     }
   }, [])
@@ -38,6 +49,14 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
         return `${formatted} kr`
       case 'PLN':
         return `${formatted} zł`
+      case 'DKK':
+        return `${formatted} kr`
+      case 'NOK':
+        return `${formatted} kr`
+      case 'CNY':
+        return `¥${formatted}`
+      case 'JPY':
+        return `¥${formatted}`
       default:
         return `$${formatted}`
     }
