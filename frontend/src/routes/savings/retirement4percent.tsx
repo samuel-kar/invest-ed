@@ -10,22 +10,24 @@ function Retirement4PercentPage() {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="p-6">
-        <BackButton to="/savings" label="Back to Savings" />
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-4">
           <h2
             className="text-2xl font-bold"
             style={{ color: 'var(--text-primary)' }}
           >
             Retirement (4% rule)
           </h2>
+          <BackButton to="/savings" label="Back to Savings" />
+        </div>
+        <div className="flex justify-between items-center mb-6">
+          <p style={{ color: 'var(--text-secondary)' }}>
+            Retirement Calculator
+            <br />
+            Estimate your retirement savings and monthly income using the 4%
+            withdrawal rule.
+          </p>
           <span className="text-6xl">🏖️</span>
         </div>
-        <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
-          Retirement Calculator
-          <br />
-          Estimate your retirement savings and monthly income using the 4%
-          withdrawal rule.
-        </p>
 
         <Retirement4PercentContainer />
       </div>
