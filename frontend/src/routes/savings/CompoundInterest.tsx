@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import CompoundInterestContainer from '../../components/savings/compound-interest/CompoundInterestContainer'
+import CompoundInterestContainer from '../../components/savings/calculators/CompoundInterestContainer'
 
 export const Route = createFileRoute('/savings/CompoundInterest')({
   component: CompoundInterestPage,

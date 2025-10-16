@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import Retirement4PercentContainer from '../../components/savings/retirement/Retirement4PercentContainer'
+import Retirement4PercentContainer from '../../components/savings/calculators/Retirement4PercentContainer'
 
 export const Route = createFileRoute('/savings/retirement4percent')({
   component: Retirement4PercentPage,

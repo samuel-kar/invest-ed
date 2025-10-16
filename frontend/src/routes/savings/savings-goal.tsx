@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import SavingsGoalContainer from '../../components/savings/savings-goal/SavingsGoalContainer'
+import SavingsGoalContainer from '../../components/savings/calculators/SavingsGoalContainer'
 
 export const Route = createFileRoute('/savings/savings-goal')({
   component: SavingsGoalPage,
