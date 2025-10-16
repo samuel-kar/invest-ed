@@ -1,6 +1,8 @@
 import { Link } from '@tanstack/react-router'
 import { BookOpen, Calculator, Search, Building2 } from 'lucide-react'
 import Card from './savings/shared/Card'
+import QuoteCarousel from './shared/QuoteCarousel'
+import { investingQuotes } from '../data/quotes'
 
 export default function HomePage() {
   return (
@@ -22,7 +24,17 @@ export default function HomePage() {
             analysis
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+          {/* Quote Carousel */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <div
+              className="rounded-lg p-6"
+              style={{ backgroundColor: 'var(--bg-secondary)' }}
+            >
+              <QuoteCarousel quotes={investingQuotes} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Link to="/learn" className="block">
               <Card
                 className="shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer"
