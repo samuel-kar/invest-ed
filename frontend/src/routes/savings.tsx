@@ -20,10 +20,10 @@ function SavingsPage() {
 
         {/* Tab Navigation */}
         <div className="mb-8">
-          <nav className="tab-nav" role="tablist">
+          <nav className="tab-nav flex-col md:flex-row" role="tablist">
             <Link
               to="/savings/CompoundInterest"
-              className="px-4 py-2 rounded-t-lg font-medium transition-colors duration-200"
+              className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
                 color: 'var(--text-primary)',
@@ -40,7 +40,7 @@ function SavingsPage() {
             </Link>
             <Link
               to="/savings/savings-goal"
-              className="px-4 py-2 rounded-t-lg font-medium transition-colors duration-200"
+              className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
                 color: 'var(--text-primary)',
@@ -57,7 +57,7 @@ function SavingsPage() {
             </Link>
             <Link
               to="/savings/retirement4percent"
-              className="px-4 py-2 rounded-t-lg font-medium transition-colors duration-200"
+              className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
                 color: 'var(--text-primary)',
@@ -74,7 +74,7 @@ function SavingsPage() {
             </Link>
             <Link
               to="/savings/retirement-dividend"
-              className="px-4 py-2 rounded-t-lg font-medium transition-colors duration-200"
+              className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
                 color: 'var(--text-primary)',

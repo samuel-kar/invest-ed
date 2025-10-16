@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 export default function SavingsOverview() {
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="p-6">
+      <div className="p-4 md:p-6">
         <h2
           className="text-2xl font-bold mb-6"
           style={{ color: 'var(--text-primary)' }}
@@ -18,7 +18,7 @@ export default function SavingsOverview() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link
             to="/savings/CompoundInterest"
-            className="block p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
+            className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',
               borderColor: 'var(--border-color)',
@@ -46,7 +46,7 @@ export default function SavingsOverview() {
 
           <Link
             to="/savings/savings-goal"
-            className="block p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
+            className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',
               borderColor: 'var(--border-color)',
@@ -74,7 +74,7 @@ export default function SavingsOverview() {
 
           <Link
             to="/savings/retirement4percent"
-            className="block p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
+            className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',
               borderColor: 'var(--border-color)',
@@ -102,7 +102,7 @@ export default function SavingsOverview() {
 
           <Link
             to="/savings/retirement-dividend"
-            className="block p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
+            className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',
               borderColor: 'var(--border-color)',
@@ -129,7 +129,7 @@ export default function SavingsOverview() {
         </div>
 
         <div
-          className="mt-8 p-4 rounded-lg border"
+          className="mt-8 p-3 md:p-4 rounded-lg border"
           style={{
             backgroundColor: 'var(--bg-tertiary)',
             borderColor: 'var(--border-color)',
