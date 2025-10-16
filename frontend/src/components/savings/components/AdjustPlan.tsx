@@ -1,5 +1,3 @@
-import React from 'react'
-
 interface AdjustPlanProps {
   currentMonthly: number
   altYears: number

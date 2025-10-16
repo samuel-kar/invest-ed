@@ -1,6 +1,5 @@
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { LabeledInput } from '../components/InputsGroup'
-import MetricRow from '../components/MetricRow'
 import FormulaBlock from '../components/FormulaBlock'
 
 export default function Retirement4PercentContainer() {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { monthlyCompoundInterestCalculator } from '../../../utils/calculations'
 import { LabeledInput } from '../components/InputsGroup'
 import MetricRow from '../components/MetricRow'
