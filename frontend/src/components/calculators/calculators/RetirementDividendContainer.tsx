@@ -416,7 +416,7 @@ export default function RetirementDividendContainer() {
                 className="text-xs mt-1"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                r used above is{' '}
+                The growth rate {(growthRateUsed / 100).toFixed(4)} is{' '}
                 {reinvestDividends
                   ? 'Dividend Yield + Price Growth'
                   : 'Price Growth only'}
