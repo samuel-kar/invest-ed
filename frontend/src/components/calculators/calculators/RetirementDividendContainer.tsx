@@ -6,24 +6,43 @@ import { dividendPortfolioCalculator } from '../../../utils/calculations'
 
 export default function RetirementDividendContainer() {
   const [desiredMonthlyIncome, setDesiredMonthlyIncome] = useState<number>(3000)
+  const [monthlyInvestment, setMonthlyInvestment] = useState<number>(500)
   const [dividendYieldPercent, setDividendYieldPercent] = useState<number>(4)
-  const [yearsUntilIncome, setYearsUntilIncome] = useState<number>(0)
-  const [annualGrowthRate, setAnnualGrowthRate] = useState<number>(3)
+  const [yearsUntilIncome, setYearsUntilIncome] = useState<number>(20)
+  const [capitalAppreciation, setCapitalAppreciation] = useState<number>(4)
+  const [inflationRate, setInflationRate] = useState<number>(2.5)
+  const [reinvestDividends, setReinvestDividends] = useState<boolean>(true)
   const { formatCurrency } = useCurrency()
 
-  const { portfolioNeedToday, portfolioNeededAtYearT, annualIncome } = useMemo(
+  // Calculate total return automatically
+  const totalAnnualReturn = dividendYieldPercent + capitalAppreciation
+
+  const {
+    startingPrincipalNeeded,
+    portfolioNeededAtYearT,
+    annualIncome,
+    futureAnnualIncome,
+    totalContributions,
+    growthFromPrincipal,
+  } = useMemo(
     () =>
       dividendPortfolioCalculator(
         desiredMonthlyIncome,
+        monthlyInvestment,
         dividendYieldPercent,
         yearsUntilIncome,
-        annualGrowthRate,
+        totalAnnualReturn,
+        inflationRate,
+        reinvestDividends,
       ),
     [
       desiredMonthlyIncome,
+      monthlyInvestment,
       dividendYieldPercent,
       yearsUntilIncome,
-      annualGrowthRate,
+      totalAnnualReturn,
+      inflationRate,
+      reinvestDividends,
     ],
   )
 
@@ -49,15 +68,76 @@ export default function RetirementDividendContainer() {
         />
 
         <LabeledInput
-          label="Dividend yield (%)"
+          label="Monthly Investment ($)"
           type="number"
-          value={dividendYieldPercent}
-          onChange={(e) => setDividendYieldPercent(Number(e.target.value))}
+          value={monthlyInvestment}
+          onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
           min={0}
-          max={100}
-          step={0.1}
-          placeholder="4"
+          step={50}
+          placeholder="500"
         />
+        <p className="text-sm text-gray-500">
+          Amount you plan to invest each month during the accumulation phase.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <LabeledInput
+            label="Dividend Yield (%)"
+            type="number"
+            value={dividendYieldPercent}
+            onChange={(e) => setDividendYieldPercent(Number(e.target.value))}
+            min={0}
+            max={100}
+            step={0.1}
+            placeholder="4"
+          />
+
+          <LabeledInput
+            label="Capital Appreciation (%)"
+            type="number"
+            value={capitalAppreciation}
+            onChange={(e) => setCapitalAppreciation(Number(e.target.value))}
+            min={0}
+            max={100}
+            step={0.1}
+            placeholder="4"
+          />
+        </div>
+        <p className="text-sm text-gray-500">
+          Capital Appreciation includes stock price growth and dividend growth.
+          Historically, dividend stocks grow at 3-7% annually.
+        </p>
+
+        {/* Display calculated total return */}
+        <div
+          className="p-3 rounded-lg border"
+          style={{
+            backgroundColor: 'var(--bg-tertiary)',
+            borderColor: 'var(--border-color)',
+          }}
+        >
+          <div className="flex justify-between items-center">
+            <span
+              className="text-sm font-medium"
+              style={{ color: 'var(--text-secondary)' }}
+            >
+              Total Annual Return:
+            </span>
+            <span
+              className="text-lg font-bold"
+              style={{ color: 'var(--accent-color)' }}
+            >
+              {totalAnnualReturn.toFixed(1)}%
+            </span>
+          </div>
+          <p
+            className="text-xs mt-1"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            = Dividend Yield ({dividendYieldPercent}%) + Capital Appreciation (
+            {capitalAppreciation}%)
+          </p>
+        </div>
 
         <LabeledInput
           label="Years until income needed (T)"
@@ -66,27 +146,47 @@ export default function RetirementDividendContainer() {
           onChange={(e) => setYearsUntilIncome(Number(e.target.value))}
           min={0}
           step={1}
-          placeholder="0"
+          placeholder="20"
         />
 
         <LabeledInput
-          label="Expected annual dividend growth rate (%)"
+          label="Expected Annual Inflation Rate (%)"
           type="number"
-          value={annualGrowthRate}
-          onChange={(e) => setAnnualGrowthRate(Number(e.target.value))}
+          value={inflationRate}
+          onChange={(e) => setInflationRate(Number(e.target.value))}
           min={0}
           max={100}
           step={0.1}
-          placeholder="3"
+          placeholder="2.5"
         />
         <p className="text-sm text-gray-500">
-          Dividend growth rate represents how much companies increase their
-          dividend payouts annually.
-          <br />
-          <br />
-          <strong>Note:</strong> Dividend growth is not guaranteed. Companies
-          may reduce or eliminate dividends during economic downturns or poor
-          performance.
+          Inflation increases your future cost of living. This rate adjusts your
+          desired income to maintain its purchasing power in year T.
+        </p>
+
+        <div className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            id="reinvest"
+            checked={reinvestDividends}
+            onChange={(e) => setReinvestDividends(e.target.checked)}
+            className="w-4 h-4 rounded"
+            style={{
+              accentColor: 'var(--accent-color)',
+            }}
+          />
+          <label
+            htmlFor="reinvest"
+            className="text-sm font-medium cursor-pointer"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            Reinvest dividends during accumulation phase
+          </label>
+        </div>
+        <p className="text-sm text-gray-500">
+          If checked, dividends earned before year T will be reinvested to grow
+          your portfolio. If unchecked, you'll need the full portfolio amount
+          today.
         </p>
       </div>
 
@@ -105,15 +205,15 @@ export default function RetirementDividendContainer() {
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
             >
-              Portfolio needed today
+              Starting Principal Needed Today
             </div>
             <div
               className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
               style={{ color: 'var(--accent-color)' }}
             >
-              {portfolioNeedToday === Infinity
-                ? '∞'
-                : formatCurrency(Math.round(portfolioNeedToday))}
+              {startingPrincipalNeeded < 0
+                ? '$0 (Contributions sufficient)'
+                : formatCurrency(Math.round(startingPrincipalNeeded))}
             </div>
           </div>
 
@@ -128,7 +228,7 @@ export default function RetirementDividendContainer() {
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
             >
-              Portfolio at year {yearsUntilIncome}
+              Portfolio Target at Year {yearsUntilIncome}
             </div>
             <div
               className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
@@ -199,9 +299,9 @@ export default function RetirementDividendContainer() {
               <>
                 <li className="break-words">
                   • For immediate income: You need a portfolio of{' '}
-                  {portfolioNeedToday === Infinity
+                  {startingPrincipalNeeded === Infinity
                     ? '∞'
-                    : formatCurrency(Math.round(portfolioNeedToday))}{' '}
+                    : formatCurrency(Math.round(startingPrincipalNeeded))}{' '}
                   today to generate {formatCurrency(desiredMonthlyIncome)} per
                   month
                 </li>
@@ -215,21 +315,43 @@ export default function RetirementDividendContainer() {
             ) : (
               <>
                 <li className="break-words">
-                  • For income in {yearsUntilIncome} years: You need{' '}
-                  {portfolioNeedToday === Infinity
-                    ? '∞'
-                    : formatCurrency(Math.round(portfolioNeedToday))}{' '}
-                  today, which will grow to{' '}
-                  {portfolioNeededAtYearT === Infinity
-                    ? '∞'
-                    : formatCurrency(Math.round(portfolioNeededAtYearT))}{' '}
-                  by year {yearsUntilIncome}
+                  • Your target annual income will be{' '}
+                  <strong>
+                    {formatCurrency(Math.round(futureAnnualIncome))}
+                  </strong>{' '}
+                  after {inflationRate}% annual inflation.
                 </li>
                 <li className="break-words">
-                  • Assumes {annualGrowthRate}% annual growth in dividends
+                  • To reach your{' '}
+                  <strong>
+                    {formatCurrency(Math.round(portfolioNeededAtYearT))}
+                  </strong>{' '}
+                  goal, you need an initial principal of{' '}
+                  <strong>
+                    {formatCurrency(
+                      Math.round(
+                        startingPrincipalNeeded < 0
+                          ? 0
+                          : startingPrincipalNeeded,
+                      ),
+                    )}
+                  </strong>
+                  .
                 </li>
                 <li className="break-words">
-                  • Annual income target: {formatCurrency(annualIncome)}
+                  • Your monthly investments of{' '}
+                  {formatCurrency(monthlyInvestment)} are projected to grow to{' '}
+                  <strong>
+                    {formatCurrency(Math.round(totalContributions))}
+                  </strong>
+                  .
+                </li>
+                <li className="break-words">
+                  • Your initial principal is projected to grow to{' '}
+                  <strong>
+                    {formatCurrency(Math.round(growthFromPrincipal))}
+                  </strong>
+                  .
                 </li>
               </>
             )}
@@ -241,52 +363,46 @@ export default function RetirementDividendContainer() {
           <div className="space-y-4">
             <div>
               <p className="mb-2 font-medium">
-                Enhanced Formula (with growth):
+                1. Future Income (Inflation-Adjusted)
               </p>
-              <p className="mb-2">
-                Portfolio needed today =
-                <span className="inline-block align-middle mx-1">
-                  <span className="block text-center border-b border-current pb-0.5">
-                    Desired annual income
-                  </span>
-                  <span className="block text-center pt-0.5">
-                    Dividend yield × (1 + g)<sup>T</sup>
-                  </span>
-                </span>
-              </p>
-              <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-                Where g = growth rate (decimal), T = years until income
+              <p className="text-sm">
+                Future Income = Annual Income × (1 + Inflation)<sup>T</sup>
               </p>
             </div>
-
+            <div>
+              <p className="mb-2 font-medium">2. Portfolio Goal</p>
+              <p className="text-sm">
+                Portfolio Goal = Future Income / Dividend Yield
+              </p>
+            </div>
             <div>
               <p className="mb-2 font-medium">
-                Simple Formula (immediate income):
+                3. Future Value of Monthly Investments
               </p>
-              <p className="mb-2">
-                Portfolio size =
-                <span className="inline-block align-middle mx-1">
-                  <span className="block text-center border-b border-current pb-0.5">
-                    Desired annual income
-                  </span>
-                  <span className="block text-center pt-0.5">
-                    Dividend yield (decimal)
-                  </span>
-                </span>
+              <p className="text-sm">
+                FV Contributions = Monthly × [((1+r)<sup>n</sup> - 1) / r]
               </p>
-              <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-                Use when T = 0 (immediate income needed)
+              <p
+                className="text-xs mt-1"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Where r = monthly rate, n = number of months
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 font-medium">4. Starting Principal Needed</p>
+              <p className="text-sm">
+                Principal = (Portfolio Goal - FV Contributions) / (1 + Total
+                Return)<sup>T</sup>
               </p>
             </div>
           </div>
-
           <p
             className="text-xs mt-4"
             style={{ color: 'var(--text-secondary)' }}
           >
-            Note: Dividend yields and growth rates can change. "Yield on cost"
-            may improve over time as dividends grow while your initial
-            investment stays constant.
+            <strong>Note:</strong> All rates are assumed constant. These are
+            estimates for planning purposes only.
           </p>
         </FormulaBlock>
       </div>

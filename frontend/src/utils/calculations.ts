@@ -88,32 +88,69 @@ export const retirement4PercentCalculator = (
 }
 
 export interface DividendPortfolioResult {
-  portfolioNeedToday: number
+  startingPrincipalNeeded: number
   portfolioNeededAtYearT: number
   annualIncome: number
+  futureAnnualIncome: number
+  totalContributions: number
+  growthFromPrincipal: number
 }
 
 export const dividendPortfolioCalculator = (
   desiredMonthlyIncome: number,
+  monthlyInvestment: number,
   dividendYieldPercent: number,
   yearsUntilIncome: number,
-  annualGrowthRate: number,
+  totalAnnualReturn: number,
+  inflationRate: number,
+  reinvestDividends: boolean = true,
 ): DividendPortfolioResult => {
   const y = Math.max(0, dividendYieldPercent) / 100
-  const g = Math.max(0, annualGrowthRate) / 100
+  const R = Math.max(0, totalAnnualReturn) / 100
+  const i = Math.max(0, inflationRate) / 100
   const annual = desiredMonthlyIncome * 12
   const T = Math.max(0, yearsUntilIncome)
 
-  // Enhanced formula: PORTFOLIO_NOW = (Annual Income) / (Yield × (1 + g)^T)
-  const growthFactor = Math.pow(1 + g, T)
-  const portfolioToday = y === 0 ? Infinity : annual / (y * growthFactor)
+  // Step 1: Calculate future goal
+  const futureAnnualIncome = annual * Math.pow(1 + i, T)
+  const portfolioNeededAtYearT = y === 0 ? Infinity : futureAnnualIncome / y
 
-  // Simple formula for portfolio needed at year T: (Annual Income) / Yield
-  const portfolioAtYearT = y === 0 ? Infinity : annual / y
+  if (T === 0 || !reinvestDividends || R === 0) {
+    // Simplified case
+    const startingPrincipal =
+      monthlyInvestment > 0
+        ? portfolioNeededAtYearT - monthlyInvestment * 12 * T
+        : portfolioNeededAtYearT
+    return {
+      startingPrincipalNeeded: Math.max(0, startingPrincipal),
+      portfolioNeededAtYearT,
+      annualIncome: annual,
+      futureAnnualIncome,
+      totalContributions: monthlyInvestment * 12 * T,
+      growthFromPrincipal: startingPrincipal,
+    }
+  }
+
+  // Step 2: Calculate future value of monthly investments (annuity)
+  const monthlyRate = R / 12
+  const numMonths = T * 12
+  // Future Value of Annuity: PMT * [((1+r)^n - 1) / r]
+  const fvOfContributions =
+    (monthlyInvestment * (Math.pow(1 + monthlyRate, numMonths) - 1)) /
+    monthlyRate
+
+  // Step 3: Determine required growth from principal
+  const requiredFvFromPrincipal = portfolioNeededAtYearT - fvOfContributions
+
+  // Step 4: Discount to find starting principal today
+  const startingPrincipalNeeded = requiredFvFromPrincipal / Math.pow(1 + R, T)
 
   return {
-    portfolioNeedToday: portfolioToday,
-    portfolioNeededAtYearT: portfolioAtYearT,
+    startingPrincipalNeeded: startingPrincipalNeeded,
+    portfolioNeededAtYearT: portfolioNeededAtYearT,
     annualIncome: annual,
+    futureAnnualIncome: futureAnnualIncome,
+    totalContributions: fvOfContributions,
+    growthFromPrincipal: requiredFvFromPrincipal,
   }
 }
