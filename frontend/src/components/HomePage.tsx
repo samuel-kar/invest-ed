@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { BookOpen, Calculator, Search, Building2 } from 'lucide-react'
-import Card from './savings/shared/Card'
+import Card from './calculators/shared/Card'
 import QuoteCarousel from './shared/QuoteCarousel'
 import { investingQuotes } from '../data/quotes'
 
@@ -55,7 +55,7 @@ export default function HomePage() {
               </Card>
             </Link>
 
-            <Link to="/savings" className="block">
+            <Link to="/calculators" className="block">
               <Card
                 className="shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer"
                 style={{ backgroundColor: 'var(--bg-secondary)' }}

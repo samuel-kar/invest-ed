@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 
-export default function SavingsOverview() {
+export default function CalculatorsOverview() {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="p-4 md:p-6">
@@ -8,7 +8,7 @@ export default function SavingsOverview() {
           className="text-2xl font-bold mb-6"
           style={{ color: 'var(--text-primary)' }}
         >
-          Savings & Investment Calculators
+          Investment Calculators
         </h2>
         <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
           Choose from our comprehensive suite of financial calculators to help
@@ -17,7 +17,7 @@ export default function SavingsOverview() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link
-            to="/savings/CompoundInterest"
+            to="/calculators/CompoundInterest"
             className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',
@@ -45,7 +45,7 @@ export default function SavingsOverview() {
           </Link>
 
           <Link
-            to="/savings/savings-goal"
+            to="/calculators/savings-goal"
             className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',
@@ -73,7 +73,7 @@ export default function SavingsOverview() {
           </Link>
 
           <Link
-            to="/savings/retirement4percent"
+            to="/calculators/retirement4percent"
             className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',
@@ -101,7 +101,7 @@ export default function SavingsOverview() {
           </Link>
 
           <Link
-            to="/savings/retirement-dividend"
+            to="/calculators/retirement-dividend"
             className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
             style={{
               backgroundColor: 'var(--bg-secondary)',

@@ -1,10 +1,10 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/savings')({
-  component: SavingsPage,
+export const Route = createFileRoute('/calculators')({
+  component: CalculatorsPage,
 })
 
-function SavingsPage() {
+function CalculatorsPage() {
   return (
     <div
       className="min-h-screen"
@@ -15,14 +15,14 @@ function SavingsPage() {
           className="text-3xl font-bold mb-6"
           style={{ color: 'var(--text-primary)' }}
         >
-          Savings & Planning
+          Calculators
         </h1>
 
         {/* Tab Navigation */}
         <div className="mb-8">
           <nav className="tab-nav flex-col md:flex-row" role="tablist">
             <Link
-              to="/savings/CompoundInterest"
+              to="/calculators/CompoundInterest"
               className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
@@ -39,7 +39,7 @@ function SavingsPage() {
               Compound Interest
             </Link>
             <Link
-              to="/savings/savings-goal"
+              to="/calculators/savings-goal"
               className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
@@ -56,7 +56,7 @@ function SavingsPage() {
               Savings Goal
             </Link>
             <Link
-              to="/savings/retirement4percent"
+              to="/calculators/retirement4percent"
               className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
@@ -73,7 +73,7 @@ function SavingsPage() {
               Retirement (4% rule)
             </Link>
             <Link
-              to="/savings/retirement-dividend"
+              to="/calculators/retirement-dividend"
               className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',

@@ -10,25 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as SavingsRouteImport } from './routes/savings'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as CompaniesRouteImport } from './routes/companies'
+import { Route as CalculatorsRouteImport } from './routes/calculators'
 import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as SavingsIndexRouteImport } from './routes/savings/index'
-import { Route as SavingsSavingsGoalRouteImport } from './routes/savings/savings-goal'
-import { Route as SavingsRetirement4percentRouteImport } from './routes/savings/retirement4percent'
-import { Route as SavingsRetirementDividendRouteImport } from './routes/savings/retirement-dividend'
-import { Route as SavingsCompoundInterestRouteImport } from './routes/savings/CompoundInterest'
+import { Route as CalculatorsIndexRouteImport } from './routes/calculators/index'
+import { Route as CalculatorsSavingsGoalRouteImport } from './routes/calculators/savings-goal'
+import { Route as CalculatorsRetirement4percentRouteImport } from './routes/calculators/retirement4percent'
+import { Route as CalculatorsRetirementDividendRouteImport } from './routes/calculators/retirement-dividend'
+import { Route as CalculatorsCompoundInterestRouteImport } from './routes/calculators/CompoundInterest'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SavingsRoute = SavingsRouteImport.update({
-  id: '/savings',
-  path: '/savings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LearnRoute = LearnRouteImport.update({
@@ -41,6 +36,11 @@ const CompaniesRoute = CompaniesRouteImport.update({
   path: '/companies',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CalculatorsRoute = CalculatorsRouteImport.update({
+  id: '/calculators',
+  path: '/calculators',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AnalysisRoute = AnalysisRouteImport.update({
   id: '/analysis',
   path: '/analysis',
@@ -51,46 +51,47 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SavingsIndexRoute = SavingsIndexRouteImport.update({
+const CalculatorsIndexRoute = CalculatorsIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => SavingsRoute,
+  getParentRoute: () => CalculatorsRoute,
 } as any)
-const SavingsSavingsGoalRoute = SavingsSavingsGoalRouteImport.update({
+const CalculatorsSavingsGoalRoute = CalculatorsSavingsGoalRouteImport.update({
   id: '/savings-goal',
   path: '/savings-goal',
-  getParentRoute: () => SavingsRoute,
+  getParentRoute: () => CalculatorsRoute,
 } as any)
-const SavingsRetirement4percentRoute =
-  SavingsRetirement4percentRouteImport.update({
+const CalculatorsRetirement4percentRoute =
+  CalculatorsRetirement4percentRouteImport.update({
     id: '/retirement4percent',
     path: '/retirement4percent',
-    getParentRoute: () => SavingsRoute,
+    getParentRoute: () => CalculatorsRoute,
   } as any)
-const SavingsRetirementDividendRoute =
-  SavingsRetirementDividendRouteImport.update({
+const CalculatorsRetirementDividendRoute =
+  CalculatorsRetirementDividendRouteImport.update({
     id: '/retirement-dividend',
     path: '/retirement-dividend',
-    getParentRoute: () => SavingsRoute,
+    getParentRoute: () => CalculatorsRoute,
   } as any)
-const SavingsCompoundInterestRoute = SavingsCompoundInterestRouteImport.update({
-  id: '/CompoundInterest',
-  path: '/CompoundInterest',
-  getParentRoute: () => SavingsRoute,
-} as any)
+const CalculatorsCompoundInterestRoute =
+  CalculatorsCompoundInterestRouteImport.update({
+    id: '/CompoundInterest',
+    path: '/CompoundInterest',
+    getParentRoute: () => CalculatorsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analysis': typeof AnalysisRoute
+  '/calculators': typeof CalculatorsRouteWithChildren
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
-  '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
-  '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
-  '/savings/retirement-dividend': typeof SavingsRetirementDividendRoute
-  '/savings/retirement4percent': typeof SavingsRetirement4percentRoute
-  '/savings/savings-goal': typeof SavingsSavingsGoalRoute
-  '/savings/': typeof SavingsIndexRoute
+  '/calculators/CompoundInterest': typeof CalculatorsCompoundInterestRoute
+  '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
+  '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
+  '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/calculators/': typeof CalculatorsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -98,40 +99,40 @@ export interface FileRoutesByTo {
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
   '/settings': typeof SettingsRoute
-  '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
-  '/savings/retirement-dividend': typeof SavingsRetirementDividendRoute
-  '/savings/retirement4percent': typeof SavingsRetirement4percentRoute
-  '/savings/savings-goal': typeof SavingsSavingsGoalRoute
-  '/savings': typeof SavingsIndexRoute
+  '/calculators/CompoundInterest': typeof CalculatorsCompoundInterestRoute
+  '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
+  '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
+  '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/calculators': typeof CalculatorsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/analysis': typeof AnalysisRoute
+  '/calculators': typeof CalculatorsRouteWithChildren
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
-  '/savings': typeof SavingsRouteWithChildren
   '/settings': typeof SettingsRoute
-  '/savings/CompoundInterest': typeof SavingsCompoundInterestRoute
-  '/savings/retirement-dividend': typeof SavingsRetirementDividendRoute
-  '/savings/retirement4percent': typeof SavingsRetirement4percentRoute
-  '/savings/savings-goal': typeof SavingsSavingsGoalRoute
-  '/savings/': typeof SavingsIndexRoute
+  '/calculators/CompoundInterest': typeof CalculatorsCompoundInterestRoute
+  '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
+  '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
+  '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/calculators/': typeof CalculatorsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/analysis'
+    | '/calculators'
     | '/companies'
     | '/learn'
-    | '/savings'
     | '/settings'
-    | '/savings/CompoundInterest'
-    | '/savings/retirement-dividend'
-    | '/savings/retirement4percent'
-    | '/savings/savings-goal'
-    | '/savings/'
+    | '/calculators/CompoundInterest'
+    | '/calculators/retirement-dividend'
+    | '/calculators/retirement4percent'
+    | '/calculators/savings-goal'
+    | '/calculators/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -139,32 +140,32 @@ export interface FileRouteTypes {
     | '/companies'
     | '/learn'
     | '/settings'
-    | '/savings/CompoundInterest'
-    | '/savings/retirement-dividend'
-    | '/savings/retirement4percent'
-    | '/savings/savings-goal'
-    | '/savings'
+    | '/calculators/CompoundInterest'
+    | '/calculators/retirement-dividend'
+    | '/calculators/retirement4percent'
+    | '/calculators/savings-goal'
+    | '/calculators'
   id:
     | '__root__'
     | '/'
     | '/analysis'
+    | '/calculators'
     | '/companies'
     | '/learn'
-    | '/savings'
     | '/settings'
-    | '/savings/CompoundInterest'
-    | '/savings/retirement-dividend'
-    | '/savings/retirement4percent'
-    | '/savings/savings-goal'
-    | '/savings/'
+    | '/calculators/CompoundInterest'
+    | '/calculators/retirement-dividend'
+    | '/calculators/retirement4percent'
+    | '/calculators/savings-goal'
+    | '/calculators/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalysisRoute: typeof AnalysisRoute
+  CalculatorsRoute: typeof CalculatorsRouteWithChildren
   CompaniesRoute: typeof CompaniesRoute
   LearnRoute: typeof LearnRoute
-  SavingsRoute: typeof SavingsRouteWithChildren
   SettingsRoute: typeof SettingsRoute
 }
 
@@ -175,13 +176,6 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/savings': {
-      id: '/savings'
-      path: '/savings'
-      fullPath: '/savings'
-      preLoaderRoute: typeof SavingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/learn': {
@@ -198,6 +192,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompaniesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/calculators': {
+      id: '/calculators'
+      path: '/calculators'
+      fullPath: '/calculators'
+      preLoaderRoute: typeof CalculatorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/analysis': {
       id: '/analysis'
       path: '/analysis'
@@ -212,69 +213,70 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/savings/': {
-      id: '/savings/'
+    '/calculators/': {
+      id: '/calculators/'
       path: '/'
-      fullPath: '/savings/'
-      preLoaderRoute: typeof SavingsIndexRouteImport
-      parentRoute: typeof SavingsRoute
+      fullPath: '/calculators/'
+      preLoaderRoute: typeof CalculatorsIndexRouteImport
+      parentRoute: typeof CalculatorsRoute
     }
-    '/savings/savings-goal': {
-      id: '/savings/savings-goal'
+    '/calculators/savings-goal': {
+      id: '/calculators/savings-goal'
       path: '/savings-goal'
-      fullPath: '/savings/savings-goal'
-      preLoaderRoute: typeof SavingsSavingsGoalRouteImport
-      parentRoute: typeof SavingsRoute
+      fullPath: '/calculators/savings-goal'
+      preLoaderRoute: typeof CalculatorsSavingsGoalRouteImport
+      parentRoute: typeof CalculatorsRoute
     }
-    '/savings/retirement4percent': {
-      id: '/savings/retirement4percent'
+    '/calculators/retirement4percent': {
+      id: '/calculators/retirement4percent'
       path: '/retirement4percent'
-      fullPath: '/savings/retirement4percent'
-      preLoaderRoute: typeof SavingsRetirement4percentRouteImport
-      parentRoute: typeof SavingsRoute
+      fullPath: '/calculators/retirement4percent'
+      preLoaderRoute: typeof CalculatorsRetirement4percentRouteImport
+      parentRoute: typeof CalculatorsRoute
     }
-    '/savings/retirement-dividend': {
-      id: '/savings/retirement-dividend'
+    '/calculators/retirement-dividend': {
+      id: '/calculators/retirement-dividend'
       path: '/retirement-dividend'
-      fullPath: '/savings/retirement-dividend'
-      preLoaderRoute: typeof SavingsRetirementDividendRouteImport
-      parentRoute: typeof SavingsRoute
+      fullPath: '/calculators/retirement-dividend'
+      preLoaderRoute: typeof CalculatorsRetirementDividendRouteImport
+      parentRoute: typeof CalculatorsRoute
     }
-    '/savings/CompoundInterest': {
-      id: '/savings/CompoundInterest'
+    '/calculators/CompoundInterest': {
+      id: '/calculators/CompoundInterest'
       path: '/CompoundInterest'
-      fullPath: '/savings/CompoundInterest'
-      preLoaderRoute: typeof SavingsCompoundInterestRouteImport
-      parentRoute: typeof SavingsRoute
+      fullPath: '/calculators/CompoundInterest'
+      preLoaderRoute: typeof CalculatorsCompoundInterestRouteImport
+      parentRoute: typeof CalculatorsRoute
     }
   }
 }
 
-interface SavingsRouteChildren {
-  SavingsCompoundInterestRoute: typeof SavingsCompoundInterestRoute
-  SavingsRetirementDividendRoute: typeof SavingsRetirementDividendRoute
-  SavingsRetirement4percentRoute: typeof SavingsRetirement4percentRoute
-  SavingsSavingsGoalRoute: typeof SavingsSavingsGoalRoute
-  SavingsIndexRoute: typeof SavingsIndexRoute
+interface CalculatorsRouteChildren {
+  CalculatorsCompoundInterestRoute: typeof CalculatorsCompoundInterestRoute
+  CalculatorsRetirementDividendRoute: typeof CalculatorsRetirementDividendRoute
+  CalculatorsRetirement4percentRoute: typeof CalculatorsRetirement4percentRoute
+  CalculatorsSavingsGoalRoute: typeof CalculatorsSavingsGoalRoute
+  CalculatorsIndexRoute: typeof CalculatorsIndexRoute
 }
 
-const SavingsRouteChildren: SavingsRouteChildren = {
-  SavingsCompoundInterestRoute: SavingsCompoundInterestRoute,
-  SavingsRetirementDividendRoute: SavingsRetirementDividendRoute,
-  SavingsRetirement4percentRoute: SavingsRetirement4percentRoute,
-  SavingsSavingsGoalRoute: SavingsSavingsGoalRoute,
-  SavingsIndexRoute: SavingsIndexRoute,
+const CalculatorsRouteChildren: CalculatorsRouteChildren = {
+  CalculatorsCompoundInterestRoute: CalculatorsCompoundInterestRoute,
+  CalculatorsRetirementDividendRoute: CalculatorsRetirementDividendRoute,
+  CalculatorsRetirement4percentRoute: CalculatorsRetirement4percentRoute,
+  CalculatorsSavingsGoalRoute: CalculatorsSavingsGoalRoute,
+  CalculatorsIndexRoute: CalculatorsIndexRoute,
 }
 
-const SavingsRouteWithChildren =
-  SavingsRoute._addFileChildren(SavingsRouteChildren)
+const CalculatorsRouteWithChildren = CalculatorsRoute._addFileChildren(
+  CalculatorsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalysisRoute: AnalysisRoute,
+  CalculatorsRoute: CalculatorsRouteWithChildren,
   CompaniesRoute: CompaniesRoute,
   LearnRoute: LearnRoute,
-  SavingsRoute: SavingsRouteWithChildren,
   SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport

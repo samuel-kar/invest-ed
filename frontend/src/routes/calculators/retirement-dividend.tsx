@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
-import RetirementDividendContainer from '../../components/savings/calculators/RetirementDividendContainer'
+import RetirementDividendContainer from '../../components/calculators/calculators/RetirementDividendContainer'
 import BackButton from '../../components/BackButton'
 
-export const Route = createFileRoute('/savings/retirement-dividend')({
+export const Route = createFileRoute('/calculators/retirement-dividend')({
   component: RetirementDividendPage,
 })
 
@@ -15,14 +15,14 @@ function RetirementDividendPage() {
             className="text-2xl font-bold"
             style={{ color: 'var(--text-primary)' }}
           >
-            Retirement (dividend)
+            Retirement Calculator (Dividend)
           </h2>
-          <BackButton to="/savings" label="Back to Savings" />
+          <BackButton to="/calculators" label="Back to Calculators" />
         </div>
         <div className="flex justify-between items-center mb-6">
           <p style={{ color: 'var(--text-secondary)' }}>
-            Estimate required portfolio size for a target monthly income based
-            on dividend yield.
+            Calculate the portfolio size needed for dividend income retirement.
+            Focus on dividend-paying stocks for passive income.
           </p>
           <span className="text-6xl">💰</span>
         </div>

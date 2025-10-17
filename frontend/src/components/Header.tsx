@@ -145,7 +145,7 @@ export default function Header() {
           </Link>
 
           <Link
-            to="/savings"
+            to="/calculators"
             onClick={() => setIsMobileMenuOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
@@ -160,7 +160,7 @@ export default function Header() {
           </Link>
 
           <Link
-            to="/calculators"
+            to="/analysis"
             onClick={() => setIsMobileMenuOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
