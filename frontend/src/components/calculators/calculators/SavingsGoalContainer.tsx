@@ -9,7 +9,7 @@ import { useCurrency } from '../../../contexts/CurrencyContext'
 export default function SavingsGoalContainer() {
   const [goalAmount, setGoalAmount] = useState<number>(50000)
   const [currentSavings, setCurrentSavings] = useState<number>(10000)
-  const [annualRate, setAnnualRate] = useState<number>(5)
+  const [annualRate, setAnnualRate] = useState<number>(7)
   const [years, setYears] = useState<number>(5)
   const [months, setMonths] = useState<number>(0)
   const { formatCurrency } = useCurrency()
@@ -102,6 +102,16 @@ export default function SavingsGoalContainer() {
           step={0.1}
           placeholder="5"
         />
+        <p className="text-sm text-gray-500">
+          This is the expected annual return on your investments. Historically,
+          broad market index funds have grown at an average of 7-10% per year,
+          while more conservative investments like bonds yield 3-5%.
+          <br />
+          <br />
+          <strong>Note:</strong> This is a historical average and is not a
+          guarantee. Actual returns will vary based on your investment choices
+          and market conditions.
+        </p>
       </div>
 
       {/* Results Section */}

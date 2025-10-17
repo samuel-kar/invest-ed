@@ -88,6 +88,15 @@ export default function RetirementDividendContainer() {
           step={0.1}
           placeholder="3"
         />
+        <p className="text-sm text-gray-500">
+          Dividend growth rate represents how much companies increase their
+          dividend payouts annually.
+          <br />
+          <br />
+          <strong>Note:</strong> Dividend growth is not guaranteed. Companies
+          may reduce or eliminate dividends during economic downturns or poor
+          performance.
+        </p>
       </div>
 
       {/* Results Section */}

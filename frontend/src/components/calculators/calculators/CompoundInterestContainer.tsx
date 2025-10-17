@@ -43,16 +43,6 @@ export default function CompoundInterestContainer() {
         />
 
         <LabeledInput
-          label="Expected return per year (%)"
-          type="number"
-          value={annualRate}
-          onChange={(e) => setAnnualRate(Number(e.target.value))}
-          min={0}
-          max={100}
-          step={0.1}
-        />
-
-        <LabeledInput
           label="Investment Period (Years)"
           type="number"
           value={years}
@@ -70,6 +60,25 @@ export default function CompoundInterestContainer() {
           min={0}
           step={50}
         />
+
+        <LabeledInput
+          label="Expected return per year (%)"
+          type="number"
+          value={annualRate}
+          onChange={(e) => setAnnualRate(Number(e.target.value))}
+          min={0}
+          max={100}
+          step={0.1}
+        />
+        <p className="text-sm text-gray-500">
+          This is the expected annual return on your investments. Historically,
+          broad market index funds have grown at an average of 7-10% per year.
+          <br />
+          <br />
+          <strong>Note:</strong> This is a historical average and is not a
+          guarantee. The actual growth of your portfolio will depend on the
+          performance of your specific investments and market conditions.
+        </p>
       </div>
 
       {/* Results Section */}
