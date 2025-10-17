@@ -108,7 +108,7 @@ export default function Retirement4PercentContainer() {
         />
 
         <LabeledInput
-          label="Expected return per year (%)"
+          label="Expected portfolio growth per year (%)"
           type="number"
           value={annualRate}
           onChange={(e) => setAnnualRate(Number(e.target.value))}
@@ -117,6 +117,15 @@ export default function Retirement4PercentContainer() {
           step={0.1}
           placeholder="7"
         />
+        <p className="text-sm text-gray-500">
+          This is the expected growth of your portfolio each year. Historically,
+          broad market index funds have grown at an average of 7-10% per year.
+          <br />
+          <br />
+          <strong>Note:</strong> This is a historical average and is not a
+          guarantee. The actual growth of your portfolio will depend on the
+          performance of your specific investments and market conditions.
+        </p>
       </div>
 
       {/* Results Section */}
