@@ -13,7 +13,7 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as SavingsRouteImport } from './routes/savings'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as CompaniesRouteImport } from './routes/companies'
-import { Route as CalculatorsRouteImport } from './routes/calculators'
+import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SavingsIndexRouteImport } from './routes/savings/index'
 import { Route as SavingsSavingsGoalRouteImport } from './routes/savings/savings-goal'
@@ -41,9 +41,9 @@ const CompaniesRoute = CompaniesRouteImport.update({
   path: '/companies',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CalculatorsRoute = CalculatorsRouteImport.update({
-  id: '/calculators',
-  path: '/calculators',
+const AnalysisRoute = AnalysisRouteImport.update({
+  id: '/analysis',
+  path: '/analysis',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -81,7 +81,7 @@ const SavingsCompoundInterestRoute = SavingsCompoundInterestRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/calculators': typeof CalculatorsRoute
+  '/analysis': typeof AnalysisRoute
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
   '/savings': typeof SavingsRouteWithChildren
@@ -94,7 +94,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/calculators': typeof CalculatorsRoute
+  '/analysis': typeof AnalysisRoute
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
   '/settings': typeof SettingsRoute
@@ -107,7 +107,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/calculators': typeof CalculatorsRoute
+  '/analysis': typeof AnalysisRoute
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
   '/savings': typeof SavingsRouteWithChildren
@@ -122,7 +122,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/calculators'
+    | '/analysis'
     | '/companies'
     | '/learn'
     | '/savings'
@@ -135,7 +135,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/calculators'
+    | '/analysis'
     | '/companies'
     | '/learn'
     | '/settings'
@@ -147,7 +147,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/calculators'
+    | '/analysis'
     | '/companies'
     | '/learn'
     | '/savings'
@@ -161,7 +161,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  CalculatorsRoute: typeof CalculatorsRoute
+  AnalysisRoute: typeof AnalysisRoute
   CompaniesRoute: typeof CompaniesRoute
   LearnRoute: typeof LearnRoute
   SavingsRoute: typeof SavingsRouteWithChildren
@@ -198,11 +198,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompaniesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/calculators': {
-      id: '/calculators'
-      path: '/calculators'
-      fullPath: '/calculators'
-      preLoaderRoute: typeof CalculatorsRouteImport
+    '/analysis': {
+      id: '/analysis'
+      path: '/analysis'
+      fullPath: '/analysis'
+      preLoaderRoute: typeof AnalysisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -271,7 +271,7 @@ const SavingsRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  CalculatorsRoute: CalculatorsRoute,
+  AnalysisRoute: AnalysisRoute,
   CompaniesRoute: CompaniesRoute,
   LearnRoute: LearnRoute,
   SavingsRoute: SavingsRouteWithChildren,

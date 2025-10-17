@@ -75,7 +75,7 @@ export default function HomePage() {
               </Card>
             </Link>
 
-            <Link to="/calculators" className="block">
+            <Link to="/analysis" className="block">
               <Card
                 className="shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer"
                 style={{ backgroundColor: 'var(--bg-secondary)' }}
