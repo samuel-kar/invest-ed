@@ -106,9 +106,10 @@ export default function RetirementDividendContainer() {
           />
         </div>
         <p className="text-sm text-gray-500">
-          <strong>Capital appreciation</strong> is the expected{' '}
-          <em>price growth</em> (ex‑dividends). If you enable reinvestment, your
-          total return becomes Dividend Yield + this price growth.
+          <strong>Capital appreciation</strong> is stock price growth only
+          (excluding dividends). This avoids double-counting since dividend
+          growth is already reflected in price appreciation. Your total return =
+          Dividend Yield + Capital Appreciation.
         </p>
 
         {/* Display growth rate used */}
