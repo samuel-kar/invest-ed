@@ -138,18 +138,26 @@ export default function CompoundInterestContainer() {
           </FormulaBlock>
         </div>
       </div>
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube-nocookie.com/embed/wf91rEGw88Q?si=XaaYLlNGIwvgw_q8"
-        title="YouTube video player"
-        frameBorder={0}
-        allow={
-          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-        }
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen
-      ></iframe>
+      <div className="space-y-4">
+        <h4
+          className="text-sm font-medium"
+          style={{ color: 'var(--text-primary)' }}
+        >
+          Learn More
+        </h4>
+        <iframe
+          width="560"
+          height="315"
+          src="https://www.youtube-nocookie.com/embed/wf91rEGw88Q?si=XaaYLlNGIwvgw_q8"
+          title="YouTube video player"
+          frameBorder={0}
+          allow={
+            'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+          }
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
+      </div>
     </div>
   )
 }
