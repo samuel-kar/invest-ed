@@ -1,20 +1,22 @@
+export const EPS = 1e-12
+
 export const monthlyCompoundInterestCalculator = (
   startValue: number,
   annualRate: number,
   years: number,
   monthlyInput: number,
 ): number => {
-  const monthlyRate = annualRate / 12 / 100
-  const months = years * 12
+  const monthlyRate = Math.max(annualRate, 0) / 12 / 100
+  const months = Math.max(0, Math.floor(years * 12))
 
-  // Handle 0% interest rate case
-  if (monthlyRate === 0) {
-    return startValue + monthlyInput * months
+  if (monthlyRate <= EPS) {
+    return Math.max(0, startValue) + Math.max(0, monthlyInput) * months
   }
 
+  const pow = Math.pow(1 + monthlyRate, months)
   return (
-    startValue * Math.pow(1 + monthlyRate, months) +
-    (monthlyInput * (Math.pow(1 + monthlyRate, months) - 1)) / monthlyRate
+    Math.max(0, startValue) * pow +
+    (Math.max(0, monthlyInput) * (pow - 1)) / monthlyRate
   )
 }
 
@@ -25,20 +27,19 @@ export const savingsGoalCalculator = (
   years: number,
   months: number,
 ): number => {
-  const monthlyRate = annualRate / 12 / 100
-  const totalMonths = years * 12 + months
+  const monthlyRate = Math.max(annualRate, 0) / 12 / 100
+  const totalMonths = Math.max(0, Math.floor(years * 12 + months))
 
-  // Handle special case when rate is 0
-  if (monthlyRate === 0) {
-    return (goalAmount - currentSavings) / totalMonths
+  if (totalMonths === 0) return 0 // no time to save → treat as 0 (caller can handle separately)
+
+  if (monthlyRate <= EPS) {
+    return (Math.max(0, goalAmount) - Math.max(0, currentSavings)) / totalMonths
   }
 
-  // General formula
-  const futureValueOfCurrentSavings =
-    currentSavings * Math.pow(1 + monthlyRate, totalMonths)
-  const numerator = monthlyRate * (goalAmount - futureValueOfCurrentSavings)
-  const denominator = Math.pow(1 + monthlyRate, totalMonths) - 1
-
+  const pow = Math.pow(1 + monthlyRate, totalMonths)
+  const fvCurrent = Math.max(0, currentSavings) * pow
+  const numerator = monthlyRate * (Math.max(0, goalAmount) - fvCurrent)
+  const denominator = pow - 1
   return numerator / denominator
 }
 
@@ -58,21 +59,24 @@ export const retirement4PercentCalculator = (
   monthlyContribution: number,
   annualRate: number,
 ): Retirement4PercentResult => {
-  const years = Math.max(0, retirementAge - currentAge)
+  const years = Math.max(0, Math.floor(retirementAge - currentAge))
   const months = years * 12
-  const monthlyRate = annualRate / 12 / 100
-
-  const pow = Math.pow(1 + monthlyRate, months)
+  const monthlyRate = Math.max(annualRate, 0) / 12 / 100
 
   let fund = 0
   let startingGrowth = 0
-  if (monthlyRate === 0) {
-    startingGrowth = currentSavings
-    fund = currentSavings + monthlyContribution * months
+
+  if (monthlyRate <= EPS) {
+    startingGrowth = Math.max(0, currentSavings)
+    fund = startingGrowth + Math.max(0, monthlyContribution) * months
   } else {
-    startingGrowth = currentSavings * pow
-    fund = startingGrowth + (monthlyContribution * (pow - 1)) / monthlyRate
+    const pow = Math.pow(1 + monthlyRate, months)
+    startingGrowth = Math.max(0, currentSavings) * pow
+    fund =
+      startingGrowth +
+      (Math.max(0, monthlyContribution) * (pow - 1)) / monthlyRate
   }
+
   const contributions = Math.max(0, fund - startingGrowth)
   const annual = fund * 0.04
   const monthly = annual / 12
@@ -88,69 +92,102 @@ export const retirement4PercentCalculator = (
 }
 
 export interface DividendPortfolioResult {
-  startingPrincipalNeeded: number
-  portfolioNeededAtYearT: number
-  annualIncome: number
-  futureAnnualIncome: number
-  totalContributions: number
-  growthFromPrincipal: number
+  startingPrincipalNeeded: number // present value required today (clamped >= 0)
+  portfolioNeededAtYearT: number // future value goal at year T (can be Infinity if yield=0)
+  annualIncome: number // current-dollar annual income target (12 * monthly)
+  futureAnnualIncome: number // inflated annual income at year T
+  totalContributions: number // FV of contributions at year T
+  growthFromPrincipal: number // FV contributed by initial principal at year T (clamped >= 0)
 }
 
+/**
+ * Dividend portfolio planner
+ *
+ * Treats `capitalAppreciationPercent` as **price growth (ex-dividends)**.
+ * If reinvesting dividends, capital compounds at (yield + price growth).
+ * If NOT reinvesting, capital compounds at price growth only.
+ */
 export const dividendPortfolioCalculator = (
   desiredMonthlyIncome: number,
   monthlyInvestment: number,
   dividendYieldPercent: number,
   yearsUntilIncome: number,
-  totalAnnualReturn: number,
+  capitalAppreciationPercent: number, // price growth (ex-dividends)
   inflationRate: number,
   reinvestDividends: boolean = true,
 ): DividendPortfolioResult => {
-  const y = Math.max(0, dividendYieldPercent) / 100
-  const R = Math.max(0, totalAnnualReturn) / 100
+  const y = Math.max(0, dividendYieldPercent) / 100 // dividend yield
+  const gPrice = Math.max(0, capitalAppreciationPercent) / 100 // price growth
   const i = Math.max(0, inflationRate) / 100
-  const annual = desiredMonthlyIncome * 12
-  const T = Math.max(0, yearsUntilIncome)
+  const T = Math.max(0, Math.floor(yearsUntilIncome))
+  const annual = Math.max(0, desiredMonthlyIncome) * 12
 
-  // Step 1: Calculate future goal
+  // Future income target (nominal)
   const futureAnnualIncome = annual * Math.pow(1 + i, T)
-  const portfolioNeededAtYearT = y === 0 ? Infinity : futureAnnualIncome / y
 
-  if (T === 0 || !reinvestDividends || R === 0) {
-    // Simplified case
-    const startingPrincipal =
-      monthlyInvestment > 0
-        ? portfolioNeededAtYearT - monthlyInvestment * 12 * T
-        : portfolioNeededAtYearT
+  // Required portfolio at T to generate that income with yield y
+  const portfolioNeededAtYearT = y <= EPS ? Infinity : futureAnnualIncome / y
+
+  // Immediate-income case (T === 0)
+  if (T === 0) {
     return {
-      startingPrincipalNeeded: Math.max(0, startingPrincipal),
+      startingPrincipalNeeded:
+        portfolioNeededAtYearT === Infinity
+          ? Infinity
+          : Math.max(0, portfolioNeededAtYearT),
       portfolioNeededAtYearT,
       annualIncome: annual,
       futureAnnualIncome,
-      totalContributions: monthlyInvestment * 12 * T,
-      growthFromPrincipal: startingPrincipal,
+      totalContributions: 0,
+      growthFromPrincipal:
+        portfolioNeededAtYearT === Infinity
+          ? Infinity
+          : Math.max(0, portfolioNeededAtYearT),
     }
   }
 
-  // Step 2: Calculate future value of monthly investments (annuity)
-  const monthlyRate = R / 12
-  const numMonths = T * 12
-  // Future Value of Annuity: PMT * [((1+r)^n - 1) / r]
-  const fvOfContributions =
-    (monthlyInvestment * (Math.pow(1 + monthlyRate, numMonths) - 1)) /
-    monthlyRate
+  // Growth rate used for compounding capital during accumulation
+  const growthRateUsed = reinvestDividends ? y + gPrice : gPrice
+  const monthlyRate = growthRateUsed / 12
+  const n = T * 12
 
-  // Step 3: Determine required growth from principal
-  const requiredFvFromPrincipal = portfolioNeededAtYearT - fvOfContributions
+  // FV of contributions
+  let fvOfContributions: number
+  if (monthlyRate <= EPS) {
+    fvOfContributions = Math.max(0, monthlyInvestment) * n
+  } else {
+    const pow = Math.pow(1 + monthlyRate, n)
+    fvOfContributions =
+      (Math.max(0, monthlyInvestment) * (pow - 1)) / monthlyRate
+  }
 
-  // Step 4: Discount to find starting principal today
-  const startingPrincipalNeeded = requiredFvFromPrincipal / Math.pow(1 + R, T)
+  // FV the principal must supply at T
+  const requiredFvFromPrincipalRaw =
+    portfolioNeededAtYearT === Infinity
+      ? Infinity
+      : portfolioNeededAtYearT - fvOfContributions
+  const requiredFvFromPrincipal =
+    portfolioNeededAtYearT === Infinity
+      ? Infinity
+      : Math.max(0, requiredFvFromPrincipalRaw)
+
+  // PV of that principal today
+  let startingPrincipalNeeded: number
+  if (portfolioNeededAtYearT === Infinity) {
+    startingPrincipalNeeded = Infinity
+  } else if (growthRateUsed <= EPS) {
+    startingPrincipalNeeded = requiredFvFromPrincipal // no discounting if no growth
+  } else {
+    startingPrincipalNeeded =
+      requiredFvFromPrincipal / Math.pow(1 + growthRateUsed, T)
+  }
 
   return {
-    startingPrincipalNeeded: startingPrincipalNeeded,
-    portfolioNeededAtYearT: portfolioNeededAtYearT,
+    startingPrincipalNeeded: Math.max(0, startingPrincipalNeeded),
+    portfolioNeededAtYearT,
     annualIncome: annual,
-    futureAnnualIncome: futureAnnualIncome,
-    totalContributions: fvOfContributions,
-    growthFromPrincipal: requiredFvFromPrincipal,
+    futureAnnualIncome,
+    totalContributions: fvOfContributions, // FV
+    growthFromPrincipal: requiredFvFromPrincipal, // FV
   }
 }

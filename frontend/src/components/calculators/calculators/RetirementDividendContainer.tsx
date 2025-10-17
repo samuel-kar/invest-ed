@@ -14,8 +14,10 @@ export default function RetirementDividendContainer() {
   const [reinvestDividends, setReinvestDividends] = useState<boolean>(true)
   const { formatCurrency } = useCurrency()
 
-  // Calculate total return automatically
-  const totalAnnualReturn = dividendYieldPercent + capitalAppreciation
+  // Rate used for compounding while accumulating
+  const growthRateUsed = reinvestDividends
+    ? dividendYieldPercent + capitalAppreciation // total return when reinvesting
+    : capitalAppreciation // price-only growth otherwise
 
   const {
     startingPrincipalNeeded,
@@ -31,7 +33,7 @@ export default function RetirementDividendContainer() {
         monthlyInvestment,
         dividendYieldPercent,
         yearsUntilIncome,
-        totalAnnualReturn,
+        capitalAppreciation, // pass PRICE growth, not total return
         inflationRate,
         reinvestDividends,
       ),
@@ -40,7 +42,7 @@ export default function RetirementDividendContainer() {
       monthlyInvestment,
       dividendYieldPercent,
       yearsUntilIncome,
-      totalAnnualReturn,
+      capitalAppreciation,
       inflationRate,
       reinvestDividends,
     ],
@@ -104,11 +106,12 @@ export default function RetirementDividendContainer() {
           />
         </div>
         <p className="text-sm text-gray-500">
-          Capital Appreciation includes stock price growth and dividend growth.
-          Historically, dividend stocks grow at 3-7% annually.
+          <strong>Capital appreciation</strong> is the expected{' '}
+          <em>price growth</em> (ex‑dividends). If you enable reinvestment, your
+          total return becomes Dividend Yield + this price growth.
         </p>
 
-        {/* Display calculated total return */}
+        {/* Display growth rate used */}
         <div
           className="p-3 rounded-lg border"
           style={{
@@ -121,21 +124,30 @@ export default function RetirementDividendContainer() {
               className="text-sm font-medium"
               style={{ color: 'var(--text-secondary)' }}
             >
-              Total Annual Return:
+              {reinvestDividends
+                ? 'Total annual return used (reinvesting):'
+                : 'Growth rate used (no reinvest):'}
             </span>
             <span
               className="text-lg font-bold"
               style={{ color: 'var(--accent-color)' }}
             >
-              {totalAnnualReturn.toFixed(1)}%
+              {growthRateUsed.toFixed(1)}%
             </span>
           </div>
           <p
             className="text-xs mt-1"
             style={{ color: 'var(--text-secondary)' }}
           >
-            = Dividend Yield ({dividendYieldPercent}%) + Capital Appreciation (
-            {capitalAppreciation}%)
+            {reinvestDividends ? (
+              <>
+                {' '}
+                = Dividend Yield ({dividendYieldPercent}%) + Price Growth (
+                {capitalAppreciation}%)
+              </>
+            ) : (
+              <> = Price Growth only</>
+            )}
           </p>
         </div>
 
@@ -185,8 +197,7 @@ export default function RetirementDividendContainer() {
         </div>
         <p className="text-sm text-gray-500">
           If checked, dividends earned before year T will be reinvested to grow
-          your portfolio. If unchecked, you'll need the full portfolio amount
-          today.
+          your portfolio. If unchecked, only price growth compounds.
         </p>
       </div>
 
@@ -211,9 +222,11 @@ export default function RetirementDividendContainer() {
               className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
               style={{ color: 'var(--accent-color)' }}
             >
-              {startingPrincipalNeeded < 0
-                ? '$0 (Contributions sufficient)'
-                : formatCurrency(Math.round(startingPrincipalNeeded))}
+              {startingPrincipalNeeded === Infinity
+                ? '∞'
+                : startingPrincipalNeeded <= 0 && monthlyInvestment > 0
+                  ? '$0 (Contributions sufficient)'
+                  : formatCurrency(Math.round(startingPrincipalNeeded))}
             </div>
           </div>
 
@@ -349,7 +362,9 @@ export default function RetirementDividendContainer() {
                 <li className="break-words">
                   • Your initial principal is projected to grow to{' '}
                   <strong>
-                    {formatCurrency(Math.round(growthFromPrincipal))}
+                    {growthFromPrincipal === Infinity
+                      ? '∞'
+                      : formatCurrency(Math.round(growthFromPrincipal))}
                   </strong>
                   .
                 </li>
@@ -392,8 +407,19 @@ export default function RetirementDividendContainer() {
             <div>
               <p className="mb-2 font-medium">4. Starting Principal Needed</p>
               <p className="text-sm">
-                Principal = (Portfolio Goal - FV Contributions) / (1 + Total
-                Return)<sup>T</sup>
+                Principal = (Portfolio Goal − FV Contributions) / (1 +{' '}
+                <strong>{(growthRateUsed / 100).toFixed(4)}</strong>)
+                <sup>T</sup>
+              </p>
+              <p
+                className="text-xs mt-1"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                r used above is{' '}
+                {reinvestDividends
+                  ? 'Dividend Yield + Price Growth'
+                  : 'Price Growth only'}
+                .
               </p>
             </div>
           </div>
