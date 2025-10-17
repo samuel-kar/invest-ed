@@ -79,7 +79,7 @@ export default function RetirementDividendContainer() {
         />
 
         <LabeledInput
-          label="Expected annual growth rate (%)"
+          label="Expected annual dividend growth rate (%)"
           type="number"
           value={annualGrowthRate}
           onChange={(e) => setAnnualGrowthRate(Number(e.target.value))}

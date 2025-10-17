@@ -11,8 +11,8 @@ export default function CalculatorsOverview() {
           Investment Calculators
         </h2>
         <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
-          Choose from our comprehensive suite of financial calculators to help
-          you plan and optimize your savings strategy.
+          Choose from a comprehensive set of financial calculators to help you
+          plan and optimize your savings strategy.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
