@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { LabeledInput } from '../shared/InputsGroup'
 import FormulaBlock from '../shared/FormulaBlock'
 import { useCurrency } from '../../../contexts/CurrencyContext'
+import { dividendPortfolioCalculator } from '../../../utils/calculations'
 
 export default function RetirementDividendContainer() {
   const [desiredMonthlyIncome, setDesiredMonthlyIncome] = useState<number>(3000)
@@ -10,31 +11,21 @@ export default function RetirementDividendContainer() {
   const [annualGrowthRate, setAnnualGrowthRate] = useState<number>(3)
   const { formatCurrency } = useCurrency()
 
-  const { portfolioNeedToday, portfolioNeededAtYearT, annualIncome } =
-    useMemo(() => {
-      const y = Math.max(0, dividendYieldPercent) / 100
-      const g = Math.max(0, annualGrowthRate) / 100
-      const annual = desiredMonthlyIncome * 12
-      const T = Math.max(0, yearsUntilIncome)
-
-      // Enhanced formula: PORTFOLIO_NOW = (Annual Income) / (Yield × (1 + g)^T)
-      const growthFactor = Math.pow(1 + g, T)
-      const portfolioToday = y === 0 ? Infinity : annual / (y * growthFactor)
-
-      // Simple formula for portfolio needed at year T: (Annual Income) / Yield
-      const portfolioAtYearT = y === 0 ? Infinity : annual / y
-
-      return {
-        portfolioNeedToday: portfolioToday,
-        portfolioNeededAtYearT: portfolioAtYearT,
-        annualIncome: annual,
-      }
-    }, [
+  const { portfolioNeedToday, portfolioNeededAtYearT, annualIncome } = useMemo(
+    () =>
+      dividendPortfolioCalculator(
+        desiredMonthlyIncome,
+        dividendYieldPercent,
+        yearsUntilIncome,
+        annualGrowthRate,
+      ),
+    [
       desiredMonthlyIncome,
       dividendYieldPercent,
       yearsUntilIncome,
       annualGrowthRate,
-    ])
+    ],
+  )
 
   return (
     <div className="grid md:grid-cols-5 gap-8">

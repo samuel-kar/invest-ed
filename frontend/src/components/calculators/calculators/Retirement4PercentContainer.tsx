@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { LabeledInput } from '../shared/InputsGroup'
 import FormulaBlock from '../shared/FormulaBlock'
 import { useCurrency } from '../../../contexts/CurrencyContext'
+import { retirement4PercentCalculator } from '../../../utils/calculations'
 
 export default function Retirement4PercentContainer() {
   const [currentAge, setCurrentAge] = useState<number>(30)
@@ -18,41 +19,23 @@ export default function Retirement4PercentContainer() {
     contributionsValue,
     annualIncome,
     monthlyIncome,
-  } = useMemo(() => {
-    const years = Math.max(0, retirementAge - currentAge)
-    const months = years * 12
-    const monthlyRate = annualRate / 12 / 100
-
-    const pow = Math.pow(1 + monthlyRate, months)
-
-    let fund = 0
-    let startingGrowth = 0
-    if (monthlyRate === 0) {
-      startingGrowth = currentSavings
-      fund = currentSavings + monthlyContribution * months
-    } else {
-      startingGrowth = currentSavings * pow
-      fund = startingGrowth + (monthlyContribution * (pow - 1)) / monthlyRate
-    }
-    const contributions = Math.max(0, fund - startingGrowth)
-    const annual = fund * 0.04
-    const monthly = annual / 12
-
-    return {
-      yearsToRetirement: years,
-      fundAtRetirement: Math.round(fund),
-      startingGrowthValue: Math.round(startingGrowth),
-      contributionsValue: Math.round(contributions),
-      annualIncome: Math.round(annual),
-      monthlyIncome: Math.round(monthly),
-    }
-  }, [
-    currentAge,
-    retirementAge,
-    currentSavings,
-    monthlyContribution,
-    annualRate,
-  ])
+  } = useMemo(
+    () =>
+      retirement4PercentCalculator(
+        currentAge,
+        retirementAge,
+        currentSavings,
+        monthlyContribution,
+        annualRate,
+      ),
+    [
+      currentAge,
+      retirementAge,
+      currentSavings,
+      monthlyContribution,
+      annualRate,
+    ],
+  )
 
   return (
     <div className="grid md:grid-cols-5 gap-8">
