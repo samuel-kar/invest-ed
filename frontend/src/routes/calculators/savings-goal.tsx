@@ -17,7 +17,7 @@ function SavingsGoalPage() {
         >
           Savings Goal Calculator
         </h2>
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-top mb-6">
           <p style={{ color: 'var(--text-secondary)' }}>
             Determine how long it will take to reach your financial goals with
             regular monthly contributions.

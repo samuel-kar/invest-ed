@@ -15,9 +15,9 @@ function Retirement4PercentPage() {
           className="text-2xl font-bold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          Retirement Calculator (4% Rule)
+          Retirement (4% Rule)
         </h2>
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-top mb-6">
           <p style={{ color: 'var(--text-secondary)' }}>
             Estimate your retirement savings and monthly income using the proven
             4% withdrawal rule.

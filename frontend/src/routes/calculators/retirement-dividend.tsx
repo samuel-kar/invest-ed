@@ -15,9 +15,9 @@ function RetirementDividendPage() {
           className="text-2xl font-bold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          Retirement Calculator (Dividend)
+          Retirement (Dividend)
         </h2>
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-top mb-6">
           <p style={{ color: 'var(--text-secondary)' }}>
             Calculate the portfolio size needed for dividend income retirement.
             Focus on dividend-paying stocks for passive income.
