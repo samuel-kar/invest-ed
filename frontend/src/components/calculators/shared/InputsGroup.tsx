@@ -43,6 +43,10 @@ export function LabeledInput({ label, ...props }: InputProps) {
       </label>
       <input
         {...props}
+        onFocus={(e) => {
+          e.target.select()
+          props.onFocus?.(e)
+        }}
         className={`w-full p-3 rounded-md transition-colors ${props.className || ''}`}
         style={{
           backgroundColor: 'var(--bg-secondary)',
