@@ -43,6 +43,16 @@ export function LabeledInput({ label, ...props }: InputProps) {
       </label>
       <input
         {...props}
+        onChange={(e) => {
+          const value = e.target.value
+          // Strip leading zeros for number inputs, but preserve decimals
+          if (props.type === 'number' && value) {
+            // Remove leading zeros unless it's a decimal like "0.5"
+            const cleaned = value.replace(/^0+(?=\d)/, '')
+            e.target.value = cleaned || '0'
+          }
+          props.onChange?.(e)
+        }}
         onFocus={(e) => {
           e.target.select()
           props.onFocus?.(e)
