@@ -10,15 +10,13 @@ function SavingsGoalPage() {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2
-            className="text-2xl font-bold"
-            style={{ color: 'var(--text-primary)' }}
-          >
-            Savings Goal Calculator
-          </h2>
-          <BackButton to="/calculators" label="Back to Calculators" />
-        </div>
+        <BackButton to="/calculators" label="Back to Calculators" />
+        <h2
+          className="text-2xl font-bold mb-4"
+          style={{ color: 'var(--text-primary)' }}
+        >
+          Savings Goal Calculator
+        </h2>
         <div className="flex justify-between items-center mb-6">
           <p style={{ color: 'var(--text-secondary)' }}>
             Determine how long it will take to reach your financial goals with
