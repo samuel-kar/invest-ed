@@ -26,12 +26,12 @@ public class BasicFinancialsView {
     @PositiveOrZero(message = "PB ratio must be positive or zero")
     private Double pbRatio;
     
-    @PositiveOrZero(message = "Market cap must be positive or zero")
-    private Double marketCap;
+    @PositiveOrZero(message = "Enterprise value must be positive or zero")
+    private Double marketCap; // Maps to Enterprise Value (ev) from Finnhub
     
-    @PositiveOrZero(message = "Dividend yield must be positive or zero")
-    private Double dividendYield;
+    @PositiveOrZero(message = "Payout ratio must be positive or zero")
+    private Double dividendYield; // Maps to Payout Ratio from Finnhub
     
-    @PositiveOrZero(message = "Dividend per share must be positive or zero")
-    private Double dividendPerShare;
+    @PositiveOrZero(message = "Earnings per share must be positive or zero")
+    private Double dividendPerShare; // Maps to Earnings Per Share (eps) from Finnhub
 }

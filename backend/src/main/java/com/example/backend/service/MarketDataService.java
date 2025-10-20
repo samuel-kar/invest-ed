@@ -4,8 +4,6 @@ import com.example.backend.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -54,51 +52,46 @@ public class MarketDataService {
         
         Map<String, Object> series = dto.getSeries();
         
+        
         // Extract the most recent values from the annual data
+        // Using the correct field names from Finnhub API response
         return BasicFinancialsView.builder()
                 .symbol(symbol)
-                .peRatio(extractLatestValue(series, "peBasicExclExtraTTM"))
-                .pbRatio(extractLatestValue(series, "pbQuarterly"))
-                .marketCap(extractLatestValue(series, "marketCapitalization"))
-                .dividendYield(extractLatestValue(series, "dividendYieldIndicatedAnnual"))
-                .dividendPerShare(extractLatestValue(series, "dividendPerShareAnnual"))
+                .peRatio(extractLatestValueFromAnnual(series, "pe"))
+                .pbRatio(extractLatestValueFromAnnual(series, "pb"))
+                .marketCap(extractLatestValueFromAnnual(series, "ev")) // Enterprise Value
+                .dividendYield(extractLatestValueFromAnnual(series, "payoutRatio"))
+                .dividendPerShare(extractLatestValueFromAnnual(series, "eps")) // Earnings Per Share
                 .build();
     }
     
-    /**
-     * Safely extracts double value from series map.
-     * 
-     * @param series financial data series
-     * @param key metric key
-     * @return double value or 0.0 if not found/invalid
-     */
-    private Double extractDoubleValue(Map<String, Object> series, String key) {
-        if (series == null || !series.containsKey(key)) {
-            return 0.0;
-        }
-        
-        Object value = series.get(key);
-        if (value instanceof Number) {
-            return ((Number) value).doubleValue();
-        }
-        
-        return 0.0;
-    }
     
     /**
-     * Extracts the latest value from a time series array.
+     * Extracts the latest value from annual financial data.
+     * The Finnhub API returns financial metrics nested under an "annual" key.
      * 
      * @param series financial data series
      * @param key metric key
      * @return latest double value or 0.0 if not found/invalid
      */
     @SuppressWarnings("unchecked")
-    private Double extractLatestValue(Map<String, Object> series, String key) {
-        if (series == null || !series.containsKey(key)) {
+    private Double extractLatestValueFromAnnual(Map<String, Object> series, String key) {
+        if (series == null || !series.containsKey("annual")) {
             return 0.0;
         }
         
-        Object value = series.get(key);
+        Object annualData = series.get("annual");
+        if (!(annualData instanceof Map)) {
+            return 0.0;
+        }
+        
+        Map<String, Object> annualMap = (Map<String, Object>) annualData;
+        if (!annualMap.containsKey(key)) {
+            return 0.0;
+        }
+        
+        Object value = annualMap.get(key);
+        
         if (value instanceof java.util.List) {
             java.util.List<Map<String, Object>> list = (java.util.List<Map<String, Object>>) value;
             if (!list.isEmpty()) {
