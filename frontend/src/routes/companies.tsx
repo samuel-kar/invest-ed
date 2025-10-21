@@ -1,10 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router'
+import CompanySearch from '../components/CompanySearch'
 
 export const Route = createFileRoute('/companies')({
   component: CompaniesPage,
+  validateSearch: (search: Record<string, unknown>) => ({
+    symbol: (search.symbol as string) || '',
+  }),
 })
 
 function CompaniesPage() {
+  const { symbol } = Route.useSearch()
+
   return (
     <div
       className="min-h-screen"
@@ -17,9 +23,7 @@ function CompaniesPage() {
         >
           Company Analysis
         </h1>
-        <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>
-          Company analysis tools coming soon...
-        </p>
+        <CompanySearch initialSymbol={symbol} />
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
@@ -19,6 +20,16 @@ const router = createRouter({
   defaultPreloadStaleTime: 0,
 })
 
+// Create a new query client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      retry: 1,
+    },
+  },
+})
+
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface Register {
@@ -32,11 +43,13 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
-      <ThemeProvider>
-        <CurrencyProvider>
-          <RouterProvider router={router} />
-        </CurrencyProvider>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <CurrencyProvider>
+            <RouterProvider router={router} />
+          </CurrencyProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </StrictMode>,
   )
 }
