@@ -15,14 +15,14 @@
 ### API Endpoints
 
 - ✅ `GET /api/market/quote/{symbol}` - Current stock quote
-- ✅ `GET /api/market/fundamentals/{symbol}` - Financial metrics
+- ✅ `GET /api/market/fundamentals/{symbol}` - Comprehensive financial metrics (37+ fields)
 
 ### Data Transfer Objects
 
 - ✅ `QuoteDto` - Raw Finnhub quote response
 - ✅ `BasicFinancialsDto` - Raw Finnhub financials response
 - ✅ `QuoteView` - Sanitized quote for frontend
-- ✅ `BasicFinancialsView` - Sanitized financials for frontend
+- ✅ `BasicFinancialsView` - Comprehensive financials with 37+ metrics for frontend
 - ✅ `ErrorResponse` - Standard error response format
 
 ### Services
@@ -72,11 +72,39 @@
 The backend is ready for frontend integration with:
 
 - ✅ Working quote endpoint
-- ✅ Working fundamentals endpoint (fixed parsing)
-- ✅ Clean error handling
+- ✅ Working fundamentals endpoint with 37+ financial metrics
+- ✅ Clean error handling with proper null handling
 - ✅ Proper validation
 - ✅ Security configuration
 - ✅ Environment setup
+
+## 📊 Available Financial Metrics
+
+The `/api/market/fundamentals/{symbol}` endpoint now provides comprehensive financial data:
+
+### Valuation Ratios (5 metrics)
+- Price-to-Earnings, Price-to-Book, Price-to-Sales, Price-to-Free Cash Flow, Price-to-Tangible Book Value
+
+### Profitability Margins (5 metrics)
+- Gross, Operating, Net, Pre-tax, and Free Cash Flow margins
+
+### Per-Share Metrics (4 metrics)
+- Earnings, EBIT, Sales, and Tangible Book Value per share
+
+### Liquidity Ratios (3 metrics)
+- Current, Quick, and Cash ratios
+
+### Leverage Ratios (8 metrics)
+- Various debt-to-equity, debt-to-asset, and debt-to-capital ratios
+
+### Efficiency Ratios (6 metrics)
+- Return on Assets, Equity, Invested Capital, Total Capital, plus Inventory and Receivables turnover
+
+### Valuation Metrics (3 metrics)
+- Enterprise Value, EV/EBITDA, EV/Revenue
+
+### Other Metrics (4 metrics)
+- Payout ratio, Book value per share, SG&A to sales, Total ratio
 
 ## 📁 File Structure
 

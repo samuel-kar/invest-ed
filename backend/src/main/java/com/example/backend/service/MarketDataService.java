@@ -39,10 +39,11 @@ public class MarketDataService {
     
     
     /**
-     * Retrieves and sanitizes basic financials data for frontend consumption.
+     * Retrieves and sanitizes comprehensive financials data for frontend consumption.
+     * Extracts all 37+ available financial metrics from Finnhub API.
      * 
      * @param symbol stock symbol
-     * @return sanitized financials view
+     * @return sanitized financials view with all available metrics
      */
     public BasicFinancialsView getBasicFinancialsSanitized(String symbol) {
         BasicFinancialsDto dto = finnhubService.getBasicFinancials(symbol);
@@ -52,16 +53,64 @@ public class MarketDataService {
         
         Map<String, Object> series = dto.getSeries();
         
-        
-        // Extract the most recent values from the annual data
-        // Using the correct field names from Finnhub API response
+        // Extract all available financial metrics from the annual data
         return BasicFinancialsView.builder()
                 .symbol(symbol)
-                .peRatio(extractLatestValueFromAnnual(series, "pe"))
-                .pbRatio(extractLatestValueFromAnnual(series, "pb"))
-                .marketCap(extractLatestValueFromAnnual(series, "ev")) // Enterprise Value
-                .dividendYield(extractLatestValueFromAnnual(series, "payoutRatio"))
-                .dividendPerShare(extractLatestValueFromAnnual(series, "eps")) // Earnings Per Share
+                
+                // Valuation Ratios
+                .priceToEarningsRatio(extractLatestValueFromAnnual(series, "pe"))
+                .priceToBookRatio(extractLatestValueFromAnnual(series, "pb"))
+                .priceToSalesRatio(extractLatestValueFromAnnual(series, "ps"))
+                .priceToFreeCashFlowRatio(extractLatestValueFromAnnual(series, "pfcf"))
+                .priceToTangibleBookValueRatio(extractLatestValueFromAnnual(series, "ptbv"))
+                
+                // Profitability Margins
+                .grossMargin(extractLatestValueFromAnnual(series, "grossMargin"))
+                .operatingMargin(extractLatestValueFromAnnual(series, "operatingMargin"))
+                .netMargin(extractLatestValueFromAnnual(series, "netMargin"))
+                .pretaxMargin(extractLatestValueFromAnnual(series, "pretaxMargin"))
+                .freeCashFlowMargin(extractLatestValueFromAnnual(series, "fcfMargin"))
+                
+                // Per-Share Metrics
+                .earningsPerShare(extractLatestValueFromAnnual(series, "eps"))
+                .ebitPerShare(extractLatestValueFromAnnual(series, "ebitPerShare"))
+                .salesPerShare(extractLatestValueFromAnnual(series, "salesPerShare"))
+                .tangibleBookValuePerShare(extractLatestValueFromAnnual(series, "tangibleBookValue"))
+                
+                // Liquidity Ratios
+                .currentRatio(extractLatestValueFromAnnual(series, "currentRatio"))
+                .quickRatio(extractLatestValueFromAnnual(series, "quickRatio"))
+                .cashRatio(extractLatestValueFromAnnual(series, "cashRatio"))
+                
+                // Leverage Ratios
+                .totalDebtToEquity(extractLatestValueFromAnnual(series, "totalDebtToEquity"))
+                .totalDebtToTotalAsset(extractLatestValueFromAnnual(series, "totalDebtToTotalAsset"))
+                .totalDebtToTotalCapital(extractLatestValueFromAnnual(series, "totalDebtToTotalCapital"))
+                .longtermDebtToTotalAsset(extractLatestValueFromAnnual(series, "longtermDebtTotalAsset"))
+                .longtermDebtToTotalCapital(extractLatestValueFromAnnual(series, "longtermDebtTotalCapital"))
+                .longtermDebtToTotalEquity(extractLatestValueFromAnnual(series, "longtermDebtTotalEquity"))
+                .netDebtToTotalCapital(extractLatestValueFromAnnual(series, "netDebtToTotalCapital"))
+                .netDebtToTotalEquity(extractLatestValueFromAnnual(series, "netDebtToTotalEquity"))
+                
+                // Efficiency Ratios
+                .returnOnAssets(extractLatestValueFromAnnual(series, "roa"))
+                .returnOnEquity(extractLatestValueFromAnnual(series, "roe"))
+                .returnOnInvestedCapital(extractLatestValueFromAnnual(series, "roic"))
+                .returnOnTotalCapital(extractLatestValueFromAnnual(series, "rotc"))
+                .inventoryTurnover(extractLatestValueFromAnnual(series, "inventoryTurnover"))
+                .receivablesTurnover(extractLatestValueFromAnnual(series, "receivablesTurnover"))
+                
+                // Valuation Metrics
+                .enterpriseValue(extractLatestValueFromAnnual(series, "ev"))
+                .evToEbitda(extractLatestValueFromAnnual(series, "evEbitda"))
+                .evToRevenue(extractLatestValueFromAnnual(series, "evRevenue"))
+                
+                // Other Metrics
+                .payoutRatio(extractLatestValueFromAnnual(series, "payoutRatio"))
+                .bookValuePerShare(extractLatestValueFromAnnual(series, "bookValue"))
+                .sgaToSale(extractLatestValueFromAnnual(series, "sgaToSale"))
+                .totalRatio(extractLatestValueFromAnnual(series, "totalRatio"))
+                
                 .build();
     }
     
@@ -72,22 +121,22 @@ public class MarketDataService {
      * 
      * @param series financial data series
      * @param key metric key
-     * @return latest double value or 0.0 if not found/invalid
+     * @return latest double value or null if not found/invalid
      */
     @SuppressWarnings("unchecked")
     private Double extractLatestValueFromAnnual(Map<String, Object> series, String key) {
         if (series == null || !series.containsKey("annual")) {
-            return 0.0;
+            return null;
         }
         
         Object annualData = series.get("annual");
         if (!(annualData instanceof Map)) {
-            return 0.0;
+            return null;
         }
         
         Map<String, Object> annualMap = (Map<String, Object>) annualData;
         if (!annualMap.containsKey(key)) {
-            return 0.0;
+            return null;
         }
         
         Object value = annualMap.get(key);
@@ -103,6 +152,6 @@ public class MarketDataService {
             }
         }
         
-        return 0.0;
+        return null;
     }
 }
