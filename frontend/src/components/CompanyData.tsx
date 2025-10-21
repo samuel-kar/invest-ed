@@ -1,6 +1,6 @@
 import { ChevronDown, ChevronRight, TrendingUp, TrendingDown } from 'lucide-react'
 import { useState } from 'react'
-import { Quote, Fundamentals } from '../services/api'
+import type { Quote, Fundamentals } from '../services/api'
 
 interface CompanyDataProps {
   quote: Quote
