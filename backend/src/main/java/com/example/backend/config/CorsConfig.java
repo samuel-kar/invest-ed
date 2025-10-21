@@ -1,5 +1,6 @@
 package com.example.backend.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -28,16 +29,16 @@ import java.util.List;
 @Configuration
 public class CorsConfig {
 
+    @Value("${app.cors.allowed-origins}")
+    private String allowedOrigins;
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // Allow requests from frontend development server
-        // ⚠️ UPDATE THIS for production deployment
-        configuration.setAllowedOrigins(List.of(
-            "http://localhost:3000",  // Frontend development server
-            "http://127.0.0.1:3000"   // Alternative localhost
-        ));
+        // Parse allowed origins from configuration
+        List<String> origins = Arrays.asList(allowedOrigins.split(","));
+        configuration.setAllowedOrigins(origins);
         
         // Allow common HTTP methods
         configuration.setAllowedMethods(Arrays.asList(

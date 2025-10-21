@@ -1,11 +1,17 @@
-spring.application.name=backend
+spring:
+  application:
+    name: backend
 
 # Database configuration temporarily disabled for development
 # Uncomment when database is needed:
-# spring.datasource.url=jdbc:postgresql://localhost:5432/invested
-# spring.datasource.username=your_username
-# spring.datasource.password=your_password
-# spring.jpa.hibernate.ddl-auto=update
+# spring:
+#   datasource:
+#     url: jdbc:postgresql://localhost:5432/invested
+#     username: your_username
+#     password: your_password
+#   jpa:
+#     hibernate:
+#       ddl-auto: update
 
 # Finnhub API Configuration
 # Load FINNHUB_API_KEY from environment variable
