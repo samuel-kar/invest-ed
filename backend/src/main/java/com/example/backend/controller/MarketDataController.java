@@ -54,4 +54,5 @@ public class MarketDataController {
         return ResponseEntity.ok(fundamentals);
     }
     
+    
 }

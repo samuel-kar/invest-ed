@@ -38,6 +38,7 @@ public class MarketDataService {
     }
     
     
+    
     /**
      * Retrieves and sanitizes comprehensive financials data for frontend consumption.
      * Extracts all 37+ available financial metrics from Finnhub API.
@@ -75,7 +76,7 @@ public class MarketDataService {
                 .earningsPerShare(extractLatestValueFromAnnual(series, "eps"))
                 .ebitPerShare(extractLatestValueFromAnnual(series, "ebitPerShare"))
                 .salesPerShare(extractLatestValueFromAnnual(series, "salesPerShare"))
-                .tangibleBookValuePerShare(extractLatestValueFromAnnual(series, "tangibleBookValue"))
+                .tangibleBookValuePerShare(convertFromMillions(extractLatestValueFromAnnual(series, "tangibleBookValue")))
                 
                 // Liquidity Ratios
                 .currentRatio(extractLatestValueFromAnnual(series, "currentRatio"))
@@ -100,14 +101,14 @@ public class MarketDataService {
                 .inventoryTurnover(extractLatestValueFromAnnual(series, "inventoryTurnover"))
                 .receivablesTurnover(extractLatestValueFromAnnual(series, "receivablesTurnover"))
                 
-                // Valuation Metrics
-                .enterpriseValue(extractLatestValueFromAnnual(series, "ev"))
+                // Valuation Metrics (convert from millions to absolute values)
+                .enterpriseValue(convertFromMillions(extractLatestValueFromAnnual(series, "ev")))
                 .evToEbitda(extractLatestValueFromAnnual(series, "evEbitda"))
                 .evToRevenue(extractLatestValueFromAnnual(series, "evRevenue"))
                 
-                // Other Metrics
+                // Other Metrics (convert from millions to absolute values)
                 .payoutRatio(extractLatestValueFromAnnual(series, "payoutRatio"))
-                .bookValuePerShare(extractLatestValueFromAnnual(series, "bookValue"))
+                .bookValuePerShare(convertFromMillions(extractLatestValueFromAnnual(series, "bookValue")))
                 .sgaToSale(extractLatestValueFromAnnual(series, "sgaToSale"))
                 .totalRatio(extractLatestValueFromAnnual(series, "totalRatio"))
                 
@@ -154,4 +155,19 @@ public class MarketDataService {
         
         return null;
     }
+    
+    /**
+     * Converts values from millions to absolute values.
+     * Finnhub returns certain metrics (enterprise value, book value, etc.) in millions.
+     * 
+     * @param valueInMillions value in millions, or null if not available
+     * @return value in absolute units, or null if input was null
+     */
+    private Double convertFromMillions(Double valueInMillions) {
+        if (valueInMillions == null) {
+            return null;
+        }
+        return valueInMillions * 1_000_000; // Convert millions to absolute value
+    }
 }
+
