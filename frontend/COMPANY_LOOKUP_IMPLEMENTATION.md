@@ -240,10 +240,11 @@ frontend/src/
 ## Troubleshooting
 
 ### Common Issues
-- **CORS Errors**: Ensure backend allows frontend origin
-- **API Connection**: Verify backend is running on correct port
+- **CORS Errors**: Fixed - Backend now includes CORS configuration for localhost:3000
+- **API Connection**: Verify backend is running on correct port (8080)
 - **Data Format**: Check that backend returns expected data structure
 - **Theme Issues**: Ensure CSS variables are properly defined
+- **TypeScript Import Errors**: Use `import type` for type-only imports due to `verbatimModuleSyntax: true`
 
 ### Debug Tools
 - React Query DevTools for data fetching
