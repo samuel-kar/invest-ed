@@ -16,10 +16,13 @@ import { Route as CalculatorsRouteImport } from './routes/calculators'
 import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CalculatorsIndexRouteImport } from './routes/calculators/index'
+import { Route as AnalysisIndexRouteImport } from './routes/analysis/index'
 import { Route as CalculatorsSavingsGoalRouteImport } from './routes/calculators/savings-goal'
 import { Route as CalculatorsRetirement4percentRouteImport } from './routes/calculators/retirement4percent'
 import { Route as CalculatorsRetirementDividendRouteImport } from './routes/calculators/retirement-dividend'
 import { Route as CalculatorsCompoundInterestRouteImport } from './routes/calculators/CompoundInterest'
+import { Route as AnalysisDdmRouteImport } from './routes/analysis/ddm'
+import { Route as AnalysisChowderRouteImport } from './routes/analysis/chowder'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
@@ -56,6 +59,11 @@ const CalculatorsIndexRoute = CalculatorsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => CalculatorsRoute,
 } as any)
+const AnalysisIndexRoute = AnalysisIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AnalysisRoute,
+} as any)
 const CalculatorsSavingsGoalRoute = CalculatorsSavingsGoalRouteImport.update({
   id: '/savings-goal',
   path: '/savings-goal',
@@ -79,44 +87,62 @@ const CalculatorsCompoundInterestRoute =
     path: '/CompoundInterest',
     getParentRoute: () => CalculatorsRoute,
   } as any)
+const AnalysisDdmRoute = AnalysisDdmRouteImport.update({
+  id: '/ddm',
+  path: '/ddm',
+  getParentRoute: () => AnalysisRoute,
+} as any)
+const AnalysisChowderRoute = AnalysisChowderRouteImport.update({
+  id: '/chowder',
+  path: '/chowder',
+  getParentRoute: () => AnalysisRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/analysis': typeof AnalysisRoute
+  '/analysis': typeof AnalysisRouteWithChildren
   '/calculators': typeof CalculatorsRouteWithChildren
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
   '/settings': typeof SettingsRoute
+  '/analysis/chowder': typeof AnalysisChowderRoute
+  '/analysis/ddm': typeof AnalysisDdmRoute
   '/calculators/CompoundInterest': typeof CalculatorsCompoundInterestRoute
   '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
   '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
   '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/analysis/': typeof AnalysisIndexRoute
   '/calculators/': typeof CalculatorsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/analysis': typeof AnalysisRoute
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
   '/settings': typeof SettingsRoute
+  '/analysis/chowder': typeof AnalysisChowderRoute
+  '/analysis/ddm': typeof AnalysisDdmRoute
   '/calculators/CompoundInterest': typeof CalculatorsCompoundInterestRoute
   '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
   '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
   '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/analysis': typeof AnalysisIndexRoute
   '/calculators': typeof CalculatorsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/analysis': typeof AnalysisRoute
+  '/analysis': typeof AnalysisRouteWithChildren
   '/calculators': typeof CalculatorsRouteWithChildren
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
   '/settings': typeof SettingsRoute
+  '/analysis/chowder': typeof AnalysisChowderRoute
+  '/analysis/ddm': typeof AnalysisDdmRoute
   '/calculators/CompoundInterest': typeof CalculatorsCompoundInterestRoute
   '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
   '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
   '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/analysis/': typeof AnalysisIndexRoute
   '/calculators/': typeof CalculatorsIndexRoute
 }
 export interface FileRouteTypes {
@@ -128,22 +154,27 @@ export interface FileRouteTypes {
     | '/companies'
     | '/learn'
     | '/settings'
+    | '/analysis/chowder'
+    | '/analysis/ddm'
     | '/calculators/CompoundInterest'
     | '/calculators/retirement-dividend'
     | '/calculators/retirement4percent'
     | '/calculators/savings-goal'
+    | '/analysis/'
     | '/calculators/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/analysis'
     | '/companies'
     | '/learn'
     | '/settings'
+    | '/analysis/chowder'
+    | '/analysis/ddm'
     | '/calculators/CompoundInterest'
     | '/calculators/retirement-dividend'
     | '/calculators/retirement4percent'
     | '/calculators/savings-goal'
+    | '/analysis'
     | '/calculators'
   id:
     | '__root__'
@@ -153,16 +184,19 @@ export interface FileRouteTypes {
     | '/companies'
     | '/learn'
     | '/settings'
+    | '/analysis/chowder'
+    | '/analysis/ddm'
     | '/calculators/CompoundInterest'
     | '/calculators/retirement-dividend'
     | '/calculators/retirement4percent'
     | '/calculators/savings-goal'
+    | '/analysis/'
     | '/calculators/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AnalysisRoute: typeof AnalysisRoute
+  AnalysisRoute: typeof AnalysisRouteWithChildren
   CalculatorsRoute: typeof CalculatorsRouteWithChildren
   CompaniesRoute: typeof CompaniesRoute
   LearnRoute: typeof LearnRoute
@@ -220,6 +254,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculatorsIndexRouteImport
       parentRoute: typeof CalculatorsRoute
     }
+    '/analysis/': {
+      id: '/analysis/'
+      path: '/'
+      fullPath: '/analysis/'
+      preLoaderRoute: typeof AnalysisIndexRouteImport
+      parentRoute: typeof AnalysisRoute
+    }
     '/calculators/savings-goal': {
       id: '/calculators/savings-goal'
       path: '/savings-goal'
@@ -248,8 +289,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalculatorsCompoundInterestRouteImport
       parentRoute: typeof CalculatorsRoute
     }
+    '/analysis/ddm': {
+      id: '/analysis/ddm'
+      path: '/ddm'
+      fullPath: '/analysis/ddm'
+      preLoaderRoute: typeof AnalysisDdmRouteImport
+      parentRoute: typeof AnalysisRoute
+    }
+    '/analysis/chowder': {
+      id: '/analysis/chowder'
+      path: '/chowder'
+      fullPath: '/analysis/chowder'
+      preLoaderRoute: typeof AnalysisChowderRouteImport
+      parentRoute: typeof AnalysisRoute
+    }
   }
 }
+
+interface AnalysisRouteChildren {
+  AnalysisChowderRoute: typeof AnalysisChowderRoute
+  AnalysisDdmRoute: typeof AnalysisDdmRoute
+  AnalysisIndexRoute: typeof AnalysisIndexRoute
+}
+
+const AnalysisRouteChildren: AnalysisRouteChildren = {
+  AnalysisChowderRoute: AnalysisChowderRoute,
+  AnalysisDdmRoute: AnalysisDdmRoute,
+  AnalysisIndexRoute: AnalysisIndexRoute,
+}
+
+const AnalysisRouteWithChildren = AnalysisRoute._addFileChildren(
+  AnalysisRouteChildren,
+)
 
 interface CalculatorsRouteChildren {
   CalculatorsCompoundInterestRoute: typeof CalculatorsCompoundInterestRoute
@@ -273,7 +344,7 @@ const CalculatorsRouteWithChildren = CalculatorsRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AnalysisRoute: AnalysisRoute,
+  AnalysisRoute: AnalysisRouteWithChildren,
   CalculatorsRoute: CalculatorsRouteWithChildren,
   CompaniesRoute: CompaniesRoute,
   LearnRoute: LearnRoute,

@@ -1,16 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router'
-import CompanySearch from '../components/CompanySearch'
+import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/analysis')({
   component: AnalysisPage,
-  validateSearch: (search: Record<string, unknown>) => ({
-    symbol: (search.symbol as string) || '',
-  }),
 })
 
 function AnalysisPage() {
-  const { symbol } = Route.useSearch()
-
   return (
     <div
       className="min-h-screen"
@@ -23,7 +17,51 @@ function AnalysisPage() {
         >
           Investment Analysis
         </h1>
-        <CompanySearch initialSymbol={symbol} />
+
+        {/* Tab Navigation */}
+        <div className="mb-8">
+          <nav className="tab-nav flex-col md:flex-row" role="tablist">
+            <Link
+              to="/analysis/ddm"
+              className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
+              style={{
+                backgroundColor: 'var(--bg-secondary)',
+                color: 'var(--text-primary)',
+                borderBottom: '2px solid var(--accent-color)',
+              }}
+              activeProps={{
+                style: {
+                  backgroundColor: 'var(--accent-color)',
+                  color: 'white',
+                },
+              }}
+            >
+              DDM Analysis
+            </Link>
+            <Link
+              to="/analysis/chowder"
+              className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
+              style={{
+                backgroundColor: 'var(--bg-secondary)',
+                color: 'var(--text-primary)',
+                borderBottom: '2px solid var(--accent-color)',
+              }}
+              activeProps={{
+                style: {
+                  backgroundColor: 'var(--accent-color)',
+                  color: 'white',
+                },
+              }}
+            >
+              Chowder Rule
+            </Link>
+          </nav>
+        </div>
+
+        {/* Tab Content */}
+        <div className="tab-content">
+          <Outlet />
+        </div>
       </div>
     </div>
   )
