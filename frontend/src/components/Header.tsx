@@ -23,7 +23,10 @@ export default function Header() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (searchValue.trim()) {
-      navigate({ to: '/companies', search: { symbol: searchValue.trim().toUpperCase() } })
+      navigate({
+        to: '/companies',
+        search: { symbol: searchValue.trim().toUpperCase() },
+      })
       setSearchValue('')
     }
   }
@@ -69,7 +72,7 @@ export default function Header() {
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value.toUpperCase())}
               placeholder="Search companies..."
-              className="w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+              className="w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
                 borderColor: 'var(--border-color)',
@@ -82,7 +85,7 @@ export default function Header() {
         {/* Theme toggle */}
         <button
           onClick={toggleTheme}
-          className="p-2 rounded-lg transition-colors hover:opacity-80"
+          className="p-2 rounded-lg transition-colors transition-opacity duration-200 hover:opacity-80"
           style={{ backgroundColor: 'var(--bg-tertiary)' }}
           aria-label={
             isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
@@ -117,7 +120,7 @@ export default function Header() {
           <h2 className="text-xl font-bold">Navigation</h2>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="p-2 rounded-lg transition-colors hover:opacity-80"
+            className="p-2 rounded-lg transition-colors transition-opacity duration-200 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
             aria-label="Close menu"
           >
@@ -129,11 +132,11 @@ export default function Header() {
           <Link
             to="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2',
               style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
@@ -144,11 +147,11 @@ export default function Header() {
           <Link
             to="/learn"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2',
               style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
@@ -159,11 +162,11 @@ export default function Header() {
           <Link
             to="/calculators"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2',
               style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
@@ -175,11 +178,11 @@ export default function Header() {
             to="/analysis"
             search={{ symbol: '' }}
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2',
               style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
@@ -191,11 +194,11 @@ export default function Header() {
             to="/companies"
             search={{ symbol: '' }}
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2',
               style: { backgroundColor: 'var(--accent-color)' },
             }}
           >
@@ -206,11 +209,11 @@ export default function Header() {
           <Link
             to="/settings"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
             activeProps={{
               className:
-                'flex items-center gap-3 p-3 rounded-lg transition-colors mb-2',
+                'flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2',
               style: { backgroundColor: 'var(--accent-color)' },
             }}
           >

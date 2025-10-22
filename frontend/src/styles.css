@@ -14,6 +14,13 @@
   --sidebar-hover: #e2e8f0;
   --accent-color: #059669;
   --accent-hover: #047857;
+
+  /* Theme transition defaults */
+  --theme-transition-duration: 200ms;
+  --theme-transition-ease: ease;
+
+  /* Advertise color scheme to browser */
+  color-scheme: light dark;
 }
 
 [data-theme='dark'] {
@@ -30,6 +37,9 @@
   --sidebar-hover: #1e293b;
   --accent-color: #059669;
   --accent-hover: #047857;
+
+  /* Advertise dark color scheme to browser */
+  color-scheme: dark;
 }
 
 body {
@@ -41,9 +51,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease;
 }
 
 code {
@@ -88,9 +95,31 @@ code {
 .glass-header {
   background-color: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition:
+    background-color var(--theme-transition-duration)
+      var(--theme-transition-ease),
+    border-bottom-color var(--theme-transition-duration)
+      var(--theme-transition-ease);
 }
 
 [data-theme='dark'] .glass-header {
   background-color: rgba(17, 24, 39, 0.95);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Theme transition helper - enable only during theme toggle */
+.theme-transition,
+.theme-transition * {
+  transition:
+    background-color var(--theme-transition-duration)
+      var(--theme-transition-ease),
+    color var(--theme-transition-duration) var(--theme-transition-ease),
+    border-color var(--theme-transition-duration) var(--theme-transition-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-transition,
+  .theme-transition * {
+    transition: none !important;
+  }
 }
