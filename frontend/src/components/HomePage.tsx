@@ -1,4 +1,4 @@
-import Card from './calculators/shared/Card'
+import Card from './shared/Card'
 import QuoteCarousel from './shared/QuoteCarousel'
 import { investingQuotes } from '../data/quotes'
 
