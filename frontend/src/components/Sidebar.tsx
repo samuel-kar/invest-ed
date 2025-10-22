@@ -62,6 +62,7 @@ export default function Sidebar() {
 
         <Link
           to="/analysis"
+          search={{ symbol: '' }}
           className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
           style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
@@ -76,6 +77,7 @@ export default function Sidebar() {
 
         <Link
           to="/companies"
+          search={{ symbol: '' }}
           className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
           style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{

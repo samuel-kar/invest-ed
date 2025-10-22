@@ -173,6 +173,7 @@ export default function Header() {
 
           <Link
             to="/analysis"
+            search={{ symbol: '' }}
             onClick={() => setIsMobileMenuOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
@@ -188,6 +189,7 @@ export default function Header() {
 
           <Link
             to="/companies"
+            search={{ symbol: '' }}
             onClick={() => setIsMobileMenuOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg transition-colors mb-2 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}

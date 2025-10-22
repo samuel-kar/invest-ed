@@ -12,7 +12,7 @@ export default function CompanySearch({ initialSymbol = '' }: CompanySearchProps
   const [symbol, setSymbol] = useState(initialSymbol.toUpperCase())
   const [searchSymbol, setSearchSymbol] = useState(initialSymbol.toUpperCase())
 
-  const { data, isLoading, error, refetch } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['companyData', searchSymbol],
     queryFn: () => fetchCompanyData(searchSymbol),
     enabled: searchSymbol.length > 0,
