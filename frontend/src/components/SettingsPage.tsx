@@ -85,7 +85,7 @@ export default function SettingsPage() {
                   className="text-lg font-medium mb-1"
                   style={{ color: 'var(--text-primary)' }}
                 >
-                  Currency
+                  Calculator currency
                 </h3>
                 <p
                   className="text-sm"
