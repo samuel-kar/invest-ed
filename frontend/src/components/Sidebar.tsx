@@ -20,11 +20,11 @@ export default function Sidebar() {
       <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
         <Link
           to="/"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200 hover:opacity-80"
           style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200',
             style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
@@ -34,11 +34,11 @@ export default function Sidebar() {
 
         <Link
           to="/learn"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200 hover:opacity-80"
           style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200',
             style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
@@ -48,11 +48,11 @@ export default function Sidebar() {
 
         <Link
           to="/calculators"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200 hover:opacity-80"
           style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200',
             style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
@@ -63,11 +63,11 @@ export default function Sidebar() {
         <Link
           to="/analysis"
           search={{ symbol: '' }}
-          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200 hover:opacity-80"
           style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200',
             style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
@@ -78,11 +78,11 @@ export default function Sidebar() {
         <Link
           to="/companies"
           search={{ symbol: '' }}
-          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200 hover:opacity-80"
           style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200',
             style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
@@ -92,11 +92,11 @@ export default function Sidebar() {
 
         <Link
           to="/settings"
-          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors hover:opacity-80"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200 hover:opacity-80"
           style={{ backgroundColor: 'var(--sidebar-hover)' }}
           activeProps={{
             className:
-              'flex items-center gap-3 px-3 py-2 rounded-lg transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200',
             style: { backgroundColor: 'var(--accent-color)' },
           }}
         >
