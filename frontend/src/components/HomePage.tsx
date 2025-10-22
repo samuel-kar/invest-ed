@@ -1,5 +1,3 @@
-import { Link } from '@tanstack/react-router'
-import { BookOpen, Calculator, Search, Building2 } from 'lucide-react'
 import Card from './calculators/shared/Card'
 import QuoteCarousel from './shared/QuoteCarousel'
 import { investingQuotes } from '../data/quotes'
@@ -34,86 +32,52 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link to="/learn" className="block">
-              <Card
-                className="shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer"
-                style={{ backgroundColor: 'var(--bg-secondary)' }}
+          {/* Main Content Section */}
+          <div className="max-w-6xl mx-auto">
+            <Card
+              className="shadow-md p-8"
+              style={{ backgroundColor: 'var(--bg-secondary)' }}
+            >
+              <h2
+                className="text-3xl font-bold mb-6 text-center"
+                style={{ color: 'var(--text-primary)' }}
               >
-                <div className="text-emerald-600 mb-4">
-                  <BookOpen size={48} className="mx-auto" />
-                </div>
-                <h3
-                  className="text-lg font-semibold mb-2"
-                  style={{ color: 'var(--text-primary)' }}
+                Investment + Education = Financial Freedom
+              </h2>
+              <div className="max-w-4xl mx-auto">
+                <p
+                  className="text-lg leading-relaxed mb-6"
+                  style={{ color: 'var(--text-secondary)' }}
                 >
-                  Learn
-                </h3>
-                <p style={{ color: 'var(--text-secondary)' }}>
-                  Master investing concepts with our educational content
+                  Welcome to InvestEd, where true financial freedom comes from
+                  the perfect combination of <strong>Investment</strong>{' '}
+                  knowledge and <strong>Education</strong>. This platform is
+                  designed to give you the educational foundation you need to
+                  make informed investment decisions that build lasting wealth.
                 </p>
-              </Card>
-            </Link>
-
-            <Link to="/calculators" className="block">
-              <Card
-                className="shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer"
-                style={{ backgroundColor: 'var(--bg-secondary)' }}
-              >
-                <div className="text-emerald-600 mb-4">
-                  <Calculator size={48} className="mx-auto" />
-                </div>
-                <h3
-                  className="text-lg font-semibold mb-2"
-                  style={{ color: 'var(--text-primary)' }}
+                <p
+                  className="text-lg leading-relaxed mb-6"
+                  style={{ color: 'var(--text-secondary)' }}
                 >
-                  Calculators
-                </h3>
-                <p style={{ color: 'var(--text-secondary)' }}>
-                  Plan and track your savings goals with powerful calculators
+                  Whether you're pursuing dividend income for steady cash flow
+                  or growth investing for long-term wealth building, education
+                  is your most powerful tool. Here you'll find comprehensive
+                  learning resources and analysis tools to help you understand
+                  market dynamics, evaluate investment opportunities, and create
+                  a strategy that aligns with your financial goals.
                 </p>
-              </Card>
-            </Link>
-
-            <Link to="/analysis" search={{ symbol: '' }} className="block">
-              <Card
-                className="shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer"
-                style={{ backgroundColor: 'var(--bg-secondary)' }}
-              >
-                <div className="text-emerald-600 mb-4">
-                  <Search size={48} className="mx-auto" />
-                </div>
-                <h3
-                  className="text-lg font-semibold mb-2"
-                  style={{ color: 'var(--text-primary)' }}
+                <p
+                  className="text-lg leading-relaxed"
+                  style={{ color: 'var(--text-secondary)' }}
                 >
-                  Analysis
-                </h3>
-                <p style={{ color: 'var(--text-secondary)' }}>
-                  Use powerful tools to analyze investments and plan your future
+                  From basic investment concepts to advanced analysis
+                  techniques, this platform guides your journey toward financial
+                  independence. When you combine knowledge with action, you
+                  don't just invest—you build the foundation for lasting
+                  financial freedom.
                 </p>
-              </Card>
-            </Link>
-
-            <Link to="/companies" search={{ symbol: '' }} className="block">
-              <Card
-                className="shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer"
-                style={{ backgroundColor: 'var(--bg-secondary)' }}
-              >
-                <div className="text-emerald-600 mb-4">
-                  <Building2 size={48} className="mx-auto" />
-                </div>
-                <h3
-                  className="text-lg font-semibold mb-2"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  Companies
-                </h3>
-                <p style={{ color: 'var(--text-secondary)' }}>
-                  Explore detailed analysis of dividend and growth stocks
-                </p>
-              </Card>
-            </Link>
+              </div>
+            </Card>
           </div>
         </div>
       </div>
