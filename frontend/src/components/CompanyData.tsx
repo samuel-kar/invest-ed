@@ -56,7 +56,7 @@ function MetricSection({
   }
 
   return (
-    <Card className="border">
+    <Card>
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between p-4 text-left hover:opacity-80 transition-opacity"

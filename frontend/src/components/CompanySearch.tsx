@@ -36,7 +36,7 @@ export default function CompanySearch({
   return (
     <div className="space-y-6">
       {/* Search Form */}
-      <Card className="shadow-sm border p-6">
+      <Card className="shadow-sm p-6">
         <form onSubmit={handleSearch} className="flex gap-4">
           <div className="flex-1 relative">
             <Search
@@ -90,7 +90,7 @@ export default function CompanySearch({
 
       {/* Loading State */}
       {isLoading && (
-        <Card className="shadow-sm border p-8 text-center">
+        <Card className="shadow-sm p-8 text-center">
           <Loader2
             size={32}
             className="animate-spin mx-auto mb-4"
@@ -109,7 +109,7 @@ export default function CompanySearch({
 
       {/* Empty State */}
       {!data && !isLoading && !error && (
-        <Card className="shadow-sm border p-8 text-center">
+        <Card className="shadow-sm p-8 text-center">
           <Search
             size={48}
             className="mx-auto mb-4"
