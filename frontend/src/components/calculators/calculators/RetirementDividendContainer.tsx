@@ -3,6 +3,7 @@ import { LabeledInput } from '../shared/InputsGroup'
 import FormulaBlock from '../shared/FormulaBlock'
 import { useCurrency } from '../../../contexts/CurrencyContext'
 import { dividendPortfolioCalculator } from '../../../utils/calculations'
+import Card from '../../shared/Card'
 
 export default function RetirementDividendContainer() {
   const [desiredMonthlyIncome, setDesiredMonthlyIncome] = useState<number>(3000)
@@ -113,13 +114,7 @@ export default function RetirementDividendContainer() {
         </p>
 
         {/* Display growth rate used */}
-        <div
-          className="p-3 rounded-lg border"
-          style={{
-            backgroundColor: 'var(--bg-tertiary)',
-            borderColor: 'var(--border-color)',
-          }}
-        >
+        <Card className="p-3 border">
           <div className="flex justify-between items-center">
             <span
               className="text-sm font-medium"
@@ -150,7 +145,7 @@ export default function RetirementDividendContainer() {
               <> = Price Growth only</>
             )}
           </p>
-        </div>
+        </Card>
 
         <LabeledInput
           label="Years until income needed (T)"
@@ -206,13 +201,7 @@ export default function RetirementDividendContainer() {
       <div className="md:col-span-3 space-y-6">
         {/* Top Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div
-            className="p-4 rounded-lg border"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-color)',
-            }}
-          >
+          <Card className="p-4 border">
             <div
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
@@ -229,15 +218,9 @@ export default function RetirementDividendContainer() {
                   ? '$0 (Contributions sufficient)'
                   : formatCurrency(Math.round(startingPrincipalNeeded))}
             </div>
-          </div>
+          </Card>
 
-          <div
-            className="p-4 rounded-lg border"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-color)',
-            }}
-          >
+          <Card className="p-4 border">
             <div
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
@@ -252,15 +235,9 @@ export default function RetirementDividendContainer() {
                 ? '∞'
                 : formatCurrency(Math.round(portfolioNeededAtYearT))}
             </div>
-          </div>
+          </Card>
 
-          <div
-            className="p-4 rounded-lg border"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-color)',
-            }}
-          >
+          <Card className="p-4 border">
             <div
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
@@ -273,15 +250,9 @@ export default function RetirementDividendContainer() {
             >
               {dividendYieldPercent}%
             </div>
-          </div>
+          </Card>
 
-          <div
-            className="p-4 rounded-lg border"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-color)',
-            }}
-          >
+          <Card className="p-4 border">
             <div
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
@@ -294,14 +265,11 @@ export default function RetirementDividendContainer() {
             >
               {yearsUntilIncome}
             </div>
-          </div>
+          </Card>
         </div>
 
         {/* Projection */}
-        <div
-          className="p-4 rounded-lg"
-          style={{ backgroundColor: 'var(--bg-tertiary)' }}
-        >
+        <Card className="p-4">
           <h4
             className="font-semibold mb-3"
             style={{ color: 'var(--text-primary)' }}
@@ -372,7 +340,7 @@ export default function RetirementDividendContainer() {
               </>
             )}
           </ul>
-        </div>
+        </Card>
 
         {/* Info Block: Formula + Disclaimer */}
         <FormulaBlock title="Dividend Income Formulas">

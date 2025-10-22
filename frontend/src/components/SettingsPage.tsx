@@ -1,6 +1,7 @@
 import { Sun, Moon } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
 import { useCurrency, type Currency } from '../contexts/CurrencyContext'
+import Card from './shared/Card'
 
 export default function SettingsPage() {
   const { isDarkMode, toggleTheme } = useTheme()
@@ -21,10 +22,7 @@ export default function SettingsPage() {
 
         <div className="space-y-6">
           {/* Appearance Settings */}
-          <div
-            className="p-6 rounded-lg"
-            style={{ backgroundColor: 'var(--bg-secondary)' }}
-          >
+          <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <h3
@@ -72,13 +70,10 @@ export default function SettingsPage() {
                 )}
               </button>
             </div>
-          </div>
+          </Card>
 
           {/* Currency Settings */}
-          <div
-            className="p-6 rounded-lg"
-            style={{ backgroundColor: 'var(--bg-secondary)' }}
-          >
+          <Card className="p-6">
             <div className="flex items-center justify-between">
               <div>
                 <h3
@@ -128,7 +123,7 @@ export default function SettingsPage() {
                 <option value="JPY">JPY (¥)</option>
               </select>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     </div>

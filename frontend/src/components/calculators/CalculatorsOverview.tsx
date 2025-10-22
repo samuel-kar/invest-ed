@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import Card from '../shared/Card'
 
 export default function CalculatorsOverview() {
   return (
@@ -18,113 +19,117 @@ export default function CalculatorsOverview() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link
             to="/calculators/CompoundInterest"
-            className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-color)',
-            }}
+            className="block transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
           >
-            <h3
-              className="text-lg font-semibold mb-3"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              📈 Compound Interest Calculator
-            </h3>
-            <p
-              className="text-sm mb-4"
-              style={{ color: 'var(--text-secondary)' }}
-            >
-              Calculate how your investments will grow over time with compound
-              interest and regular monthly contributions. Perfect for long-term
-              investment planning.
-            </p>
-            <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-              <strong>Best for:</strong> Long-term investments, retirement
-              planning, understanding compound growth
-            </div>
+            <Card className="p-4 md:p-6 shadow-sm border">
+              <h3
+                className="text-lg font-semibold mb-3"
+                style={{ color: 'var(--text-primary)' }}
+              >
+                📈 Compound Interest Calculator
+              </h3>
+              <p
+                className="text-sm mb-4"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Calculate how your investments will grow over time with compound
+                interest and regular monthly contributions. Perfect for
+                long-term investment planning.
+              </p>
+              <div
+                className="text-xs"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                <strong>Best for:</strong> Long-term investments, retirement
+                planning, understanding compound growth
+              </div>
+            </Card>
           </Link>
 
           <Link
             to="/calculators/savings-goal"
-            className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-color)',
-            }}
+            className="block transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
           >
-            <h3
-              className="text-lg font-semibold mb-3"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              🎯 Savings Goal Calculator
-            </h3>
-            <p
-              className="text-sm mb-4"
-              style={{ color: 'var(--text-secondary)' }}
-            >
-              Determine how long it will take to reach your financial goals with
-              regular monthly contributions. Set realistic timelines for your
-              objectives.
-            </p>
-            <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-              <strong>Best for:</strong> Short-term goals, vacation planning,
-              emergency fund building
-            </div>
+            <Card className="p-4 md:p-6 shadow-sm border">
+              <h3
+                className="text-lg font-semibold mb-3"
+                style={{ color: 'var(--text-primary)' }}
+              >
+                🎯 Savings Goal Calculator
+              </h3>
+              <p
+                className="text-sm mb-4"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Determine how long it will take to reach your financial goals
+                with regular monthly contributions. Set realistic timelines for
+                your objectives.
+              </p>
+              <div
+                className="text-xs"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                <strong>Best for:</strong> Short-term goals, vacation planning,
+                emergency fund building
+              </div>
+            </Card>
           </Link>
 
           <Link
             to="/calculators/retirement4percent"
-            className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-color)',
-            }}
+            className="block transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
           >
-            <h3
-              className="text-lg font-semibold mb-3"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              🏖️ Retirement (4% Rule)
-            </h3>
-            <p
-              className="text-sm mb-4"
-              style={{ color: 'var(--text-secondary)' }}
-            >
-              Estimate your retirement savings and monthly income using the
-              proven 4% withdrawal rule. Plan for a financially secure
-              retirement.
-            </p>
-            <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-              <strong>Best for:</strong> Retirement planning, FIRE movement,
-              traditional retirement strategies
-            </div>
+            <Card className="p-4 md:p-6 shadow-sm border">
+              <h3
+                className="text-lg font-semibold mb-3"
+                style={{ color: 'var(--text-primary)' }}
+              >
+                🏖️ Retirement (4% Rule)
+              </h3>
+              <p
+                className="text-sm mb-4"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Estimate your retirement savings and monthly income using the
+                proven 4% withdrawal rule. Plan for a financially secure
+                retirement.
+              </p>
+              <div
+                className="text-xs"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                <strong>Best for:</strong> Retirement planning, FIRE movement,
+                traditional retirement strategies
+              </div>
+            </Card>
           </Link>
 
           <Link
             to="/calculators/retirement-dividend"
-            className="block p-4 md:p-6 rounded-lg shadow-sm border transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-color)',
-            }}
+            className="block transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
           >
-            <h3
-              className="text-lg font-semibold mb-3"
-              style={{ color: 'var(--text-primary)' }}
-            >
-              💰 Retirement (Dividend)
-            </h3>
-            <p
-              className="text-sm mb-4"
-              style={{ color: 'var(--text-secondary)' }}
-            >
-              Calculate the portfolio size needed for dividend income
-              retirement. Focus on dividend-paying stocks for passive income.
-            </p>
-            <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-              <strong>Best for:</strong> Dividend investing, passive income
-              strategies, income-focused retirement
-            </div>
+            <Card className="p-4 md:p-6 shadow-sm border">
+              <h3
+                className="text-lg font-semibold mb-3"
+                style={{ color: 'var(--text-primary)' }}
+              >
+                💰 Retirement (Dividend)
+              </h3>
+              <p
+                className="text-sm mb-4"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                Calculate the portfolio size needed for dividend income
+                retirement. Focus on dividend-paying stocks for passive income.
+              </p>
+              <div
+                className="text-xs"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                <strong>Best for:</strong> Dividend investing, passive income
+                strategies, income-focused retirement
+              </div>
+            </Card>
           </Link>
         </div>
 

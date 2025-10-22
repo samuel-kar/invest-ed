@@ -3,12 +3,15 @@ import { useQuery } from '@tanstack/react-query'
 import { Search, Loader2, AlertCircle } from 'lucide-react'
 import { fetchCompanyData } from '../services/api'
 import CompanyData from './CompanyData'
+import Card from './shared/Card'
 
 interface CompanySearchProps {
   initialSymbol?: string
 }
 
-export default function CompanySearch({ initialSymbol = '' }: CompanySearchProps) {
+export default function CompanySearch({
+  initialSymbol = '',
+}: CompanySearchProps) {
   const [symbol, setSymbol] = useState(initialSymbol.toUpperCase())
   const [searchSymbol, setSearchSymbol] = useState(initialSymbol.toUpperCase())
 
@@ -16,7 +19,7 @@ export default function CompanySearch({ initialSymbol = '' }: CompanySearchProps
     queryKey: ['companyData', searchSymbol],
     queryFn: () => fetchCompanyData(searchSymbol),
     enabled: searchSymbol.length > 0,
-    retry: false
+    retry: false,
   })
 
   const handleSearch = (e: React.FormEvent) => {
@@ -33,15 +36,12 @@ export default function CompanySearch({ initialSymbol = '' }: CompanySearchProps
   return (
     <div className="space-y-6">
       {/* Search Form */}
-      <div className="bg-white rounded-lg shadow-sm border p-6" style={{ 
-        backgroundColor: 'var(--bg-secondary)', 
-        borderColor: 'var(--border-color)' 
-      }}>
+      <Card className="shadow-sm border p-6">
         <form onSubmit={handleSearch} className="flex gap-4">
           <div className="flex-1 relative">
-            <Search 
-              size={20} 
-              className="absolute left-3 top-1/2 transform -translate-y-1/2" 
+            <Search
+              size={20}
+              className="absolute left-3 top-1/2 transform -translate-y-1/2"
               style={{ color: 'var(--text-muted)' }}
             />
             <input
@@ -53,7 +53,7 @@ export default function CompanySearch({ initialSymbol = '' }: CompanySearchProps
               style={{
                 backgroundColor: 'var(--bg-primary)',
                 borderColor: 'var(--border-color)',
-                color: 'var(--text-primary)'
+                color: 'var(--text-primary)',
               }}
             />
           </div>
@@ -75,7 +75,7 @@ export default function CompanySearch({ initialSymbol = '' }: CompanySearchProps
             )}
           </button>
         </form>
-      </div>
+      </Card>
 
       {/* Error State */}
       {error && (
@@ -90,13 +90,16 @@ export default function CompanySearch({ initialSymbol = '' }: CompanySearchProps
 
       {/* Loading State */}
       {isLoading && (
-        <div className="bg-white rounded-lg shadow-sm border p-8 text-center" style={{ 
-          backgroundColor: 'var(--bg-secondary)', 
-          borderColor: 'var(--border-color)' 
-        }}>
-          <Loader2 size={32} className="animate-spin mx-auto mb-4" style={{ color: 'var(--text-muted)' }} />
-          <p style={{ color: 'var(--text-secondary)' }}>Loading company data...</p>
-        </div>
+        <Card className="shadow-sm border p-8 text-center">
+          <Loader2
+            size={32}
+            className="animate-spin mx-auto mb-4"
+            style={{ color: 'var(--text-muted)' }}
+          />
+          <p style={{ color: 'var(--text-secondary)' }}>
+            Loading company data...
+          </p>
+        </Card>
       )}
 
       {/* Data Display */}
@@ -106,18 +109,23 @@ export default function CompanySearch({ initialSymbol = '' }: CompanySearchProps
 
       {/* Empty State */}
       {!data && !isLoading && !error && (
-        <div className="bg-white rounded-lg shadow-sm border p-8 text-center" style={{ 
-          backgroundColor: 'var(--bg-secondary)', 
-          borderColor: 'var(--border-color)' 
-        }}>
-          <Search size={48} className="mx-auto mb-4" style={{ color: 'var(--text-muted)' }} />
-          <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+        <Card className="shadow-sm border p-8 text-center">
+          <Search
+            size={48}
+            className="mx-auto mb-4"
+            style={{ color: 'var(--text-muted)' }}
+          />
+          <h3
+            className="text-lg font-semibold mb-2"
+            style={{ color: 'var(--text-primary)' }}
+          >
             Search for a Company
           </h3>
           <p style={{ color: 'var(--text-secondary)' }}>
-            Enter a stock symbol above to view detailed financial data and metrics.
+            Enter a stock symbol above to view detailed financial data and
+            metrics.
           </p>
-        </div>
+        </Card>
       )}
     </div>
   )

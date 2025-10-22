@@ -5,6 +5,7 @@ import MetricRow from '../shared/MetricRow'
 import AdjustPlan from '../shared/AdjustPlan'
 import FormulaBlock from '../shared/FormulaBlock'
 import { useCurrency } from '../../../contexts/CurrencyContext'
+import Card from '../../shared/Card'
 
 export default function SavingsGoalContainer() {
   const [goalAmount, setGoalAmount] = useState<number>(50000)
@@ -123,10 +124,7 @@ export default function SavingsGoalContainer() {
           Goal Timeline
         </h3>
 
-        <div
-          className="p-4 rounded-lg max-w-lg"
-          style={{ backgroundColor: 'var(--bg-tertiary)' }}
-        >
+        <Card className="p-4 max-w-lg">
           <div className="space-y-3">
             <MetricRow
               label="Goal Amount:"
@@ -153,7 +151,7 @@ export default function SavingsGoalContainer() {
               highlight
             />
           </div>
-        </div>
+        </Card>
 
         <div className="max-w-lg">
           <AdjustPlan

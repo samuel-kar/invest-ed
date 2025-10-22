@@ -3,6 +3,7 @@ import { LabeledInput } from '../shared/InputsGroup'
 import FormulaBlock from '../shared/FormulaBlock'
 import { useCurrency } from '../../../contexts/CurrencyContext'
 import { retirement4PercentCalculator } from '../../../utils/calculations'
+import Card from '../../shared/Card'
 
 export default function Retirement4PercentContainer() {
   const [currentAge, setCurrentAge] = useState<number>(30)
@@ -115,13 +116,7 @@ export default function Retirement4PercentContainer() {
       <div className="md:col-span-3 space-y-6">
         {/* Top Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div
-            className="p-4 rounded-lg border"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-color)',
-            }}
-          >
+          <Card className="p-4 border">
             <div
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
@@ -134,15 +129,9 @@ export default function Retirement4PercentContainer() {
             >
               {formatCurrency(fundAtRetirement)}
             </div>
-          </div>
+          </Card>
 
-          <div
-            className="p-4 rounded-lg border"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-color)',
-            }}
-          >
+          <Card className="p-4 border">
             <div
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
@@ -155,15 +144,9 @@ export default function Retirement4PercentContainer() {
             >
               {formatCurrency(monthlyIncome)}
             </div>
-          </div>
+          </Card>
 
-          <div
-            className="p-4 rounded-lg border"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'var(--border-color)',
-            }}
-          >
+          <Card className="p-4 border">
             <div
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
@@ -179,14 +162,11 @@ export default function Retirement4PercentContainer() {
             <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
               years
             </div>
-          </div>
+          </Card>
         </div>
 
         {/* Projection */}
-        <div
-          className="p-4 rounded-lg"
-          style={{ backgroundColor: 'var(--bg-tertiary)' }}
-        >
+        <Card className="p-4">
           <h4
             className="font-semibold mb-3"
             style={{ color: 'var(--text-primary)' }}
@@ -210,7 +190,7 @@ export default function Retirement4PercentContainer() {
               {formatCurrency(annualIncome)}/year)
             </li>
           </ul>
-        </div>
+        </Card>
 
         {/* Info Block: 4% Rule */}
         <FormulaBlock title="The 4% Rule">

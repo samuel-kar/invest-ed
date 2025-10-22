@@ -4,6 +4,7 @@ import { LabeledInput } from '../shared/InputsGroup'
 import MetricRow from '../shared/MetricRow'
 import FormulaBlock from '../shared/FormulaBlock'
 import { useCurrency } from '../../../contexts/CurrencyContext'
+import Card from '../../shared/Card'
 
 export default function CompoundInterestContainer() {
   const [startValue, setStartValue] = useState<number>(10000)
@@ -90,10 +91,7 @@ export default function CompoundInterestContainer() {
           Investment Results
         </h3>
 
-        <div
-          className="p-4 rounded-lg max-w-lg"
-          style={{ backgroundColor: 'var(--bg-tertiary)' }}
-        >
+        <Card className="p-4 max-w-lg">
           <div className="space-y-3">
             <MetricRow
               label="Initial Investment:"
@@ -118,7 +116,7 @@ export default function CompoundInterestContainer() {
               highlight
             />
           </div>
-        </div>
+        </Card>
 
         <div className="max-w-lg">
           <FormulaBlock>
