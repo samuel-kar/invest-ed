@@ -62,8 +62,9 @@ public class BasicFinancialsView {
     /** Sales per share */
     private Double salesPerShare;
     
-    /** Tangible book value per share */
-    private Double tangibleBookValuePerShare;
+    // TODO: These metrics may be returning total values instead of per-share values and need to be fixed
+    // /** Tangible book value per share */
+    // private Double tangibleBookValuePerShare;
     
     // Liquidity Ratios
     /** Current ratio */
@@ -133,8 +134,9 @@ public class BasicFinancialsView {
     /** Payout ratio (percentage of earnings paid as dividends) */
     private Double payoutRatio;
     
-    /** Book value per share */
-    private Double bookValuePerShare;
+    // TODO: These metrics may be returning total values instead of per-share values and need to be fixed
+    // /** Book value per share */
+    // private Double bookValuePerShare;
     
     /** Selling, general & administrative expenses to sales */
     private Double sgaToSale;

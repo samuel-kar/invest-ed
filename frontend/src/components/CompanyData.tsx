@@ -286,11 +286,6 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
               value: fundamentals.salesPerShare,
               format: 'currency',
             },
-            {
-              label: 'Tangible Book Value Per Share',
-              value: fundamentals.tangibleBookValuePerShare,
-              format: 'currency',
-            },
           ]}
           isOpen={openSections.perShare}
           onToggle={() => toggleSection('perShare')}
@@ -435,11 +430,6 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
               label: 'Payout Ratio',
               value: fundamentals.payoutRatio,
               format: 'percentage',
-            },
-            {
-              label: 'Book Value Per Share',
-              value: fundamentals.bookValuePerShare,
-              format: 'currency',
             },
             {
               label: 'SG&A to Sales',

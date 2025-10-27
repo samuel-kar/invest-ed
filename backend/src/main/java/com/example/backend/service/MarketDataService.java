@@ -76,7 +76,8 @@ public class MarketDataService {
                 .earningsPerShare(extractLatestValueFromAnnual(series, "eps"))
                 .ebitPerShare(extractLatestValueFromAnnual(series, "ebitPerShare"))
                 .salesPerShare(extractLatestValueFromAnnual(series, "salesPerShare"))
-                .tangibleBookValuePerShare(convertFromMillions(extractLatestValueFromAnnual(series, "tangibleBookValue")))
+                // TODO: These metrics may be returning total values instead of per-share values and need to be fixed
+                // .tangibleBookValuePerShare(convertFromMillions(extractLatestValueFromAnnual(series, "tangibleBookValue")))
                 
                 // Liquidity Ratios
                 .currentRatio(extractLatestValueFromAnnual(series, "currentRatio"))
@@ -108,7 +109,8 @@ public class MarketDataService {
                 
                 // Other Metrics (convert from millions to absolute values)
                 .payoutRatio(extractLatestValueFromAnnual(series, "payoutRatio"))
-                .bookValuePerShare(convertFromMillions(extractLatestValueFromAnnual(series, "bookValue")))
+                // TODO: These metrics may be returning total values instead of per-share values and need to be fixed
+                // .bookValuePerShare(convertFromMillions(extractLatestValueFromAnnual(series, "bookValue")))
                 .sgaToSale(extractLatestValueFromAnnual(series, "sgaToSale"))
                 .totalRatio(extractLatestValueFromAnnual(series, "totalRatio"))
                 

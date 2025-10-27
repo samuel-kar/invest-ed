@@ -33,7 +33,6 @@ export interface Fundamentals {
   earningsPerShare: number | null
   ebitPerShare: number | null
   salesPerShare: number | null
-  tangibleBookValuePerShare: number | null
   
   // Liquidity Ratios
   currentRatio: number | null
@@ -65,7 +64,6 @@ export interface Fundamentals {
   
   // Other Metrics
   payoutRatio: number | null
-  bookValuePerShare: number | null
   sgaToSale: number | null
   totalRatio: number | null
 }
