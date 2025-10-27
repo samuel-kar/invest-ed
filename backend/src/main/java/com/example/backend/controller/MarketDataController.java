@@ -55,4 +55,26 @@ public class MarketDataController {
     }
     
     
+    /**
+     * Calculates Chowder Rule score for a stock symbol.
+     * The Chowder Rule combines dividend yield and dividend growth rate (CAGR).
+     * 
+     * @param symbol stock symbol (e.g., PG, KO, JNJ)
+     * @return Chowder Rule calculation results
+     */
+    @GetMapping("/chowder/{symbol}")
+    public ResponseEntity<?> getChowderAnalysis(
+            @PathVariable @NotBlank(message = "Symbol cannot be blank") String symbol) {
+        
+        try {
+            com.example.backend.dto.ChowderResultView result = marketDataService.calculateChowderRule(symbol);
+            return ResponseEntity.ok(result);
+        } catch (com.example.backend.exception.SymbolNotSupportedException e) {
+            return ResponseEntity.badRequest().build();
+        } catch (com.example.backend.exception.RateLimitException e) {
+            return ResponseEntity.status(org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE).build();
+        }
+    }
+    
+    
 }

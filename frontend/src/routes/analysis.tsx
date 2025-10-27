@@ -1,10 +1,43 @@
-import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
+import {
+  createFileRoute,
+  Link,
+  Outlet,
+  useNavigate,
+} from '@tanstack/react-router'
+import { useState, useEffect } from 'react'
+import SearchBar from '../components/shared/SearchBar'
 
 export const Route = createFileRoute('/analysis')({
   component: AnalysisPage,
+  validateSearch: (search: Record<string, unknown>) => ({
+    symbol: (search.symbol as string) || '',
+  }),
 })
 
 function AnalysisPage() {
+  const { symbol } = Route.useSearch()
+  const [inputSymbol, setInputSymbol] = useState(symbol.toUpperCase())
+  const navigate = useNavigate()
+
+  // Sync inputSymbol with URL symbol when it changes
+  useEffect(() => {
+    setInputSymbol(symbol.toUpperCase())
+  }, [symbol])
+
+  const handleSymbolChange = (value: string) => {
+    const upperValue = value.toUpperCase()
+    setInputSymbol(upperValue)
+
+    // Update URL search params when symbol changes
+    if (value.trim()) {
+      navigate({
+        to: '/analysis',
+        search: { symbol: upperValue },
+        replace: true,
+      })
+    }
+  }
+
   return (
     <div
       className="min-h-screen"
@@ -18,11 +51,21 @@ function AnalysisPage() {
           Investment Analysis
         </h1>
 
+        {/* Search Bar */}
+        <div className="mb-6">
+          <SearchBar
+            placeholder="Enter stock symbol (e.g., PG, KO, JNJ)"
+            value={inputSymbol}
+            onChange={handleSymbolChange}
+          />
+        </div>
+
         {/* Tab Navigation */}
         <div className="mb-8">
           <nav className="tab-nav flex-col md:flex-row" role="tablist">
             <Link
               to="/analysis/ddm"
+              search={{ symbol }}
               className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
@@ -40,6 +83,7 @@ function AnalysisPage() {
             </Link>
             <Link
               to="/analysis/chowder"
+              search={{ symbol }}
               className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
               style={{
                 backgroundColor: 'var(--bg-secondary)',
@@ -60,7 +104,7 @@ function AnalysisPage() {
 
         {/* Tab Content */}
         <div className="tab-content">
-          <Outlet />
+          <Outlet context={{ symbol }} />
         </div>
       </div>
     </div>
