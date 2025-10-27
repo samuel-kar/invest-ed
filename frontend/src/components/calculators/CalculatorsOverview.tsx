@@ -19,7 +19,7 @@ export default function CalculatorsOverview() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link
             to="/calculators/CompoundInterest"
-            className="block transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
+            className="block transition-all duration-500 hover:shadow-md hover:scale-[1.02]"
           >
             <Card className="p-4 md:p-6 shadow-sm border">
               <h3
@@ -48,7 +48,7 @@ export default function CalculatorsOverview() {
 
           <Link
             to="/calculators/savings-goal"
-            className="block transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
+            className="block transition-all duration-500 hover:shadow-md hover:scale-[1.02]"
           >
             <Card className="p-4 md:p-6 shadow-sm border">
               <h3
@@ -77,7 +77,7 @@ export default function CalculatorsOverview() {
 
           <Link
             to="/calculators/retirement4percent"
-            className="block transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
+            className="block transition-all duration-500 hover:shadow-md hover:scale-[1.02]"
           >
             <Card className="p-4 md:p-6 shadow-sm border">
               <h3
@@ -106,7 +106,7 @@ export default function CalculatorsOverview() {
 
           <Link
             to="/calculators/retirement-dividend"
-            className="block transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
+            className="block transition-all duration-500 hover:shadow-md hover:scale-[1.02]"
           >
             <Card className="p-4 md:p-6 shadow-sm border">
               <h3

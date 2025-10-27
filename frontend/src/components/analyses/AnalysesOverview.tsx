@@ -19,7 +19,7 @@ export default function AnalysesOverview() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Link
             to="/analysis/ddm"
-            className="block transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
+            className="block transition-all duration-500 hover:shadow-md hover:scale-[1.02]"
           >
             <Card className="p-4 md:p-6 shadow-sm border">
               <h3
@@ -47,7 +47,7 @@ export default function AnalysesOverview() {
 
           <Link
             to="/analysis/chowder"
-            className="block transition-all duration-200 hover:shadow-md hover:scale-[1.02]"
+            className="block transition-all duration-500 hover:shadow-md hover:scale-[1.02]"
           >
             <Card className="p-4 md:p-6 shadow-sm border">
               <h3
