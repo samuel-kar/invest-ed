@@ -17,7 +17,7 @@ export default function Card({
     <div
       className={`p-4 rounded-lg ${className}`}
       style={{
-        backgroundColor: 'var(--bg-tertiary)',
+        backgroundColor: 'var(--card-bg)',
         ...style,
       }}
       onClick={onClick}

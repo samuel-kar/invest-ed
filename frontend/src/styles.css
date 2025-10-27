@@ -14,6 +14,7 @@
   --sidebar-hover: #e2e8f0;
   --accent-color: #059669;
   --accent-hover: #047857;
+  --card-bg: #e5e7eb;
 
   /* Theme transition defaults */
   --theme-transition-duration: 200ms;
@@ -37,6 +38,7 @@
   --sidebar-hover: #1e293b;
   --accent-color: #059669;
   --accent-hover: #047857;
+  --card-bg: #374151;
 
   /* Advertise dark color scheme to browser */
   color-scheme: dark;
