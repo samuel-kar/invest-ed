@@ -11,7 +11,7 @@ export default function RetirementDividendContainer() {
   const [dividendYieldPercent, setDividendYieldPercent] = useState<number>(4)
   const [yearsUntilIncome, setYearsUntilIncome] = useState<number>(20)
   const [capitalAppreciation, setCapitalAppreciation] = useState<number>(4)
-  const [inflationRate, setInflationRate] = useState<number>(2.5)
+  const [inflationRate, setInflationRate] = useState<number>(0)
   const [reinvestDividends, setReinvestDividends] = useState<boolean>(true)
   const { formatCurrency } = useCurrency()
 
@@ -165,7 +165,7 @@ export default function RetirementDividendContainer() {
           min={0}
           max={100}
           step={0.1}
-          placeholder="2.5"
+          placeholder="0"
         />
         <p className="text-sm text-gray-500">
           Inflation increases your future cost of living. This rate adjusts your
