@@ -58,7 +58,7 @@ function MetricSection({
           {title}
         </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4">
           {metrics.map((metric, index) => (
             <div
               key={index}
@@ -165,7 +165,7 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
       </div>
 
       {/* Financial Metrics Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <MetricSection
           title="Valuation Ratios"
           metrics={[
