@@ -5,7 +5,7 @@ export default function Footer() {
     <footer
       className="mt-auto py-6 px-4 lg:pl-64"
       style={{
-        backgroundColor: 'var(--bg-secondary)',
+        backgroundColor: 'var(--sidebar-bg)',
         borderTop: '1px solid var(--border-color)',
       }}
     >
