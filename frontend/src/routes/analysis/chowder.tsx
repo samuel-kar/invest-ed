@@ -4,9 +4,14 @@ import BackButton from '../../components/BackButton'
 
 export const Route = createFileRoute('/analysis/chowder')({
   component: ChowderPage,
+  validateSearch: (search: Record<string, unknown>) => ({
+    symbol: (search.symbol as string) || '',
+  }),
 })
 
 function ChowderPage() {
+  const { symbol } = Route.useSearch()
+
   return (
     <div className="max-w-6xl mx-auto">
       <div className="p-6">
@@ -25,7 +30,7 @@ function ChowderPage() {
           <span className="text-6xl">🥣</span>
         </div>
 
-        <ChowderContainer />
+        <ChowderContainer symbol={symbol} />
       </div>
     </div>
   )

@@ -3,9 +3,9 @@ import {
   Link,
   Outlet,
   useNavigate,
+  useRouter,
 } from '@tanstack/react-router'
 import { useState, useEffect } from 'react'
-import SearchBar from '../components/shared/SearchBar'
 
 export const Route = createFileRoute('/analysis')({
   component: AnalysisPage,
@@ -18,6 +18,7 @@ function AnalysisPage() {
   const { symbol } = Route.useSearch()
   const [inputSymbol, setInputSymbol] = useState(symbol.toUpperCase())
   const navigate = useNavigate()
+  const router = useRouter()
 
   // Sync inputSymbol with URL symbol when it changes
   useEffect(() => {
@@ -25,16 +26,30 @@ function AnalysisPage() {
   }, [symbol])
 
   const handleSymbolChange = (value: string) => {
-    const upperValue = value.toUpperCase()
-    setInputSymbol(upperValue)
+    setInputSymbol(value.toUpperCase())
+  }
 
-    // Update URL search params when symbol changes
-    if (value.trim()) {
+  const handleSearch = () => {
+    const trimmedSymbol = inputSymbol.trim().toUpperCase()
+    if (trimmedSymbol) {
+      // Get current pathname to preserve the child route
+      const currentPath = router.state.location.pathname
+
+      // If we're on a child route, stay there. Otherwise, default to chowder
+      const targetPath =
+        currentPath !== '/analysis' ? currentPath : '/analysis/chowder'
+
       navigate({
-        to: '/analysis',
-        search: { symbol: upperValue },
+        to: targetPath,
+        search: { symbol: trimmedSymbol },
         replace: true,
       })
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch()
     }
   }
 
@@ -53,11 +68,30 @@ function AnalysisPage() {
 
         {/* Search Bar */}
         <div className="mb-6">
-          <SearchBar
-            placeholder="Enter stock symbol (e.g., PG, KO, JNJ)"
-            value={inputSymbol}
-            onChange={handleSymbolChange}
-          />
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <input
+                type="text"
+                placeholder="Enter stock symbol (e.g., PG, KO, JNJ)"
+                value={inputSymbol}
+                onChange={(e) => handleSymbolChange(e.target.value)}
+                onKeyPress={handleKeyPress}
+                className="w-full p-3 rounded-lg border transition-colors"
+                style={{
+                  backgroundColor: 'var(--bg-secondary)',
+                  borderColor: 'var(--border-color)',
+                  color: 'var(--text-primary)',
+                }}
+              />
+            </div>
+            <button
+              onClick={handleSearch}
+              disabled={!inputSymbol.trim()}
+              className="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            >
+              Search
+            </button>
+          </div>
         </div>
 
         {/* Tab Navigation */}

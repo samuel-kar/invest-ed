@@ -67,12 +67,14 @@ public class MarketDataController {
             @PathVariable @NotBlank(message = "Symbol cannot be blank") String symbol) {
         
         try {
+            System.out.println("Received request for chowder analysis: " + symbol);
             com.example.backend.dto.ChowderResultView result = marketDataService.calculateChowderRule(symbol);
+            System.out.println("Successfully calculated chowder for: " + symbol);
             return ResponseEntity.ok(result);
-        } catch (com.example.backend.exception.SymbolNotSupportedException e) {
-            return ResponseEntity.badRequest().build();
-        } catch (com.example.backend.exception.RateLimitException e) {
-            return ResponseEntity.status(org.springframework.http.HttpStatus.SERVICE_UNAVAILABLE).build();
+        } catch (Exception e) {
+            System.err.println("Error calculating chowder for " + symbol + ": " + e.getMessage());
+            e.printStackTrace();
+            throw e;
         }
     }
     

@@ -44,7 +44,10 @@ public class PolygonService {
      * @return complete URI with authentication
      */
     private URI buildUri(String path, Consumer<UriComponentsBuilder> customizer) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(path)
+        // Build absolute URI since RestTemplate rootUri doesn't combine properly
+        UriComponentsBuilder builder = UriComponentsBuilder
+                .fromUriString("https://api.polygon.io")
+                .path(path)
                 .queryParam("apiKey", apiKey);
         
         if (customizer != null) {
@@ -64,9 +67,7 @@ public class PolygonService {
      * @throws SymbolNotSupportedException if symbol not supported
      */
     public List<DividendDto> fetchDividendHistory(String symbol, String fromDate) {
-        String path = "/v3/reference/dividends";
-        
-        URI uri = buildUri(path, b -> b
+        URI uri = buildUri("/v3/reference/dividends", b -> b
                 .queryParam("ticker", symbol)
                 .queryParam("ex_dividend_date.gte", fromDate)
                 .queryParam("limit", 1000));
