@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 import { Search, Loader2, AlertCircle } from 'lucide-react'
 import { fetchCompanyData } from '../services/api'
 import CompanyData from './CompanyData'
@@ -14,6 +15,7 @@ export default function CompanySearch({
 }: CompanySearchProps) {
   const [symbol, setSymbol] = useState(initialSymbol.toUpperCase())
   const [searchSymbol, setSearchSymbol] = useState(initialSymbol.toUpperCase())
+  const navigate = useNavigate()
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['companyData', searchSymbol],
@@ -22,10 +24,22 @@ export default function CompanySearch({
     retry: false,
   })
 
+  // Sync searchSymbol with initialSymbol when URL changes
+  useEffect(() => {
+    const upperInitialSymbol = initialSymbol.toUpperCase()
+    setSearchSymbol(upperInitialSymbol)
+    setSymbol(upperInitialSymbol)
+  }, [initialSymbol])
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (symbol.trim()) {
-      setSearchSymbol(symbol.trim().toUpperCase())
+      const trimmedSymbol = symbol.trim().toUpperCase()
+      setSearchSymbol(trimmedSymbol)
+      navigate({
+        to: '/companies',
+        search: { symbol: trimmedSymbol },
+      })
     }
   }
 
