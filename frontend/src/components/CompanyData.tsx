@@ -1,10 +1,7 @@
 import {
-  ChevronDown,
-  ChevronRight,
   TrendingUp,
   TrendingDown,
 } from 'lucide-react'
-import { useState } from 'react'
 import type { Quote, Fundamentals } from '../services/api'
 import Card from './shared/Card'
 
@@ -20,15 +17,11 @@ interface MetricSectionProps {
     value: number | null
     format?: 'currency' | 'percentage' | 'ratio' | 'number'
   }>
-  isOpen: boolean
-  onToggle: () => void
 }
 
 function MetricSection({
   title,
   metrics,
-  isOpen,
-  onToggle,
 }: MetricSectionProps) {
   const formatValue = (value: number | null, format?: string) => {
     if (value === null) return 'N/A'
@@ -57,70 +50,41 @@ function MetricSection({
 
   return (
     <Card>
-      <button
-        onClick={onToggle}
-        className="w-full flex items-center justify-between p-4 text-left hover:opacity-80 transition-opacity"
-      >
+      <div className="p-4">
         <h3
-          className="text-lg font-semibold"
+          className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
           {title}
         </h3>
-        {isOpen ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
-      </button>
 
-      {isOpen && (
-        <div
-          className="p-4 border-t"
-          style={{ borderColor: 'var(--border-color)' }}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {metrics.map((metric, index) => (
-              <div
-                key={index}
-                className="flex justify-between items-center py-2"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {metrics.map((metric, index) => (
+            <div
+              key={index}
+              className="flex justify-between items-center py-2"
+            >
+              <span
+                className="text-sm"
+                style={{ color: 'var(--text-secondary)' }}
               >
-                <span
-                  className="text-sm"
-                  style={{ color: 'var(--text-secondary)' }}
-                >
-                  {metric.label}
-                </span>
-                <span
-                  className="font-medium"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  {formatValue(metric.value, metric.format)}
-                </span>
-              </div>
-            ))}
-          </div>
+                {metric.label}
+              </span>
+              <span
+                className="font-medium"
+                style={{ color: 'var(--text-primary)' }}
+              >
+                {formatValue(metric.value, metric.format)}
+              </span>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </Card>
   )
 }
 
 export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
-  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
-    quote: true,
-    valuation: false,
-    profitability: false,
-    perShare: false,
-    liquidity: false,
-    leverage: false,
-    efficiency: false,
-    valuationMetrics: false,
-    other: false,
-  })
-
-  const toggleSection = (section: string) => {
-    setOpenSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }))
-  }
 
   const getPriceChange = () => {
     if (!quote.currentPrice || !quote.previousClose) return null
@@ -201,7 +165,7 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
       </div>
 
       {/* Financial Metrics Sections */}
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <MetricSection
           title="Valuation Ratios"
           metrics={[
@@ -231,8 +195,6 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
               format: 'ratio',
             },
           ]}
-          isOpen={openSections.valuation}
-          onToggle={() => toggleSection('valuation')}
         />
 
         <MetricSection
@@ -264,8 +226,6 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
               format: 'percentage',
             },
           ]}
-          isOpen={openSections.profitability}
-          onToggle={() => toggleSection('profitability')}
         />
 
         <MetricSection
@@ -287,8 +247,6 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
               format: 'currency',
             },
           ]}
-          isOpen={openSections.perShare}
-          onToggle={() => toggleSection('perShare')}
         />
 
         <MetricSection
@@ -310,8 +268,6 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
               format: 'ratio',
             },
           ]}
-          isOpen={openSections.liquidity}
-          onToggle={() => toggleSection('liquidity')}
         />
 
         <MetricSection
@@ -358,8 +314,6 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
               format: 'ratio',
             },
           ]}
-          isOpen={openSections.leverage}
-          onToggle={() => toggleSection('leverage')}
         />
 
         <MetricSection
@@ -396,8 +350,6 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
               format: 'ratio',
             },
           ]}
-          isOpen={openSections.efficiency}
-          onToggle={() => toggleSection('efficiency')}
         />
 
         <MetricSection
@@ -419,8 +371,6 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
               format: 'ratio',
             },
           ]}
-          isOpen={openSections.valuationMetrics}
-          onToggle={() => toggleSection('valuationMetrics')}
         />
 
         <MetricSection
@@ -442,8 +392,6 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
               format: 'ratio',
             },
           ]}
-          isOpen={openSections.other}
-          onToggle={() => toggleSection('other')}
         />
       </div>
     </div>
