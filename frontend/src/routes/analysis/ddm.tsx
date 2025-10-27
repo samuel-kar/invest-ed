@@ -4,14 +4,9 @@ import BackButton from '../../components/BackButton'
 
 export const Route = createFileRoute('/analysis/ddm')({
   component: DDMPage,
-  validateSearch: (search: Record<string, unknown>) => ({
-    symbol: (search.symbol as string) || '',
-  }),
 })
 
 function DDMPage() {
-  const { symbol } = Route.useSearch()
-
   return (
     <div className="max-w-6xl mx-auto">
       <div className="p-6">
@@ -30,7 +25,7 @@ function DDMPage() {
           <span className="text-6xl">📊</span>
         </div>
 
-        <DDMContainer symbol={symbol} />
+        <DDMContainer />
       </div>
     </div>
   )

@@ -1,21 +1,34 @@
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchChowderData } from '../../../services/api'
 import MetricRow from '../../calculators/shared/MetricRow'
 import FormulaBlock from '../../calculators/shared/FormulaBlock'
 import Card from '../../shared/Card'
-import { Loader2, AlertCircle } from 'lucide-react'
+import { Loader2, AlertCircle, Search } from 'lucide-react'
 
-interface ChowderContainerProps {
-  symbol: string
-}
+export default function ChowderContainer() {
+  const [inputSymbol, setInputSymbol] = useState('')
+  const [searchSymbol, setSearchSymbol] = useState('')
 
-export default function ChowderContainer({ symbol }: ChowderContainerProps) {
   const { data, isLoading, error } = useQuery({
-    queryKey: ['chowder', symbol],
-    queryFn: () => fetchChowderData(symbol),
-    enabled: !!symbol && symbol.length > 0,
+    queryKey: ['chowder', searchSymbol],
+    queryFn: () => fetchChowderData(searchSymbol),
+    enabled: !!searchSymbol && searchSymbol.length > 0,
     retry: false,
   })
+
+  const handleSearch = () => {
+    const trimmed = inputSymbol.trim().toUpperCase()
+    if (trimmed) {
+      setSearchSymbol(trimmed)
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSearch()
+    }
+  }
 
   const getScoreInterpretation = (score: number | null) => {
     if (score === null) return null
@@ -56,6 +69,9 @@ export default function ChowderContainer({ symbol }: ChowderContainerProps) {
   }
 
   const interpretation = getScoreInterpretation(data?.chowderScore || null)
+
+  // Check if error is rate limit (503)
+  const isRateLimitError = error && error.message.includes('503')
 
   return (
     <div className="grid md:grid-cols-5 gap-8">
@@ -114,14 +130,6 @@ export default function ChowderContainer({ symbol }: ChowderContainerProps) {
             </li>
           </ul>
         </Card>
-
-        {!symbol && (
-          <Card className="p-4">
-            <p style={{ color: 'var(--text-secondary)' }}>
-              Enter a stock symbol in the search bar above to analyze.
-            </p>
-          </Card>
-        )}
       </div>
 
       {/* Results Section */}
@@ -130,16 +138,54 @@ export default function ChowderContainer({ symbol }: ChowderContainerProps) {
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          Analysis Results
-          {isLoading && symbol
-            ? ` for ${symbol}`
-            : symbol
-              ? ` for ${symbol}`
-              : ''}
+          Analyze a Stock
         </h3>
 
+        {/* Search Bar */}
+        <Card className="p-4">
+          <div className="flex gap-4">
+            <div className="flex-1 relative">
+              <Search
+                size={20}
+                className="absolute left-3 top-1/2 transform -translate-y-1/2"
+                style={{ color: 'var(--text-muted)' }}
+              />
+              <input
+                type="text"
+                value={inputSymbol}
+                onChange={(e) => setInputSymbol(e.target.value.toUpperCase())}
+                onKeyPress={handleKeyPress}
+                placeholder="Enter stock symbol (e.g., PG, KO, JNJ)"
+                className="w-full pl-10 pr-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
+                style={{
+                  backgroundColor: 'var(--bg-primary)',
+                  borderColor: 'var(--border-color)',
+                  color: 'var(--text-primary)',
+                }}
+              />
+            </div>
+            <button
+              onClick={handleSearch}
+              disabled={!inputSymbol.trim() || isLoading}
+              className="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" />
+                  Analyzing...
+                </>
+              ) : (
+                <>
+                  <Search size={16} />
+                  Analyze
+                </>
+              )}
+            </button>
+          </div>
+        </Card>
+
         {/* Loading State */}
-        {isLoading && symbol && (
+        {isLoading && searchSymbol && (
           <Card className="p-8 text-center">
             <Loader2
               size={48}
@@ -147,7 +193,7 @@ export default function ChowderContainer({ symbol }: ChowderContainerProps) {
               style={{ color: 'var(--text-muted)' }}
             />
             <p style={{ color: 'var(--text-secondary)' }}>
-              Loading Chowder analysis for {symbol}...
+              Loading Chowder analysis for {searchSymbol}...
             </p>
           </Card>
         )}
@@ -155,11 +201,29 @@ export default function ChowderContainer({ symbol }: ChowderContainerProps) {
         {/* Error State */}
         {error && (
           <Card className="p-6 border-2 border-red-200 bg-red-50">
-            <div className="flex items-center gap-3">
-              <AlertCircle size={24} className="text-red-500" />
+            <div className="flex items-start gap-3">
+              <AlertCircle
+                size={24}
+                className="text-red-500 flex-shrink-0 mt-1"
+              />
               <div>
-                <h4 className="font-semibold text-red-800">Error</h4>
-                <p className="text-red-700">{error.message}</p>
+                <h4 className="font-semibold text-red-800 mb-2">
+                  {isRateLimitError ? 'Rate Limit Exceeded' : 'Error'}
+                </h4>
+                {isRateLimitError ? (
+                  <div className="text-red-700 space-y-2">
+                    <p>
+                      You've exceeded the API rate limit. Please try again in a
+                      few moments.
+                    </p>
+                    <p className="text-sm">
+                      Tip: The free tier of Polygon API has limited requests per
+                      minute. Consider waiting 60 seconds before trying again.
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-red-700">{error.message}</p>
+                )}
               </div>
             </div>
           </Card>
@@ -178,7 +242,7 @@ export default function ChowderContainer({ symbol }: ChowderContainerProps) {
                     className="text-lg font-semibold mb-4"
                     style={{ color: 'var(--text-primary)' }}
                   >
-                    Chowder Score
+                    Chowder Score for {searchSymbol}
                   </h4>
                   <div
                     className={`text-5xl font-bold mb-2 ${interpretation.colorClass}`}
@@ -261,8 +325,13 @@ export default function ChowderContainer({ symbol }: ChowderContainerProps) {
         )}
 
         {/* Empty State */}
-        {!data && !isLoading && !error && !symbol && (
+        {!data && !isLoading && !error && (
           <Card className="p-8 text-center">
+            <Search
+              size={48}
+              className="mx-auto mb-4"
+              style={{ color: 'var(--text-muted)' }}
+            />
             <p style={{ color: 'var(--text-secondary)' }}>
               Enter a stock symbol above to view Chowder Rule analysis.
             </p>
