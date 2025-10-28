@@ -176,7 +176,6 @@ export default function Header() {
 
           <Link
             to="/analysis"
-            search={{ symbol: '' }}
             onClick={() => setIsMobileMenuOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
