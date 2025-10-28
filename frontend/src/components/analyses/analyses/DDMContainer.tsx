@@ -244,7 +244,7 @@ export default function DDMContainer() {
                     value={`$${data.totalDividend?.toFixed(2) || 'N/A'}`}
                   />
                   <MetricRow
-                    label="Number of Dividend Payments:"
+                    label="Dividend Payments per Year:"
                     value={data.dividendCount.toString()}
                   />
                 </div>
@@ -259,12 +259,12 @@ export default function DDMContainer() {
                   DDM Parameters:
                 </h4>
                 <div className="space-y-3">
-                  <div className="flex items-center gap-2">
+                  <div className="grid grid-cols-[auto_1fr] items-center gap-2">
                     <label
-                      className="text-sm font-medium flex-shrink-0"
+                      className="text-sm font-medium"
                       style={{ color: 'var(--text-primary)' }}
                     >
-                      Growth Rate (g%):
+                      Growth Rate (%):
                     </label>
                     <input
                       type="number"
@@ -283,12 +283,12 @@ export default function DDMContainer() {
                       }}
                     />
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="grid grid-cols-[auto_1fr] items-center gap-2">
                     <label
-                      className="text-sm font-medium flex-shrink-0"
+                      className="text-sm font-medium"
                       style={{ color: 'var(--text-primary)' }}
                     >
-                      Required Return (r%):
+                      Required Return (%):
                     </label>
                     <input
                       type="number"
@@ -307,12 +307,12 @@ export default function DDMContainer() {
                       }}
                     />
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="grid grid-cols-[auto_1fr] items-center gap-2">
                     <label
-                      className="text-sm font-medium flex-shrink-0"
+                      className="text-sm font-medium"
                       style={{ color: 'var(--text-primary)' }}
                     >
-                      Expected Next Year Dividend ($):
+                      Next Year Dividend ($):
                     </label>
                     <input
                       type="number"
