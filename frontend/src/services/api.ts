@@ -84,6 +84,13 @@ export interface ChowderResult {
   currentPrice: number | null
 }
 
+export interface DdmData {
+  symbol: string
+  currentPrice: number | null
+  totalDividend: number | null
+  dividendCount: number
+}
+
 /**
  * Fetches current quote data for a stock symbol
  */
@@ -171,5 +178,28 @@ export async function fetchChowderData(symbol: string): Promise<ChowderResult> {
       throw error
     }
     throw new Error('Network error while fetching Chowder analysis')
+  }
+}
+
+/**
+ * Fetches DDM data for a stock symbol
+ */
+export async function fetchDdmData(symbol: string): Promise<DdmData> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/ddm/${symbol}`)
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error(`Symbol "${symbol}" not found`)
+      }
+      throw new Error(`Failed to fetch DDM data: ${response.status}`)
+    }
+
+    return await response.json()
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('Network error while fetching DDM data')
   }
 }
