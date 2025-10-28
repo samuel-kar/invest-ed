@@ -192,7 +192,7 @@ export default function ChowderContainer() {
 
         {/* Error State */}
         {error && (
-          <Card className="p-6 border-2 border-red-200 bg-red-50">
+          <Card className="p-6">
             <div className="flex items-start gap-3">
               <AlertCircle
                 size={24}
