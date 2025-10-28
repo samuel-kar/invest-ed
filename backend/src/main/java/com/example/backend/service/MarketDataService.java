@@ -381,5 +381,60 @@ public class MarketDataService {
                 .currentPrice(currentPrice)
                 .build();
     }
+    
+    /**
+     * Retrieves DDM data for a given stock symbol.
+     * Fetches current price and TTM dividend data for DDM analysis.
+     * 
+     * @param symbol stock symbol
+     * @return DdmDataView with current price and dividend information
+     */
+    public DdmDataView getDdmData(String symbol) {
+        // Fetch current price
+        QuoteView quote = getQuoteSanitized(symbol);
+        Double currentPrice = quote.getCurrentPrice();
+        
+        if (currentPrice == null || currentPrice <= 0) {
+            return DdmDataView.builder()
+                    .symbol(symbol)
+                    .currentPrice(null)
+                    .totalDividend(null)
+                    .dividendCount(0)
+                    .build();
+        }
+        
+        // Fetch TTM dividend data (last 12 months)
+        java.time.LocalDate oneYearAgo = java.time.LocalDate.now().minusDays(365);
+        String fromDate = oneYearAgo.toString();
+        
+        List<DividendDto> dividends = polygonService.fetchDividendHistory(symbol, fromDate);
+        List<StockSplitDto> splits = polygonService.fetchStockSplits(symbol, fromDate);
+        
+        if (dividends == null || dividends.isEmpty()) {
+            return DdmDataView.builder()
+                    .symbol(symbol)
+                    .currentPrice(currentPrice)
+                    .totalDividend(0.0)
+                    .dividendCount(0)
+                    .build();
+        }
+        
+        // Adjust dividends for stock splits
+        List<DividendDto> adjustedDividends = adjustDividendsForSplits(dividends, splits);
+        
+        // Calculate total dividend amount and count
+        double totalDividend = adjustedDividends.stream()
+                .mapToDouble(d -> d.getCashAmount() != null ? d.getCashAmount() : 0.0)
+                .sum();
+        
+        int dividendCount = adjustedDividends.size();
+        
+        return DdmDataView.builder()
+                .symbol(symbol)
+                .currentPrice(currentPrice)
+                .totalDividend(totalDividend)
+                .dividendCount(dividendCount)
+                .build();
+    }
 }
 

@@ -1,10 +1,15 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.BasicFinancialsView;
+import com.example.backend.dto.ChowderResultView;
+import com.example.backend.dto.DdmDataView;
 import com.example.backend.dto.QuoteView;
+import com.example.backend.exception.RateLimitException;
+import com.example.backend.exception.SymbolNotSupportedException;
 import com.example.backend.service.MarketDataService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,11 +73,51 @@ public class MarketDataController {
         
         try {
             System.out.println("Received request for chowder analysis: " + symbol);
-            com.example.backend.dto.ChowderResultView result = marketDataService.calculateChowderRule(symbol);
+            ChowderResultView result = marketDataService.calculateChowderRule(symbol);
             System.out.println("Successfully calculated chowder for: " + symbol);
             return ResponseEntity.ok(result);
+        } catch (SymbolNotSupportedException e) {
+            System.err.println("Error calculating chowder for " + symbol + ": " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        } catch (RateLimitException e) {
+            System.err.println("Error calculating chowder for " + symbol + ": " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
         } catch (Exception e) {
             System.err.println("Error calculating chowder for " + symbol + ": " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+    }
+    
+    
+    /**
+     * Retrieves DDM data for a stock symbol.
+     * Provides current price and TTM dividend data for DDM analysis.
+     * 
+     * @param symbol stock symbol (e.g., PG, KO, JNJ)
+     * @return DDM data with price and dividend information
+     */
+    @GetMapping("/ddm/{symbol}")
+    public ResponseEntity<?> getDdmData(
+            @PathVariable @NotBlank(message = "Symbol cannot be blank") String symbol) {
+        
+        try {
+            System.out.println("Received request for DDM data: " + symbol);
+            DdmDataView result = marketDataService.getDdmData(symbol);
+            System.out.println("Successfully fetched DDM data for: " + symbol);
+            return ResponseEntity.ok(result);
+        } catch (SymbolNotSupportedException e) {
+            System.err.println("Error fetching DDM data for " + symbol + ": " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        } catch (RateLimitException e) {
+            System.err.println("Error fetching DDM data for " + symbol + ": " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).build();
+        } catch (Exception e) {
+            System.err.println("Error fetching DDM data for " + symbol + ": " + e.getMessage());
             e.printStackTrace();
             throw e;
         }
