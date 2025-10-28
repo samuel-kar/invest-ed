@@ -259,13 +259,10 @@ export default function DDMContainer() {
                   DDM Parameters:
                 </h4>
                 <div className="space-y-3">
-                  <div className="grid grid-cols-[auto_1fr] items-center gap-2">
-                    <label
-                      className="text-sm font-medium"
-                      style={{ color: 'var(--text-primary)' }}
-                    >
+                  <div className="flex justify-between items-center">
+                    <span style={{ color: 'var(--text-secondary)' }}>
                       Growth Rate (%):
-                    </label>
+                    </span>
                     <input
                       type="number"
                       value={growthRate}
@@ -283,13 +280,10 @@ export default function DDMContainer() {
                       }}
                     />
                   </div>
-                  <div className="grid grid-cols-[auto_1fr] items-center gap-2">
-                    <label
-                      className="text-sm font-medium"
-                      style={{ color: 'var(--text-primary)' }}
-                    >
+                  <div className="flex justify-between items-center">
+                    <span style={{ color: 'var(--text-secondary)' }}>
                       Required Return (%):
-                    </label>
+                    </span>
                     <input
                       type="number"
                       value={discountRate}
@@ -307,13 +301,10 @@ export default function DDMContainer() {
                       }}
                     />
                   </div>
-                  <div className="grid grid-cols-[auto_1fr] items-center gap-2">
-                    <label
-                      className="text-sm font-medium"
-                      style={{ color: 'var(--text-primary)' }}
-                    >
+                  <div className="flex justify-between items-center">
+                    <span style={{ color: 'var(--text-secondary)' }}>
                       Next Year Dividend ($):
-                    </label>
+                    </span>
                     <input
                       type="number"
                       value={expectedDividend}
