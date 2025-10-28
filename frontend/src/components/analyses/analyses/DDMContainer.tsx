@@ -4,7 +4,6 @@ import { fetchDdmData } from '../../../services/api'
 import MetricRow from '../../calculators/shared/MetricRow'
 import FormulaBlock from '../../calculators/shared/FormulaBlock'
 import Card from '../../shared/Card'
-import { LabeledInput } from '../../calculators/shared/InputsGroup'
 import {
   Loader2,
   AlertCircle,
