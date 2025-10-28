@@ -313,7 +313,7 @@ export default function DDMContainer() {
                       }
                       min="0"
                       step="0.01"
-                      className="w-24 p-2 rounded-md transition-colors"
+                      className="w-20 p-2 rounded-md transition-colors"
                       style={{
                         backgroundColor: 'var(--bg-secondary)',
                         border: '1px solid var(--border-color)',
