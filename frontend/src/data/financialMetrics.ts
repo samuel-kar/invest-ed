@@ -54,6 +54,32 @@ export const financialMetrics: FinancialMetric[] = [
     goodRange: 'Generally 8-15, varies by industry',
     example: 'Company with EV of $1B and EBITDA of $100M = EV/EBITDA of 10',
   },
+  {
+    name: 'Dividend Discount Model (DDM)',
+    category: 'Valuation Ratios',
+    formula: 'Intrinsic Value = D × (1 + g) / (r - g)',
+    description:
+      'Calculates the intrinsic value of a stock based on expected future dividends. D is the expected next year dividend, g is the dividend growth rate, and r is the required rate of return.',
+    interpretation:
+      'If intrinsic value > current price, the stock may be undervalued. If intrinsic value < current price, it may be overvalued. Note: r must be greater than g.',
+    goodRange: 'Compare intrinsic value to current market price',
+    example:
+      'Stock with $2 expected dividend, 5% growth rate, 10% required return = $2 × 1.05 / (0.10 - 0.05) = $42 intrinsic value',
+  },
+
+  // Dividend Analysis
+  {
+    name: 'Chowder Rule',
+    category: 'Dividend Analysis',
+    formula: 'Chowder Score = Dividend Yield (%) + Dividend CAGR (%)',
+    description:
+      'Evaluates dividend stocks by combining current dividend yield with historical dividend growth rate (5-year CAGR). Provides a single metric to assess dividend attractiveness.',
+    interpretation:
+      'Score ≥15 is excellent, 12-15 is good, 8-12 is fair, <8 is poor. Higher scores indicate stocks with strong dividend yields and consistent growth.',
+    goodRange: 'Generally 12-15 or higher for quality dividend stocks',
+    example:
+      'Stock with 3% dividend yield and 10% dividend CAGR = Chowder Score of 13 (Good)',
+  },
 
   // Profitability Margins
   {
@@ -163,17 +189,5 @@ export const financialMetrics: FinancialMetric[] = [
       'Higher EPS generally indicates better profitability per share.',
     goodRange: 'Varies by company size and industry',
     example: 'Company with $1M net income and 100K shares = $10 EPS',
-  },
-  {
-    name: 'Book Value Per Share',
-    category: 'Per-Share Metrics',
-    formula: "Total Shareholders' Equity / Number of Outstanding Shares",
-    description:
-      'Represents the theoretical value per share if all assets were liquidated.',
-    interpretation:
-      'Stock trading below book value may indicate undervaluation.',
-    goodRange: 'Varies by company and industry',
-    example:
-      'Company with $2M equity and 100K shares = $20 book value per share',
   },
 ]

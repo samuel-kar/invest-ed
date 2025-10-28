@@ -253,8 +253,8 @@ export default function ChowderContainer() {
                 </div>
               </Card>
             ) : (
-              <Card className="p-6 bg-yellow-50 border-2 border-yellow-200">
-                <p className="text-center text-yellow-700">{data.message}</p>
+              <Card className="p-6">
+                <p className="text-center text-red-700">{data.message}</p>
               </Card>
             )}
 
