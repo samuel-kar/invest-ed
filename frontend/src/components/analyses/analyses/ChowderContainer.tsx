@@ -37,32 +37,24 @@ export default function ChowderContainer() {
       return {
         level: 'Excellent',
         colorClass: 'text-green-600',
-        bgColor: 'bg-green-50',
-        borderColor: 'border-green-200',
         description: 'Strong dividend growth potential with good current yield',
       }
     } else if (score >= 12) {
       return {
         level: 'Good',
         colorClass: 'text-blue-600',
-        bgColor: 'bg-blue-50',
-        borderColor: 'border-blue-200',
         description: 'Solid combination of yield and growth',
       }
     } else if (score >= 8) {
       return {
         level: 'Fair',
         colorClass: 'text-yellow-600',
-        bgColor: 'bg-yellow-50',
-        borderColor: 'border-yellow-200',
         description: 'Moderate dividend attractiveness',
       }
     } else {
       return {
         level: 'Poor',
         colorClass: 'text-red-600',
-        bgColor: 'bg-red-50',
-        borderColor: 'border-red-200',
         description: 'Low dividend yield and/or poor dividend growth',
       }
     }
@@ -234,9 +226,7 @@ export default function ChowderContainer() {
           <>
             {/* Main Score Card */}
             {data.isValid && interpretation && data.chowderScore !== null ? (
-              <Card
-                className={`p-6 ${interpretation.bgColor} border-2 ${interpretation.borderColor}`}
-              >
+              <Card className="p-6">
                 <div className="text-center">
                   <h4
                     className="text-lg font-semibold mb-4"
