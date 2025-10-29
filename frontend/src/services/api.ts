@@ -165,7 +165,7 @@ export async function fetchCompanyData(
  */
 export async function fetchChowderData(symbol: string): Promise<ChowderResult> {
   try {
-    const response = await fetch(`${API_BASE_URL}/chowder/${symbol}`)
+    const response = await fetch(`${API_BASE_URL}/market/chowder/${symbol}`)
 
     if (!response.ok) {
       if (response.status === 404) {
