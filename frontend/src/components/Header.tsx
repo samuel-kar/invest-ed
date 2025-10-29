@@ -125,22 +125,7 @@ export default function Header() {
             </div>
           </SignedOut>
           <SignedIn>
-            <div
-              className="p-2 rounded-lg transition-colors transition-opacity duration-200 hover:opacity-80"
-              style={{ backgroundColor: 'var(--bg-tertiary)' }}
-            >
-              <UserButton
-                appearance={{
-                  elements: {
-                    rootBox: 'h-full',
-                    avatarBox: {
-                      width: '20px',
-                      height: '20px',
-                    },
-                  },
-                }}
-              />
-            </div>
+            <UserButton />
           </SignedIn>
         </div>
       </header>
