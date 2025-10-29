@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as SavedRouteImport } from './routes/saved'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as CalculatorsRouteImport } from './routes/calculators'
@@ -33,6 +34,11 @@ const SignInRoute = SignInRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LearnRoute = LearnRouteImport.update({
@@ -110,6 +116,7 @@ export interface FileRoutesByFullPath {
   '/calculators': typeof CalculatorsRouteWithChildren
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
+  '/saved': typeof SavedRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/analysis/chowder': typeof AnalysisChowderRoute
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
+  '/saved': typeof SavedRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/analysis/chowder': typeof AnalysisChowderRoute
@@ -143,6 +151,7 @@ export interface FileRoutesById {
   '/calculators': typeof CalculatorsRouteWithChildren
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
+  '/saved': typeof SavedRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/analysis/chowder': typeof AnalysisChowderRoute
@@ -162,6 +171,7 @@ export interface FileRouteTypes {
     | '/calculators'
     | '/companies'
     | '/learn'
+    | '/saved'
     | '/settings'
     | '/sign-in'
     | '/analysis/chowder'
@@ -177,6 +187,7 @@ export interface FileRouteTypes {
     | '/'
     | '/companies'
     | '/learn'
+    | '/saved'
     | '/settings'
     | '/sign-in'
     | '/analysis/chowder'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/calculators'
     | '/companies'
     | '/learn'
+    | '/saved'
     | '/settings'
     | '/sign-in'
     | '/analysis/chowder'
@@ -212,6 +224,7 @@ export interface RootRouteChildren {
   CalculatorsRoute: typeof CalculatorsRouteWithChildren
   CompaniesRoute: typeof CompaniesRoute
   LearnRoute: typeof LearnRoute
+  SavedRoute: typeof SavedRoute
   SettingsRoute: typeof SettingsRoute
   SignInRoute: typeof SignInRoute
 }
@@ -230,6 +243,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/learn': {
@@ -368,6 +388,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalculatorsRoute: CalculatorsRouteWithChildren,
   CompaniesRoute: CompaniesRoute,
   LearnRoute: LearnRoute,
+  SavedRoute: SavedRoute,
   SettingsRoute: SettingsRoute,
   SignInRoute: SignInRoute,
 }

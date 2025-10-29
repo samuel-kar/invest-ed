@@ -6,6 +6,7 @@ import {
   Building2,
   Calculator,
   Settings,
+  Bookmark,
 } from 'lucide-react'
 
 export default function Sidebar() {
@@ -87,6 +88,20 @@ export default function Sidebar() {
         >
           <Building2 size={20} />
           <span className="font-medium">Companies</span>
+        </Link>
+
+        <Link
+          to="/saved"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200 hover:opacity-80"
+          style={{ backgroundColor: 'var(--sidebar-hover)' }}
+          activeProps={{
+            className:
+              'flex items-center gap-3 px-3 py-2 rounded-lg transition-opacity duration-200',
+            style: { backgroundColor: 'var(--accent-color)' },
+          }}
+        >
+          <Bookmark size={20} />
+          <span className="font-medium">Saved</span>
         </Link>
 
         <Link

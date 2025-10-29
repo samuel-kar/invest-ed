@@ -11,6 +11,7 @@ import {
   Settings,
   Sun,
   Moon,
+  Bookmark,
 } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
 import {
@@ -101,10 +102,45 @@ export default function Header() {
           </button>
           {/* Clerk buttons */}
           <SignedOut>
-            <SignInButton mode="modal" />
+            <div
+              className="p-2 rounded-lg transition-colors transition-opacity duration-200 hover:opacity-80"
+              style={{ backgroundColor: 'var(--bg-tertiary)' }}
+            >
+              <SignInButton
+                mode="modal"
+                appearance={{
+                  elements: {
+                    rootBox: 'h-full',
+                    button: {
+                      backgroundColor: 'transparent',
+                      color: 'var(--text-primary)',
+                      padding: 0,
+                      border: 'none',
+                      fontSize: '0.875rem',
+                      fontWeight: 500,
+                    },
+                  },
+                }}
+              />
+            </div>
           </SignedOut>
           <SignedIn>
-            <UserButton />
+            <div
+              className="p-2 rounded-lg transition-colors transition-opacity duration-200 hover:opacity-80"
+              style={{ backgroundColor: 'var(--bg-tertiary)' }}
+            >
+              <UserButton
+                appearance={{
+                  elements: {
+                    rootBox: 'h-full',
+                    avatarBox: {
+                      width: '20px',
+                      height: '20px',
+                    },
+                  },
+                }}
+              />
+            </div>
           </SignedIn>
         </div>
       </header>
@@ -217,6 +253,21 @@ export default function Header() {
           >
             <Building2 size={20} />
             <span className="font-medium">Companies</span>
+          </Link>
+
+          <Link
+            to="/saved"
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
+            style={{ backgroundColor: 'var(--sidebar-hover)' }}
+            activeProps={{
+              className:
+                'flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2',
+              style: { backgroundColor: 'var(--accent-color)' },
+            }}
+          >
+            <Bookmark size={20} />
+            <span className="font-medium">Saved</span>
           </Link>
 
           <Link
