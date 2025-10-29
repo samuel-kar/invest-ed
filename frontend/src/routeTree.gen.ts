@@ -17,8 +17,11 @@ import { Route as CompaniesRouteImport } from './routes/companies'
 import { Route as CalculatorsRouteImport } from './routes/calculators'
 import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SavedIndexRouteImport } from './routes/saved/index'
 import { Route as CalculatorsIndexRouteImport } from './routes/calculators/index'
 import { Route as AnalysisIndexRouteImport } from './routes/analysis/index'
+import { Route as SavedDdmRouteImport } from './routes/saved/ddm'
+import { Route as SavedChowderRouteImport } from './routes/saved/chowder'
 import { Route as CalculatorsSavingsGoalRouteImport } from './routes/calculators/savings-goal'
 import { Route as CalculatorsRetirement4percentRouteImport } from './routes/calculators/retirement4percent'
 import { Route as CalculatorsRetirementDividendRouteImport } from './routes/calculators/retirement-dividend'
@@ -66,6 +69,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SavedIndexRoute = SavedIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SavedRoute,
+} as any)
 const CalculatorsIndexRoute = CalculatorsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -75,6 +83,16 @@ const AnalysisIndexRoute = AnalysisIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AnalysisRoute,
+} as any)
+const SavedDdmRoute = SavedDdmRouteImport.update({
+  id: '/ddm',
+  path: '/ddm',
+  getParentRoute: () => SavedRoute,
+} as any)
+const SavedChowderRoute = SavedChowderRouteImport.update({
+  id: '/chowder',
+  path: '/chowder',
+  getParentRoute: () => SavedRoute,
 } as any)
 const CalculatorsSavingsGoalRoute = CalculatorsSavingsGoalRouteImport.update({
   id: '/savings-goal',
@@ -116,7 +134,7 @@ export interface FileRoutesByFullPath {
   '/calculators': typeof CalculatorsRouteWithChildren
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
-  '/saved': typeof SavedRoute
+  '/saved': typeof SavedRouteWithChildren
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/analysis/chowder': typeof AnalysisChowderRoute
@@ -125,14 +143,16 @@ export interface FileRoutesByFullPath {
   '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
   '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
   '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/saved/chowder': typeof SavedChowderRoute
+  '/saved/ddm': typeof SavedDdmRoute
   '/analysis/': typeof AnalysisIndexRoute
   '/calculators/': typeof CalculatorsIndexRoute
+  '/saved/': typeof SavedIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
-  '/saved': typeof SavedRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/analysis/chowder': typeof AnalysisChowderRoute
@@ -141,8 +161,11 @@ export interface FileRoutesByTo {
   '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
   '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
   '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/saved/chowder': typeof SavedChowderRoute
+  '/saved/ddm': typeof SavedDdmRoute
   '/analysis': typeof AnalysisIndexRoute
   '/calculators': typeof CalculatorsIndexRoute
+  '/saved': typeof SavedIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -151,7 +174,7 @@ export interface FileRoutesById {
   '/calculators': typeof CalculatorsRouteWithChildren
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
-  '/saved': typeof SavedRoute
+  '/saved': typeof SavedRouteWithChildren
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/analysis/chowder': typeof AnalysisChowderRoute
@@ -160,8 +183,11 @@ export interface FileRoutesById {
   '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
   '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
   '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/saved/chowder': typeof SavedChowderRoute
+  '/saved/ddm': typeof SavedDdmRoute
   '/analysis/': typeof AnalysisIndexRoute
   '/calculators/': typeof CalculatorsIndexRoute
+  '/saved/': typeof SavedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -180,14 +206,16 @@ export interface FileRouteTypes {
     | '/calculators/retirement-dividend'
     | '/calculators/retirement4percent'
     | '/calculators/savings-goal'
+    | '/saved/chowder'
+    | '/saved/ddm'
     | '/analysis/'
     | '/calculators/'
+    | '/saved/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/companies'
     | '/learn'
-    | '/saved'
     | '/settings'
     | '/sign-in'
     | '/analysis/chowder'
@@ -196,8 +224,11 @@ export interface FileRouteTypes {
     | '/calculators/retirement-dividend'
     | '/calculators/retirement4percent'
     | '/calculators/savings-goal'
+    | '/saved/chowder'
+    | '/saved/ddm'
     | '/analysis'
     | '/calculators'
+    | '/saved'
   id:
     | '__root__'
     | '/'
@@ -214,8 +245,11 @@ export interface FileRouteTypes {
     | '/calculators/retirement-dividend'
     | '/calculators/retirement4percent'
     | '/calculators/savings-goal'
+    | '/saved/chowder'
+    | '/saved/ddm'
     | '/analysis/'
     | '/calculators/'
+    | '/saved/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -224,7 +258,7 @@ export interface RootRouteChildren {
   CalculatorsRoute: typeof CalculatorsRouteWithChildren
   CompaniesRoute: typeof CompaniesRoute
   LearnRoute: typeof LearnRoute
-  SavedRoute: typeof SavedRoute
+  SavedRoute: typeof SavedRouteWithChildren
   SettingsRoute: typeof SettingsRoute
   SignInRoute: typeof SignInRoute
 }
@@ -287,6 +321,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/saved/': {
+      id: '/saved/'
+      path: '/'
+      fullPath: '/saved/'
+      preLoaderRoute: typeof SavedIndexRouteImport
+      parentRoute: typeof SavedRoute
+    }
     '/calculators/': {
       id: '/calculators/'
       path: '/'
@@ -300,6 +341,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/analysis/'
       preLoaderRoute: typeof AnalysisIndexRouteImport
       parentRoute: typeof AnalysisRoute
+    }
+    '/saved/ddm': {
+      id: '/saved/ddm'
+      path: '/ddm'
+      fullPath: '/saved/ddm'
+      preLoaderRoute: typeof SavedDdmRouteImport
+      parentRoute: typeof SavedRoute
+    }
+    '/saved/chowder': {
+      id: '/saved/chowder'
+      path: '/chowder'
+      fullPath: '/saved/chowder'
+      preLoaderRoute: typeof SavedChowderRouteImport
+      parentRoute: typeof SavedRoute
     }
     '/calculators/savings-goal': {
       id: '/calculators/savings-goal'
@@ -382,13 +437,27 @@ const CalculatorsRouteWithChildren = CalculatorsRoute._addFileChildren(
   CalculatorsRouteChildren,
 )
 
+interface SavedRouteChildren {
+  SavedChowderRoute: typeof SavedChowderRoute
+  SavedDdmRoute: typeof SavedDdmRoute
+  SavedIndexRoute: typeof SavedIndexRoute
+}
+
+const SavedRouteChildren: SavedRouteChildren = {
+  SavedChowderRoute: SavedChowderRoute,
+  SavedDdmRoute: SavedDdmRoute,
+  SavedIndexRoute: SavedIndexRoute,
+}
+
+const SavedRouteWithChildren = SavedRoute._addFileChildren(SavedRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalysisRoute: AnalysisRouteWithChildren,
   CalculatorsRoute: CalculatorsRouteWithChildren,
   CompaniesRoute: CompaniesRoute,
   LearnRoute: LearnRoute,
-  SavedRoute: SavedRoute,
+  SavedRoute: SavedRouteWithChildren,
   SettingsRoute: SettingsRoute,
   SignInRoute: SignInRoute,
 }
