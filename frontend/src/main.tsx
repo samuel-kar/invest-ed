@@ -2,6 +2,12 @@ import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ClerkProvider } from '@clerk/clerk-react'
+
+const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+if (!clerkPubKey) {
+  throw new Error('Missing Clerk publishable key')
+}
 
 // Import the generated route tree
 import { routeTree } from './routeTree.gen'
@@ -46,7 +52,9 @@ if (rootElement && !rootElement.innerHTML) {
       <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <CurrencyProvider>
-            <RouterProvider router={router} />
+            <ClerkProvider publishableKey={clerkPubKey}>
+              <RouterProvider router={router} />
+            </ClerkProvider>
           </CurrencyProvider>
         </ThemeProvider>
       </QueryClientProvider>

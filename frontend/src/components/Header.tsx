@@ -13,6 +13,12 @@ import {
   Moon,
 } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from '@clerk/clerk-react'
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -81,18 +87,26 @@ export default function Header() {
             />
           </form>
         </div>
-
-        {/* Theme toggle */}
-        <button
-          onClick={toggleTheme}
-          className="p-2 rounded-lg transition-colors transition-opacity duration-200 hover:opacity-80"
-          style={{ backgroundColor: 'var(--bg-tertiary)' }}
-          aria-label={
-            isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
-          }
-        >
-          {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg transition-colors transition-opacity duration-200 hover:opacity-80"
+            style={{ backgroundColor: 'var(--bg-tertiary)' }}
+            aria-label={
+              isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
+            }
+          >
+            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+          {/* Clerk buttons */}
+          <SignedOut>
+            <SignInButton mode="modal" />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+        </div>
       </header>
 
       {/* Mobile sidebar overlay */}

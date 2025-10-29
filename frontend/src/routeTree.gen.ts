@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignInRouteImport } from './routes/sign-in'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as LearnRouteImport } from './routes/learn'
 import { Route as CompaniesRouteImport } from './routes/companies'
@@ -24,6 +25,11 @@ import { Route as CalculatorsCompoundInterestRouteImport } from './routes/calcul
 import { Route as AnalysisDdmRouteImport } from './routes/analysis/ddm'
 import { Route as AnalysisChowderRouteImport } from './routes/analysis/chowder'
 
+const SignInRoute = SignInRouteImport.update({
+  id: '/sign-in',
+  path: '/sign-in',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
   '/settings': typeof SettingsRoute
+  '/sign-in': typeof SignInRoute
   '/analysis/chowder': typeof AnalysisChowderRoute
   '/analysis/ddm': typeof AnalysisDdmRoute
   '/calculators/CompoundInterest': typeof CalculatorsCompoundInterestRoute
@@ -119,6 +126,7 @@ export interface FileRoutesByTo {
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
   '/settings': typeof SettingsRoute
+  '/sign-in': typeof SignInRoute
   '/analysis/chowder': typeof AnalysisChowderRoute
   '/analysis/ddm': typeof AnalysisDdmRoute
   '/calculators/CompoundInterest': typeof CalculatorsCompoundInterestRoute
@@ -136,6 +144,7 @@ export interface FileRoutesById {
   '/companies': typeof CompaniesRoute
   '/learn': typeof LearnRoute
   '/settings': typeof SettingsRoute
+  '/sign-in': typeof SignInRoute
   '/analysis/chowder': typeof AnalysisChowderRoute
   '/analysis/ddm': typeof AnalysisDdmRoute
   '/calculators/CompoundInterest': typeof CalculatorsCompoundInterestRoute
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '/companies'
     | '/learn'
     | '/settings'
+    | '/sign-in'
     | '/analysis/chowder'
     | '/analysis/ddm'
     | '/calculators/CompoundInterest'
@@ -168,6 +178,7 @@ export interface FileRouteTypes {
     | '/companies'
     | '/learn'
     | '/settings'
+    | '/sign-in'
     | '/analysis/chowder'
     | '/analysis/ddm'
     | '/calculators/CompoundInterest'
@@ -184,6 +195,7 @@ export interface FileRouteTypes {
     | '/companies'
     | '/learn'
     | '/settings'
+    | '/sign-in'
     | '/analysis/chowder'
     | '/analysis/ddm'
     | '/calculators/CompoundInterest'
@@ -201,10 +213,18 @@ export interface RootRouteChildren {
   CompaniesRoute: typeof CompaniesRoute
   LearnRoute: typeof LearnRoute
   SettingsRoute: typeof SettingsRoute
+  SignInRoute: typeof SignInRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sign-in': {
+      id: '/sign-in'
+      path: '/sign-in'
+      fullPath: '/sign-in'
+      preLoaderRoute: typeof SignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -349,6 +369,7 @@ const rootRouteChildren: RootRouteChildren = {
   CompaniesRoute: CompaniesRoute,
   LearnRoute: LearnRoute,
   SettingsRoute: SettingsRoute,
+  SignInRoute: SignInRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
