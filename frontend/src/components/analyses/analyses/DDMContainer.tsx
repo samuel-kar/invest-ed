@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchDdmData } from '../../../services/api'
+import { ddmCalculator } from '../../../utils/calculations'
 import MetricRow from '../../calculators/shared/MetricRow'
 import FormulaBlock from '../../calculators/shared/FormulaBlock'
 import Card from '../../shared/Card'
@@ -47,15 +48,12 @@ export default function DDMContainer() {
   }
 
   // DDM calculation
-  const g = growthRate / 100
-  const r = discountRate / 100
-  const valid = r > g && expectedDividend > 0
-  const intrinsicValue = valid ? (expectedDividend * (1 + g)) / (r - g) : 0
-  const undervalued = data && intrinsicValue > (data.currentPrice || 0)
-  const marginOfSafety =
-    data && data.currentPrice
-      ? ((intrinsicValue - data.currentPrice) / data.currentPrice) * 100
-      : 0
+  const ddmResult = ddmCalculator(
+    expectedDividend,
+    growthRate,
+    discountRate,
+    data?.currentPrice ?? undefined,
+  )
 
   // Check if error is rate limit (503)
   const isRateLimitError = error && error.message.includes('503')
@@ -334,28 +332,28 @@ export default function DDMContainer() {
                   DDM Analysis Results
                 </h4>
 
-                {!valid && (
+                {!ddmResult.isValid && (
                   <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
                     <p className="text-yellow-700 text-sm">
-                      {r <= g
+                      {discountRate <= growthRate
                         ? 'Required return must be greater than growth rate'
                         : 'Expected dividend must be greater than 0'}
                     </p>
                   </div>
                 )}
 
-                {valid && (
+                {ddmResult.isValid && (
                   <>
                     <div className="mb-4">
                       <div
-                        className={`text-4xl font-bold mb-2 ${undervalued ? 'text-green-600' : 'text-red-600'}`}
+                        className={`text-4xl font-bold mb-2 ${ddmResult.undervalued ? 'text-green-600' : 'text-red-600'}`}
                       >
-                        ${intrinsicValue.toFixed(2)}
+                        ${ddmResult.intrinsicValue.toFixed(2)}
                       </div>
                       <div
-                        className={`text-xl font-semibold mb-1 ${undervalued ? 'text-green-600' : 'text-red-600'}`}
+                        className={`text-xl font-semibold mb-1 ${ddmResult.undervalued ? 'text-green-600' : 'text-red-600'}`}
                       >
-                        {undervalued ? 'Undervalued' : 'Overvalued'}
+                        {ddmResult.undervalued ? 'Undervalued' : 'Overvalued'}
                       </div>
                       <p
                         className="text-sm"
@@ -382,26 +380,26 @@ export default function DDMContainer() {
                           Margin of Safety:
                         </span>
                         <span
-                          className={`ml-2 font-semibold ${marginOfSafety > 0 ? 'text-green-600' : 'text-red-600'}`}
+                          className={`ml-2 font-semibold ${(ddmResult.marginOfSafety ?? 0) > 0 ? 'text-green-600' : 'text-red-600'}`}
                         >
-                          {marginOfSafety > 0 ? '+' : ''}
-                          {marginOfSafety.toFixed(1)}%
+                          {(ddmResult.marginOfSafety ?? 0) > 0 ? '+' : ''}
+                          {(ddmResult.marginOfSafety ?? 0).toFixed(1)}%
                         </span>
                       </div>
                     </div>
 
                     <div className="mt-4 flex items-center justify-center gap-2">
-                      {undervalued ? (
+                      {ddmResult.undervalued ? (
                         <TrendingUp size={20} className="text-green-600" />
                       ) : (
                         <TrendingDown size={20} className="text-red-600" />
                       )}
                       <span
-                        className={`text-sm font-medium ${undervalued ? 'text-green-600' : 'text-red-600'}`}
+                        className={`text-sm font-medium ${ddmResult.undervalued ? 'text-green-600' : 'text-red-600'}`}
                       >
-                        {undervalued
-                          ? `Stock is ${Math.abs(marginOfSafety).toFixed(1)}% undervalued`
-                          : `Stock is ${Math.abs(marginOfSafety).toFixed(1)}% overvalued`}
+                        {ddmResult.undervalued
+                          ? `Stock is ${Math.abs(ddmResult.marginOfSafety ?? 0).toFixed(1)}% undervalued`
+                          : `Stock is ${Math.abs(ddmResult.marginOfSafety ?? 0).toFixed(1)}% overvalued`}
                       </span>
                     </div>
                   </>

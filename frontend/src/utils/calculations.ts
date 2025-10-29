@@ -100,6 +100,50 @@ export interface DividendPortfolioResult {
   growthFromPrincipal: number // FV contributed by initial principal at year T (clamped >= 0)
 }
 
+export interface DDMResult {
+  intrinsicValue: number
+  isValid: boolean
+  undervalued?: boolean
+  marginOfSafety?: number
+}
+
+/**
+ * Dividend Discount Model (DDM) calculator
+ *
+ * Calculates the intrinsic value of a stock using the Gordon Growth Model:
+ * V = D × (1 + g) / (r - g)
+ *
+ * @param expectedDividend - Expected dividend for next year (in dollars)
+ * @param growthRatePercent - Expected dividend growth rate (as percentage, e.g., 5 for 5%)
+ * @param discountRatePercent - Required return/discount rate (as percentage, e.g., 8 for 8%)
+ * @param currentPrice - Optional current market price (used to determine undervalued status and margin of safety)
+ * @returns DDMResult containing intrinsic value, validation status, and optional comparison metrics
+ */
+export const ddmCalculator = (
+  expectedDividend: number,
+  growthRatePercent: number,
+  discountRatePercent: number,
+  currentPrice?: number,
+): DDMResult => {
+  const g = growthRatePercent / 100
+  const r = discountRatePercent / 100
+  const isValid = r > g && expectedDividend > 0
+  const intrinsicValue = isValid ? (expectedDividend * (1 + g)) / (r - g) : 0
+
+  const result: DDMResult = {
+    intrinsicValue,
+    isValid,
+  }
+
+  if (currentPrice !== undefined && currentPrice !== null && currentPrice > 0) {
+    result.undervalued = intrinsicValue > currentPrice
+    result.marginOfSafety =
+      ((intrinsicValue - currentPrice) / currentPrice) * 100
+  }
+
+  return result
+}
+
 /**
  * Dividend portfolio planner
  *
