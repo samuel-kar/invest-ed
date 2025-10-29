@@ -82,7 +82,7 @@ function SavedPage() {
                 },
               }}
             >
-              Chowder (soon)
+              Chowder rule
             </Link>
           </nav>
         </div>

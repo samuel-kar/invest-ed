@@ -1,14 +1,24 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { fetchChowderData } from '../../../services/api'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useAuth } from '@clerk/clerk-react'
+import {
+  fetchChowderData,
+  saveChowderAnalysis,
+  type SaveChowderAnalysisRequest,
+  type SavedChowderAnalysis,
+} from '../../../services/api'
 import MetricRow from '../../calculators/shared/MetricRow'
 import FormulaBlock from '../../calculators/shared/FormulaBlock'
 import Card from '../../shared/Card'
-import { Loader2, AlertCircle, Search } from 'lucide-react'
+import { Loader2, AlertCircle, Search, Save } from 'lucide-react'
 
 export default function ChowderContainer() {
   const [inputSymbol, setInputSymbol] = useState('')
   const [searchSymbol, setSearchSymbol] = useState('')
+  const [saveError, setSaveError] = useState<string | null>(null)
+  const [saveSuccess, setSaveSuccess] = useState(false)
+  const { getToken, isSignedIn } = useAuth()
+  const queryClient = useQueryClient()
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['chowder', searchSymbol],
@@ -64,6 +74,74 @@ export default function ChowderContainer() {
 
   // Check if error is rate limit (503)
   const isRateLimitError = error && error.message.includes('503')
+
+  const saveMutation = useMutation({
+    mutationFn: async (saveData: SaveChowderAnalysisRequest) => {
+      const token = await getToken()
+      if (!token) throw new Error('Not authenticated')
+      return saveChowderAnalysis(saveData, token)
+    },
+    onMutate: async (saveData: SaveChowderAnalysisRequest) => {
+      setSaveError(null)
+      setSaveSuccess(false)
+      await queryClient.cancelQueries({ queryKey: ['savedChowderAnalyses'] })
+      const previous = queryClient.getQueryData<SavedChowderAnalysis[]>([
+        'savedChowderAnalyses',
+      ])
+      const optimistic: SavedChowderAnalysis = {
+        id: -Date.now(),
+        symbol: saveData.symbol,
+        chowderScore: saveData.chowderScore,
+        dividendYield: saveData.dividendYield ?? null,
+        dividendCAGR: saveData.dividendCAGR ?? null,
+        yearsOfData: saveData.yearsOfData ?? null,
+        currentPrice: saveData.currentPrice ?? null,
+        message: saveData.message ?? null,
+        createdAt: new Date().toISOString(),
+      }
+      queryClient.setQueryData<SavedChowderAnalysis[] | undefined>(
+        ['savedChowderAnalyses'],
+        (old) => (old ? [optimistic, ...old] : [optimistic]),
+      )
+      return { previous, tempId: optimistic.id }
+    },
+    onError: (err, _vars, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(['savedChowderAnalyses'], context.previous)
+      }
+      setSaveError(
+        err instanceof Error ? err.message : 'Failed to save analysis',
+      )
+    },
+    onSuccess: (result, _vars, context) => {
+      // Replace optimistic with server result
+      queryClient.setQueryData<SavedChowderAnalysis[] | undefined>(
+        ['savedChowderAnalyses'],
+        (old) =>
+          old?.map((a) => (a.id === context?.tempId ? result : a)) || [result],
+      )
+      setSaveSuccess(true)
+      setTimeout(() => setSaveSuccess(false), 3000)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['savedChowderAnalyses'] })
+    },
+  })
+
+  const handleSaveAnalysis = () => {
+    if (!data?.isValid || !data.chowderScore || !searchSymbol || !isSignedIn)
+      return
+    const saveData: SaveChowderAnalysisRequest = {
+      symbol: searchSymbol,
+      chowderScore: data.chowderScore,
+      dividendYield: data.dividendYield ?? null,
+      dividendCAGR: data.dividendCAGR ?? null,
+      yearsOfData: data.yearsOfData ?? null,
+      currentPrice: data.currentPrice ?? null,
+      message: data.message ?? null,
+    }
+    saveMutation.mutate(saveData)
+  }
 
   return (
     <div className="grid md:grid-cols-5 gap-8">
@@ -311,6 +389,39 @@ export default function ChowderContainer() {
                 {data.message}
               </p>
             </Card>
+
+            {/* Save Button */}
+            {isSignedIn && data.isValid && data.chowderScore !== null && (
+              <Card className="p-6">
+                <div className="flex flex-col items-center gap-2">
+                  <button
+                    onClick={handleSaveAnalysis}
+                    disabled={saveMutation.isPending}
+                    className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                  >
+                    {saveMutation.isPending ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" />
+                        Saving...
+                      </>
+                    ) : (
+                      <>
+                        <Save size={16} />
+                        Save Analysis
+                      </>
+                    )}
+                  </button>
+                  {saveSuccess && (
+                    <p className="text-sm text-green-600">
+                      Analysis saved successfully!
+                    </p>
+                  )}
+                  {saveError && (
+                    <p className="text-sm text-red-600">{saveError}</p>
+                  )}
+                </div>
+              </Card>
+            )}
           </>
         )}
 

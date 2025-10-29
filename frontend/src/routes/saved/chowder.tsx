@@ -1,15 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
+import SavedChowderList from '../../components/saved/SavedChowderList'
 
 export const Route = createFileRoute('/saved/chowder')({
-  component: ChowderPlaceholder,
+  component: SavedChowderList,
 })
-
-function ChowderPlaceholder() {
-  return (
-    <div className="p-6">
-      <p style={{ color: 'var(--text-secondary)' }}>
-        Saved Chowder analyses are coming soon.
-      </p>
-    </div>
-  )
-}

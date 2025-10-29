@@ -383,3 +383,161 @@ export async function deleteSavedDdmAnalysis(
     throw new Error('Network error while deleting analysis')
   }
 }
+
+export interface SavedChowderAnalysis {
+  id: number
+  symbol: string
+  chowderScore: number
+  dividendYield: number | null
+  dividendCAGR: number | null
+  yearsOfData: number | null
+  currentPrice: number | null
+  message: string | null
+  createdAt: string
+}
+
+export interface SaveChowderAnalysisRequest {
+  symbol: string
+  chowderScore: number
+  dividendYield?: number | null
+  dividendCAGR?: number | null
+  yearsOfData?: number | null
+  currentPrice?: number | null
+  message?: string | null
+}
+
+/**
+ * Saves a Chowder analysis
+ */
+export async function saveChowderAnalysis(
+  data: SaveChowderAnalysisRequest,
+  token: string,
+): Promise<SavedChowderAnalysis> {
+  try {
+    const response = await authenticatedFetch(
+      `${SAVED_API_BASE_URL}/chowder`,
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+      },
+      token,
+    )
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error('Unauthorized - please sign in')
+      }
+      const errorText = await response.text()
+      throw new Error(`Failed to save analysis: ${errorText}`)
+    }
+
+    return await response.json()
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('Network error while saving analysis')
+  }
+}
+
+/**
+ * Fetches all saved Chowder analyses for the current user
+ */
+export async function fetchSavedChowderAnalyses(
+  token: string,
+): Promise<SavedChowderAnalysis[]> {
+  try {
+    const response = await authenticatedFetch(
+      `${SAVED_API_BASE_URL}/chowder`,
+      {
+        method: 'GET',
+      },
+      token,
+    )
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error('Unauthorized - please sign in')
+      }
+      throw new Error(`Failed to fetch saved analyses: ${response.status}`)
+    }
+
+    return await response.json()
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('Network error while fetching saved analyses')
+  }
+}
+
+/**
+ * Updates a saved Chowder analysis
+ */
+export async function updateSavedChowderAnalysis(
+  id: number,
+  data: SaveChowderAnalysisRequest,
+  token: string,
+): Promise<SavedChowderAnalysis> {
+  try {
+    const response = await authenticatedFetch(
+      `${SAVED_API_BASE_URL}/chowder/${id}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(data),
+      },
+      token,
+    )
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error('Unauthorized - please sign in')
+      }
+      if (response.status === 403) {
+        throw new Error('You do not have permission to update this analysis')
+      }
+      const errorText = await response.text()
+      throw new Error(`Failed to update analysis: ${errorText}`)
+    }
+
+    return await response.json()
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('Network error while updating analysis')
+  }
+}
+
+/**
+ * Deletes a saved Chowder analysis
+ */
+export async function deleteSavedChowderAnalysis(
+  id: number,
+  token: string,
+): Promise<void> {
+  try {
+    const response = await authenticatedFetch(
+      `${SAVED_API_BASE_URL}/chowder/${id}`,
+      {
+        method: 'DELETE',
+      },
+      token,
+    )
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error('Unauthorized - please sign in')
+      }
+      if (response.status === 403) {
+        throw new Error('You do not have permission to delete this analysis')
+      }
+      throw new Error(`Failed to delete analysis: ${response.status}`)
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('Network error while deleting analysis')
+  }
+}
