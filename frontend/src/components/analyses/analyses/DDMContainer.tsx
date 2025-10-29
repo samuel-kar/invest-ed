@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from '@clerk/clerk-react'
 import {
   fetchDdmData,
   saveDdmAnalysis,
   type SaveDdmAnalysisRequest,
+  type SavedDdmAnalysis,
 } from '../../../services/api'
 import { ddmCalculator } from '../../../utils/calculations'
 import MetricRow from '../../calculators/shared/MetricRow'
@@ -25,10 +26,10 @@ export default function DDMContainer() {
   const [growthRate, setGrowthRate] = useState(5)
   const [discountRate, setDiscountRate] = useState(8)
   const [expectedDividend, setExpectedDividend] = useState(0)
-  const [isSaving, setIsSaving] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
   const [saveSuccess, setSaveSuccess] = useState(false)
   const { getToken, isSignedIn } = useAuth()
+  const queryClient = useQueryClient()
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['ddm', searchSymbol],
@@ -68,42 +69,73 @@ export default function DDMContainer() {
   // Check if error is rate limit (503)
   const isRateLimitError = error && error.message.includes('503')
 
-  const handleSaveAnalysis = async () => {
-    if (!ddmResult.isValid || !searchSymbol || !isSignedIn) {
-      return
-    }
-
-    setIsSaving(true)
-    setSaveError(null)
-    setSaveSuccess(false)
-
-    try {
+  const saveMutation = useMutation({
+    mutationFn: async (saveData: SaveDdmAnalysisRequest) => {
       const token = await getToken()
-      if (!token) {
-        throw new Error('Not authenticated')
+      if (!token) throw new Error('Not authenticated')
+      return saveDdmAnalysis(saveData, token)
+    },
+    onMutate: async (saveData: SaveDdmAnalysisRequest) => {
+      setSaveError(null)
+      setSaveSuccess(false)
+      await queryClient.cancelQueries({ queryKey: ['savedDdmAnalyses'] })
+      const previous = queryClient.getQueryData<SavedDdmAnalysis[]>([
+        'savedDdmAnalyses',
+      ])
+      const optimistic: SavedDdmAnalysis = {
+        id: -Date.now(),
+        symbol: saveData.symbol,
+        expectedDividend: saveData.expectedDividend,
+        growthRate: saveData.growthRate,
+        discountRate: saveData.discountRate,
+        totalDividend: saveData.totalDividend ?? null,
+        currentPrice: saveData.currentPrice ?? null,
+        intrinsicValue: saveData.intrinsicValue,
+        isUndervalued: saveData.isUndervalued,
+        createdAt: new Date().toISOString(),
       }
-
-      const saveData: SaveDdmAnalysisRequest = {
-        symbol: searchSymbol,
-        expectedDividend,
-        growthRate,
-        discountRate,
-        totalDividend: data?.totalDividend ?? null,
-        currentPrice: data?.currentPrice ?? null,
-        intrinsicValue: ddmResult.intrinsicValue,
-        isUndervalued: ddmResult.undervalued ?? false,
+      queryClient.setQueryData<SavedDdmAnalysis[] | undefined>(
+        ['savedDdmAnalyses'],
+        (old) => (old ? [optimistic, ...old] : [optimistic]),
+      )
+      return { previous, tempId: optimistic.id }
+    },
+    onError: (err, _vars, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(['savedDdmAnalyses'], context.previous)
       }
-
-      await saveDdmAnalysis(saveData, token)
-      setSaveSuccess(true)
-      setTimeout(() => setSaveSuccess(false), 3000)
-    } catch (err) {
       setSaveError(
         err instanceof Error ? err.message : 'Failed to save analysis',
       )
-    } finally {
-      setIsSaving(false)
+    },
+    onSuccess: (result, _vars, context) => {
+      // Replace optimistic with server result
+      queryClient.setQueryData<SavedDdmAnalysis[] | undefined>(
+        ['savedDdmAnalyses'],
+        (old) =>
+          old?.map((a) => (a.id === context?.tempId ? result : a)) || [result],
+      )
+      setSaveSuccess(true)
+      setTimeout(() => setSaveSuccess(false), 3000)
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['savedDdmAnalyses'] })
+    },
+  })
+
+  const handleSaveAnalysis = () => {
+    if (!ddmResult.isValid || !searchSymbol || !isSignedIn) return
+    const saveData: SaveDdmAnalysisRequest = {
+      symbol: searchSymbol,
+      expectedDividend,
+      growthRate,
+      discountRate,
+      totalDividend: data?.totalDividend ?? null,
+      currentPrice: data?.currentPrice ?? null,
+      intrinsicValue: ddmResult.intrinsicValue,
+      isUndervalued: ddmResult.undervalued ?? false,
     }
+    saveMutation.mutate(saveData)
   }
 
   return (
@@ -455,10 +487,10 @@ export default function DDMContainer() {
                       <div className="mt-6 flex flex-col items-center gap-2">
                         <button
                           onClick={handleSaveAnalysis}
-                          disabled={isSaving}
+                          disabled={saveMutation.isPending}
                           className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
                         >
-                          {isSaving ? (
+                          {saveMutation.isPending ? (
                             <>
                               <Loader2 size={16} className="animate-spin" />
                               Saving...

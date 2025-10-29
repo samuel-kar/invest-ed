@@ -1,15 +1,19 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useAuth } from '@clerk/clerk-react'
-import { useEffect, useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { fetchSavedDdmAnalyses, deleteSavedDdmAnalysis } from '../services/api'
+import { useEffect } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  fetchSavedDdmAnalyses,
+  deleteSavedDdmAnalysis,
+  type SavedDdmAnalysis,
+} from '../services/api'
 import Card from '../components/shared/Card'
 import { Loader2, Trash2, Calendar } from 'lucide-react'
 
 function SavedPage() {
   const { isSignedIn, isLoaded, getToken } = useAuth()
   const navigate = useNavigate()
-  const [deleteLoading, setDeleteLoading] = useState<number | null>(null)
+  const queryClient = useQueryClient()
 
   useEffect(() => {
     if (isLoaded && !isSignedIn) {
@@ -26,7 +30,6 @@ function SavedPage() {
     data: analyses,
     isLoading,
     error,
-    refetch,
   } = useQuery({
     queryKey: ['savedDdmAnalyses'],
     queryFn: async () => {
@@ -39,24 +42,38 @@ function SavedPage() {
     enabled: isSignedIn && isLoaded,
   })
 
-  const handleDelete = async (id: number) => {
-    if (!confirm('Are you sure you want to delete this analysis?')) {
-      return
-    }
-
-    setDeleteLoading(id)
-    try {
+  const deleteMutation = useMutation({
+    mutationFn: async (id: number) => {
       const token = await getToken()
-      if (!token) {
-        throw new Error('Not authenticated')
+      if (!token) throw new Error('Not authenticated')
+      return deleteSavedDdmAnalysis(id, token)
+    },
+    // Optimistic update
+    onMutate: async (id: number) => {
+      await queryClient.cancelQueries({ queryKey: ['savedDdmAnalyses'] })
+      const previous = queryClient.getQueryData<SavedDdmAnalysis[]>([
+        'savedDdmAnalyses',
+      ])
+      queryClient.setQueryData<SavedDdmAnalysis[] | undefined>(
+        ['savedDdmAnalyses'],
+        (old) => old?.filter((a) => a.id !== id),
+      )
+      return { previous }
+    },
+    onError: (err, _id, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(['savedDdmAnalyses'], context.previous)
       }
-      await deleteSavedDdmAnalysis(id, token)
-      refetch()
-    } catch (err) {
       alert(err instanceof Error ? err.message : 'Failed to delete analysis')
-    } finally {
-      setDeleteLoading(null)
-    }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['savedDdmAnalyses'] })
+    },
+  })
+
+  const handleDelete = (id: number) => {
+    if (!confirm('Are you sure you want to delete this analysis?')) return
+    deleteMutation.mutate(id)
   }
 
   const formatDate = (dateString: string) => {
@@ -213,11 +230,15 @@ function SavedPage() {
 
                 <button
                   onClick={() => handleDelete(analysis.id)}
-                  disabled={deleteLoading === analysis.id}
+                  disabled={
+                    deleteMutation.isPending &&
+                    deleteMutation.variables === analysis.id
+                  }
                   className="ml-4 p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
                   aria-label="Delete analysis"
                 >
-                  {deleteLoading === analysis.id ? (
+                  {deleteMutation.isPending &&
+                  deleteMutation.variables === analysis.id ? (
                     <Loader2 size={20} className="animate-spin" />
                   ) : (
                     <Trash2 size={20} />
