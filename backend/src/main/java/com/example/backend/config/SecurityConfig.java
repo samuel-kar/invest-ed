@@ -1,10 +1,13 @@
 package com.example.backend.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 
@@ -28,8 +31,10 @@ import org.springframework.web.cors.CorsConfigurationSource;
  */
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final ClerkJwtAuthFilter clerkJwtAuthFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, CorsConfigurationSource corsConfigurationSource) throws Exception {
@@ -39,6 +44,12 @@ public class SecurityConfig {
             
             // Disable CSRF for API testing (⚠️ NOT recommended for production)
             .csrf(csrf -> csrf.disable())
+            
+            // Stateless session management for JWT
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            
+            // Add JWT authentication filter before other filters
+            .addFilterBefore(clerkJwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
             
             // Configure endpoint access
             .authorizeHttpRequests(authz -> authz
@@ -51,14 +62,17 @@ public class SecurityConfig {
                 // Allow Swagger/OpenAPI documentation (⚠️ Remove in production)
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 
+                // Protected endpoints require authentication
+                .requestMatchers("/api/saved/**").authenticated()
+                
                 // All other requests require authentication
                 .anyRequest().authenticated()
             )
             
-            // Disable basic authentication (⚠️ Add proper auth in production)
+            // Disable basic authentication (using JWT instead)
             .httpBasic(httpBasic -> httpBasic.disable())
             
-            // Disable form login (⚠️ Add proper login mechanism in production)
+            // Disable form login (using JWT instead)
             .formLogin(formLogin -> formLogin.disable());
         
         return http.build();

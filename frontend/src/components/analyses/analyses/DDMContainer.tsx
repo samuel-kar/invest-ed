@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { fetchDdmData } from '../../../services/api'
+import { useAuth } from '@clerk/clerk-react'
+import {
+  fetchDdmData,
+  saveDdmAnalysis,
+  type SaveDdmAnalysisRequest,
+} from '../../../services/api'
 import { ddmCalculator } from '../../../utils/calculations'
 import MetricRow from '../../calculators/shared/MetricRow'
 import FormulaBlock from '../../calculators/shared/FormulaBlock'
@@ -11,6 +16,7 @@ import {
   Search,
   TrendingUp,
   TrendingDown,
+  Save,
 } from 'lucide-react'
 
 export default function DDMContainer() {
@@ -19,6 +25,10 @@ export default function DDMContainer() {
   const [growthRate, setGrowthRate] = useState(5)
   const [discountRate, setDiscountRate] = useState(8)
   const [expectedDividend, setExpectedDividend] = useState(0)
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
+  const [saveSuccess, setSaveSuccess] = useState(false)
+  const { getToken, isSignedIn } = useAuth()
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['ddm', searchSymbol],
@@ -57,6 +67,44 @@ export default function DDMContainer() {
 
   // Check if error is rate limit (503)
   const isRateLimitError = error && error.message.includes('503')
+
+  const handleSaveAnalysis = async () => {
+    if (!ddmResult.isValid || !searchSymbol || !isSignedIn) {
+      return
+    }
+
+    setIsSaving(true)
+    setSaveError(null)
+    setSaveSuccess(false)
+
+    try {
+      const token = await getToken()
+      if (!token) {
+        throw new Error('Not authenticated')
+      }
+
+      const saveData: SaveDdmAnalysisRequest = {
+        symbol: searchSymbol,
+        expectedDividend,
+        growthRate,
+        discountRate,
+        totalDividend: data?.totalDividend ?? null,
+        currentPrice: data?.currentPrice ?? null,
+        intrinsicValue: ddmResult.intrinsicValue,
+        isUndervalued: ddmResult.undervalued ?? false,
+      }
+
+      await saveDdmAnalysis(saveData, token)
+      setSaveSuccess(true)
+      setTimeout(() => setSaveSuccess(false), 3000)
+    } catch (err) {
+      setSaveError(
+        err instanceof Error ? err.message : 'Failed to save analysis',
+      )
+    } finally {
+      setIsSaving(false)
+    }
+  }
 
   return (
     <div className="grid md:grid-cols-5 gap-8">
@@ -402,6 +450,36 @@ export default function DDMContainer() {
                           : `Stock is ${Math.abs(ddmResult.marginOfSafety ?? 0).toFixed(1)}% overvalued`}
                       </span>
                     </div>
+
+                    {isSignedIn && (
+                      <div className="mt-6 flex flex-col items-center gap-2">
+                        <button
+                          onClick={handleSaveAnalysis}
+                          disabled={isSaving}
+                          className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                        >
+                          {isSaving ? (
+                            <>
+                              <Loader2 size={16} className="animate-spin" />
+                              Saving...
+                            </>
+                          ) : (
+                            <>
+                              <Save size={16} />
+                              Save Analysis
+                            </>
+                          )}
+                        </button>
+                        {saveSuccess && (
+                          <p className="text-sm text-green-600">
+                            Analysis saved successfully!
+                          </p>
+                        )}
+                        {saveError && (
+                          <p className="text-sm text-red-600">{saveError}</p>
+                        )}
+                      </div>
+                    )}
                   </>
                 )}
               </div>

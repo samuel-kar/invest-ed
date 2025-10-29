@@ -2,17 +2,19 @@ spring:
   application:
     name: backend
 
-# Database configuration temporarily disabled for development
-# Uncomment when database is needed:
-# spring:
-#   datasource:
-#     url: jdbc:postgresql://localhost:5432/invested
-#     username: your_username
-#     password: your_password
-#   jpa:
-#     hibernate:
-#       ddl-auto: update
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/invested}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:postgres}
 
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    show-sql: ${JPA_SHOW_SQL:false}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
 # Finnhub API Configuration
 # Load FINNHUB_API_KEY from environment variable
 # Make sure to set FINNHUB_API_KEY in your .env file or environment

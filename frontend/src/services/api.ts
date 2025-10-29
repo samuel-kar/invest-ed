@@ -3,7 +3,9 @@
  */
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api/market'
+  import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api'
+
+const SAVED_API_BASE_URL = `${API_BASE_URL}/saved`
 
 export interface Quote {
   currentPrice: number | null
@@ -186,7 +188,7 @@ export async function fetchChowderData(symbol: string): Promise<ChowderResult> {
  */
 export async function fetchDdmData(symbol: string): Promise<DdmData> {
   try {
-    const response = await fetch(`${API_BASE_URL}/ddm/${symbol}`)
+    const response = await fetch(`${API_BASE_URL}/market/ddm/${symbol}`)
 
     if (!response.ok) {
       if (response.status === 404) {
@@ -201,5 +203,183 @@ export async function fetchDdmData(symbol: string): Promise<DdmData> {
       throw error
     }
     throw new Error('Network error while fetching DDM data')
+  }
+}
+
+export interface SavedDdmAnalysis {
+  id: number
+  symbol: string
+  expectedDividend: number
+  growthRate: number
+  discountRate: number
+  totalDividend: number | null
+  currentPrice: number | null
+  intrinsicValue: number
+  isUndervalued: boolean
+  createdAt: string
+}
+
+export interface SaveDdmAnalysisRequest {
+  symbol: string
+  expectedDividend: number
+  growthRate: number
+  discountRate: number
+  totalDividend?: number | null
+  currentPrice?: number | null
+  intrinsicValue: number
+  isUndervalued: boolean
+}
+
+/**
+ * Makes an authenticated request to the saved analyses API
+ */
+async function authenticatedFetch(
+  url: string,
+  options: RequestInit = {},
+  token: string,
+): Promise<Response> {
+  const headers = new Headers(options.headers)
+  headers.set('Authorization', `Bearer ${token}`)
+  headers.set('Content-Type', 'application/json')
+
+  return fetch(url, {
+    ...options,
+    headers,
+  })
+}
+
+/**
+ * Saves a DDM analysis
+ */
+export async function saveDdmAnalysis(
+  data: SaveDdmAnalysisRequest,
+  token: string,
+): Promise<SavedDdmAnalysis> {
+  try {
+    const response = await authenticatedFetch(
+      `${SAVED_API_BASE_URL}/ddm`,
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+      },
+      token,
+    )
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error('Unauthorized - please sign in')
+      }
+      const errorText = await response.text()
+      throw new Error(`Failed to save analysis: ${errorText}`)
+    }
+
+    return await response.json()
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('Network error while saving analysis')
+  }
+}
+
+/**
+ * Fetches all saved DDM analyses for the current user
+ */
+export async function fetchSavedDdmAnalyses(
+  token: string,
+): Promise<SavedDdmAnalysis[]> {
+  try {
+    const response = await authenticatedFetch(
+      `${SAVED_API_BASE_URL}/ddm`,
+      {
+        method: 'GET',
+      },
+      token,
+    )
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error('Unauthorized - please sign in')
+      }
+      throw new Error(`Failed to fetch saved analyses: ${response.status}`)
+    }
+
+    return await response.json()
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('Network error while fetching saved analyses')
+  }
+}
+
+/**
+ * Updates a saved DDM analysis
+ */
+export async function updateSavedDdmAnalysis(
+  id: number,
+  data: SaveDdmAnalysisRequest,
+  token: string,
+): Promise<SavedDdmAnalysis> {
+  try {
+    const response = await authenticatedFetch(
+      `${SAVED_API_BASE_URL}/ddm/${id}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(data),
+      },
+      token,
+    )
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error('Unauthorized - please sign in')
+      }
+      if (response.status === 403) {
+        throw new Error('You do not have permission to update this analysis')
+      }
+      const errorText = await response.text()
+      throw new Error(`Failed to update analysis: ${errorText}`)
+    }
+
+    return await response.json()
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('Network error while updating analysis')
+  }
+}
+
+/**
+ * Deletes a saved DDM analysis
+ */
+export async function deleteSavedDdmAnalysis(
+  id: number,
+  token: string,
+): Promise<void> {
+  try {
+    const response = await authenticatedFetch(
+      `${SAVED_API_BASE_URL}/ddm/${id}`,
+      {
+        method: 'DELETE',
+      },
+      token,
+    )
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        throw new Error('Unauthorized - please sign in')
+      }
+      if (response.status === 403) {
+        throw new Error('You do not have permission to delete this analysis')
+      }
+      throw new Error(`Failed to delete analysis: ${response.status}`)
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error
+    }
+    throw new Error('Network error while deleting analysis')
   }
 }
