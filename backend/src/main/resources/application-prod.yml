@@ -1,3 +1,16 @@
 app:
   cors:
     allowed-origins: ${ALLOWED_ORIGINS}
+
+spring:
+  datasource:
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      connection-timeout: 20000
+      idle-timeout: 300000
+      max-lifetime: 1800000
+  jpa:
+    hibernate:
+      ddl-auto: ${JPA_DDL_AUTO:validate}
+    show-sql: false
