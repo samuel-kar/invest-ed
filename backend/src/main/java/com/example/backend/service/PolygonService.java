@@ -14,7 +14,9 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 /**
@@ -25,15 +27,36 @@ import java.util.function.Consumer;
 public class PolygonService {
     
     private final RestTemplate restTemplate;
-    private final String apiKey;
+    private final List<String> apiKeys;
+    private static final AtomicInteger keyIndex = new AtomicInteger(0);
     
     public PolygonService(@Qualifier("polygonRestTemplate") RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.apiKey = System.getenv("POLYGON_API_KEY");
+
+        apiKeys = new ArrayList<>();
+        apiKeys.add(System.getenv("POLYGON_API_KEY_ONE"));
+        apiKeys.add(System.getenv("POLYGON_API_KEY_TWO"));
+        apiKeys.add(System.getenv("POLYGON_API_KEY_THREE"));
         
-        if (apiKey == null || apiKey.trim().isEmpty()) {
-            throw new IllegalStateException("POLYGON_API_KEY environment variable is required");
+        // Validate that all keys are present
+        for (int i = 0; i < apiKeys.size(); i++) {
+            String key = apiKeys.get(i);
+            if (key == null || key.trim().isEmpty()) {
+                throw new IllegalStateException(
+                    String.format("POLYGON_API_KEY_%s environment variable is required", 
+                        i == 0 ? "ONE" : i == 1 ? "TWO" : "THREE"));
+            }
         }
+    }
+    
+    /**
+     * Gets the next API key in a thread-safe round-robin fashion.
+     * 
+     * @return the next API key to use
+     */
+    private String getNextApiKey() {
+        int index = keyIndex.getAndIncrement() % apiKeys.size();
+        return apiKeys.get(index);
     }
     
     /**
@@ -48,8 +71,7 @@ public class PolygonService {
         UriComponentsBuilder builder = UriComponentsBuilder
                 .fromUriString("https://api.polygon.io")
                 .path(path)
-                .queryParam("apiKey", apiKey);
-        
+                .queryParam("apiKey", getNextApiKey());
         if (customizer != null) {
             customizer.accept(builder);
         }
