@@ -322,8 +322,8 @@ export default function DDMContainer() {
 
               {ddmResult.isValid && (
                 <>
-                  {/* Row 1: Intrinsic Value | Status + Icon */}
-                  <div className="grid md:grid-cols-2 gap-4 mb-3">
+                  {/* Row 1: Intrinsic Value | Status + Icon (centered) | [empty] */}
+                  <div className="grid md:grid-cols-3 gap-4 mb-3">
                     <div className="flex flex-col">
                       <div
                         className={`text-2xl font-bold ${ddmResult.undervalued ? 'text-green-600' : 'text-red-600'}`}
@@ -337,7 +337,7 @@ export default function DDMContainer() {
                         Intrinsic Value
                       </span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-center gap-2">
                       {ddmResult.undervalued ? (
                         <TrendingUp size={16} className="text-green-600" />
                       ) : (
@@ -349,10 +349,11 @@ export default function DDMContainer() {
                         {ddmResult.undervalued ? 'Undervalued' : 'Overvalued'}
                       </span>
                     </div>
+                    <div></div>
                   </div>
 
-                  {/* Row 2: Current Price | Margin of Safety | Save button */}
-                  <div className="flex flex-wrap items-center gap-4 text-sm">
+                  {/* Row 2: Current Price | Margin (centered below Status) | Save button */}
+                  <div className="grid md:grid-cols-3 gap-4 text-sm items-center">
                     <div>
                       <span style={{ color: 'var(--text-secondary)' }}>
                         Current Price:{' '}
@@ -364,7 +365,7 @@ export default function DDMContainer() {
                         ${data.currentPrice?.toFixed(2) || 'N/A'}
                       </span>
                     </div>
-                    <div>
+                    <div className="flex justify-center">
                       <span style={{ color: 'var(--text-secondary)' }}>
                         Margin:{' '}
                       </span>
@@ -375,8 +376,8 @@ export default function DDMContainer() {
                         {(ddmResult.marginOfSafety ?? 0).toFixed(1)}%
                       </span>
                     </div>
-                    {isSignedIn && (
-                      <div className="ml-auto flex items-center gap-2">
+                    {isSignedIn ? (
+                      <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={handleSaveAnalysis}
                           disabled={saveMutation.isPending}
@@ -401,6 +402,8 @@ export default function DDMContainer() {
                           <p className="text-xs text-red-600">{saveError}</p>
                         )}
                       </div>
+                    ) : (
+                      <div></div>
                     )}
                   </div>
                 </>
