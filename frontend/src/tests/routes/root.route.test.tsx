@@ -1,7 +1,9 @@
+import React from 'react'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import { ThemeProvider } from '@/contexts/ThemeContext'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+import { ThemeProvider } from '../../contexts/ThemeContext'
 
 vi.mock('@tanstack/react-router', async (orig) => {
   const mod: any = await orig()
@@ -26,4 +28,3 @@ describe('root route smoke', () => {
     expect(screen.getByText(/invest/i)).toBeInTheDocument()
   })
 })
-

@@ -1,6 +1,8 @@
+import React from 'react'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import SearchBar from '@/components/shared/SearchBar'
+import SearchBar from '../../components/shared/SearchBar'
 
 describe('SearchBar', () => {
   it('renders and calls onChange', async () => {
@@ -13,4 +15,3 @@ describe('SearchBar', () => {
     expect(onChange).toHaveBeenCalled()
   })
 })
-

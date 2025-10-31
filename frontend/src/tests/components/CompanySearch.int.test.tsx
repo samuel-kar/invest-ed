@@ -1,6 +1,8 @@
+import React from 'react'
+import { describe, it, vi, expect } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import CompanySearch from '@/components/CompanySearch'
+import CompanySearch from '../../components/CompanySearch'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 vi.mock('@tanstack/react-router', async (orig) => {
@@ -85,4 +87,3 @@ describe('CompanySearch (integration)', () => {
     })
   })
 })
-

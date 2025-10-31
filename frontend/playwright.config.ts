@@ -6,7 +6,7 @@ export default defineConfig({
   retries: 0,
   reporter: 'list',
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:5173',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',
     trace: 'on-first-retry',
     video: 'off',
   },
@@ -17,4 +17,3 @@ export default defineConfig({
     },
   ],
 })
-

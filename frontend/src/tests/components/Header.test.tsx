@@ -1,7 +1,9 @@
+import React from 'react'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Header from '@/components/Header'
-import { ThemeProvider } from '@/contexts/ThemeContext'
+import Header from '../../components/Header'
+import { ThemeProvider } from '../../contexts/ThemeContext'
 
 vi.mock('@clerk/clerk-react', () => ({
   SignedIn: ({ children }: any) => <>{children}</>,
@@ -37,4 +39,3 @@ describe('Header', () => {
     expect(theme === 'light' || theme === 'dark').toBe(true)
   })
 })
-

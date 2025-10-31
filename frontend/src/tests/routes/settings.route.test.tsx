@@ -1,8 +1,10 @@
+import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import SettingsPage from '@/components/SettingsPage'
-import { ThemeProvider } from '@/contexts/ThemeContext'
-import { CurrencyProvider } from '@/contexts/CurrencyContext'
+import React from 'react'
+import SettingsPage from '../../components/SettingsPage'
+import { ThemeProvider } from '../../contexts/ThemeContext'
+import { CurrencyProvider } from '../../contexts/CurrencyContext'
 
 describe('settings route', () => {
   it('toggles theme and persists selection', async () => {
@@ -38,4 +40,3 @@ describe('settings route', () => {
     expect((select as HTMLSelectElement).value).toBe('EUR')
   })
 })
-
