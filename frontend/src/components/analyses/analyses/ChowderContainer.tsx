@@ -304,79 +304,111 @@ export default function ChowderContainer() {
           <>
             {/* Main Score Card */}
             {data.isValid && interpretation && data.chowderScore !== null ? (
-              <Card className="p-6">
-                <div className="text-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Breakdown Card */}
+                <Card className="p-4">
                   <h4
-                    className="text-lg font-semibold mb-4"
+                    className="font-semibold mb-3"
                     style={{ color: 'var(--text-primary)' }}
                   >
-                    Chowder Score for {searchSymbol}
+                    Breakdown:
                   </h4>
-                  <div
-                    className={`text-5xl font-bold mb-2 ${interpretation.colorClass}`}
-                  >
-                    {data.chowderScore.toFixed(1)}
+                  <div className="space-y-3">
+                    <MetricRow
+                      label="Current Price:"
+                      value={`$${data.currentPrice?.toFixed(2) || 'N/A'}`}
+                    />
+                    <MetricRow
+                      label="Dividend Yield:"
+                      value={`${data.dividendYield?.toFixed(2) || 'N/A'}%`}
+                    />
+                    <MetricRow
+                      label="Dividend CAGR:"
+                      value={`${data.dividendCAGR?.toFixed(2) || 'N/A'}%`}
+                    />
+                    <MetricRow
+                      label="Years of Data:"
+                      value={data.yearsOfData.toString()}
+                    />
+                    <hr style={{ borderColor: 'var(--border-color)' }} />
+                    <MetricRow
+                      label="Chowder Score:"
+                      value={
+                        interpretation ? (
+                          <span className={interpretation.colorClass}>
+                            {data.chowderScore?.toFixed(1) || 'N/A'}
+                          </span>
+                        ) : (
+                          data.chowderScore?.toFixed(1) || 'N/A'
+                        )
+                      }
+                      highlight
+                    />
                   </div>
-                  <div
-                    className={`text-xl font-semibold mb-1 ${interpretation.colorClass}`}
-                  >
-                    {interpretation.level}
+                </Card>
+
+                {/* Chowder Score Card */}
+                <Card className="p-6">
+                  <div className="text-center">
+                    <h4
+                      className="text-lg font-semibold mb-4"
+                      style={{ color: 'var(--text-primary)' }}
+                    >
+                      Chowder Score for {searchSymbol}
+                    </h4>
+                    <div
+                      className={`text-5xl font-bold mb-2 ${interpretation.colorClass}`}
+                    >
+                      {data.chowderScore.toFixed(1)}
+                    </div>
+                    <div
+                      className={`text-xl font-semibold mb-1 ${interpretation.colorClass}`}
+                    >
+                      {interpretation.level}
+                    </div>
+                    <p
+                      className="text-sm mb-4"
+                      style={{ color: 'var(--text-secondary)' }}
+                    >
+                      {interpretation.description}
+                    </p>
                   </div>
-                  <p
-                    className="text-sm"
-                    style={{ color: 'var(--text-secondary)' }}
-                  >
-                    {interpretation.description}
-                  </p>
-                </div>
-              </Card>
+
+                  {/* Save Button */}
+                  {isSignedIn && (
+                    <div className="flex flex-col items-center gap-2 mt-4">
+                      <button
+                        onClick={handleSaveAnalysis}
+                        disabled={saveMutation.isPending}
+                        className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                      >
+                        {saveMutation.isPending ? (
+                          <>
+                            <Loader2 size={16} className="animate-spin" />
+                            Saving...
+                          </>
+                        ) : (
+                          <>
+                            <Save size={16} />
+                            Save Analysis
+                          </>
+                        )}
+                      </button>
+                      {saveSuccess && (
+                        <p className="text-sm text-green-600">
+                          Analysis saved successfully!
+                        </p>
+                      )}
+                      {saveError && (
+                        <p className="text-sm text-red-600">{saveError}</p>
+                      )}
+                    </div>
+                  )}
+                </Card>
+              </div>
             ) : (
               <Card className="p-6">
                 <p className="text-center text-red-700">{data.message}</p>
-              </Card>
-            )}
-
-            {/* Breakdown Card */}
-            {data.isValid && data.chowderScore !== null && (
-              <Card className="p-4">
-                <h4
-                  className="font-semibold mb-3"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  Breakdown:
-                </h4>
-                <div className="space-y-3">
-                  <MetricRow
-                    label="Current Price:"
-                    value={`$${data.currentPrice?.toFixed(2) || 'N/A'}`}
-                  />
-                  <MetricRow
-                    label="Dividend Yield:"
-                    value={`${data.dividendYield?.toFixed(2) || 'N/A'}%`}
-                  />
-                  <MetricRow
-                    label="Dividend CAGR:"
-                    value={`${data.dividendCAGR?.toFixed(2) || 'N/A'}%`}
-                  />
-                  <MetricRow
-                    label="Years of Data:"
-                    value={data.yearsOfData.toString()}
-                  />
-                  <hr style={{ borderColor: 'var(--border-color)' }} />
-                  <MetricRow
-                    label="Chowder Score:"
-                    value={
-                      interpretation ? (
-                        <span className={interpretation.colorClass}>
-                          {data.chowderScore?.toFixed(1) || 'N/A'}
-                        </span>
-                      ) : (
-                        data.chowderScore?.toFixed(1) || 'N/A'
-                      )
-                    }
-                    highlight
-                  />
-                </div>
               </Card>
             )}
 
@@ -389,39 +421,6 @@ export default function ChowderContainer() {
                 {data.message}
               </p>
             </Card>
-
-            {/* Save Button */}
-            {isSignedIn && data.isValid && data.chowderScore !== null && (
-              <Card className="p-6">
-                <div className="flex flex-col items-center gap-2">
-                  <button
-                    onClick={handleSaveAnalysis}
-                    disabled={saveMutation.isPending}
-                    className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
-                  >
-                    {saveMutation.isPending ? (
-                      <>
-                        <Loader2 size={16} className="animate-spin" />
-                        Saving...
-                      </>
-                    ) : (
-                      <>
-                        <Save size={16} />
-                        Save Analysis
-                      </>
-                    )}
-                  </button>
-                  {saveSuccess && (
-                    <p className="text-sm text-green-600">
-                      Analysis saved successfully!
-                    </p>
-                  )}
-                  {saveError && (
-                    <p className="text-sm text-red-600">{saveError}</p>
-                  )}
-                </div>
-              </Card>
-            )}
           </>
         )}
 
