@@ -25,6 +25,9 @@ describe('root route smoke', () => {
       </ThemeProvider>,
     )
 
-    expect(screen.getByText(/invest/i)).toBeInTheDocument()
+    // Check header logo link specifically
+    expect(screen.getByRole('link', { name: /invest/i })).toBeInTheDocument()
+    // Check footer has copyright with InvestEd
+    expect(screen.getByText(/InvestEd/i)).toBeInTheDocument()
   })
 })
