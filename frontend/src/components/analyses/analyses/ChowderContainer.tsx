@@ -284,8 +284,8 @@ export default function ChowderContainer() {
                 className="mt-3 text-xs"
                 style={{ color: 'var(--text-muted)' }}
               >
-                Backend is waking up from standby. This may take a few extra
-                seconds...
+                Backend server is waking up from standby mode. This may take a
+                few extra seconds...
               </p>
             )}
           </Card>

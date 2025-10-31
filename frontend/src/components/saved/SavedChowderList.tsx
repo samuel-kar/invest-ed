@@ -145,8 +145,8 @@ export default function SavedChowderList() {
               className="text-xs text-center"
               style={{ color: 'var(--text-muted)' }}
             >
-              Backend is waking up from standby. This may take a few extra
-              seconds...
+              Backend server is waking up from standby mode. This may take a few
+              extra seconds...
             </p>
           )}
         </div>
