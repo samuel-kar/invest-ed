@@ -302,118 +302,109 @@ export default function DDMContainer() {
         {data && !isLoading && (
           <>
             {/* Calculation Results - Prominent banner at top */}
-            <Card className="p-6">
-              <div className="text-center">
-                <h4
-                  className="text-lg font-semibold mb-4"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  DDM Analysis Results
-                </h4>
+            <Card className="p-4">
+              <h4
+                className="text-base font-semibold mb-3"
+                style={{ color: 'var(--text-primary)' }}
+              >
+                DDM Analysis Results
+              </h4>
 
-                {!ddmResult.isValid && (
-                  <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                    <p className="text-yellow-700 text-sm">
-                      {discountRate <= growthRate
-                        ? 'Required return must be greater than growth rate'
-                        : 'Expected dividend must be greater than 0'}
-                    </p>
-                  </div>
-                )}
+              {!ddmResult.isValid && (
+                <div className="mb-3 p-2 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <p className="text-yellow-700 text-xs">
+                    {discountRate <= growthRate
+                      ? 'Required return must be greater than growth rate'
+                      : 'Expected dividend must be greater than 0'}
+                  </p>
+                </div>
+              )}
 
-                {ddmResult.isValid && (
-                  <>
-                    <div className="mb-4">
+              {ddmResult.isValid && (
+                <>
+                  {/* Row 1: Intrinsic Value | Status + Icon */}
+                  <div className="grid md:grid-cols-2 gap-4 mb-3">
+                    <div className="flex flex-col">
                       <div
-                        className={`text-4xl font-bold mb-2 ${ddmResult.undervalued ? 'text-green-600' : 'text-red-600'}`}
+                        className={`text-2xl font-bold ${ddmResult.undervalued ? 'text-green-600' : 'text-red-600'}`}
                       >
                         ${ddmResult.intrinsicValue.toFixed(2)}
                       </div>
-                      <div
-                        className={`text-xl font-semibold mb-1 ${ddmResult.undervalued ? 'text-green-600' : 'text-red-600'}`}
-                      >
-                        {ddmResult.undervalued ? 'Undervalued' : 'Overvalued'}
-                      </div>
-                      <p
-                        className="text-sm"
+                      <span
+                        className="text-xs mt-1"
                         style={{ color: 'var(--text-secondary)' }}
                       >
                         Intrinsic Value
-                      </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <span style={{ color: 'var(--text-secondary)' }}>
-                          Current Price:
-                        </span>
-                        <span
-                          className="ml-2 font-semibold"
-                          style={{ color: 'var(--text-primary)' }}
-                        >
-                          ${data.currentPrice?.toFixed(2) || 'N/A'}
-                        </span>
-                      </div>
-                      <div>
-                        <span style={{ color: 'var(--text-secondary)' }}>
-                          Margin of Safety:
-                        </span>
-                        <span
-                          className={`ml-2 font-semibold ${(ddmResult.marginOfSafety ?? 0) > 0 ? 'text-green-600' : 'text-red-600'}`}
-                        >
-                          {(ddmResult.marginOfSafety ?? 0) > 0 ? '+' : ''}
-                          {(ddmResult.marginOfSafety ?? 0).toFixed(1)}%
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 flex items-center justify-center gap-2">
-                      {ddmResult.undervalued ? (
-                        <TrendingUp size={20} className="text-green-600" />
-                      ) : (
-                        <TrendingDown size={20} className="text-red-600" />
-                      )}
-                      <span
-                        className={`text-sm font-medium ${ddmResult.undervalued ? 'text-green-600' : 'text-red-600'}`}
-                      >
-                        {ddmResult.undervalued
-                          ? `Stock is ${Math.abs(ddmResult.marginOfSafety ?? 0).toFixed(1)}% undervalued`
-                          : `Stock is ${Math.abs(ddmResult.marginOfSafety ?? 0).toFixed(1)}% overvalued`}
                       </span>
                     </div>
+                    <div className="flex items-center gap-2">
+                      {ddmResult.undervalued ? (
+                        <TrendingUp size={16} className="text-green-600" />
+                      ) : (
+                        <TrendingDown size={16} className="text-red-600" />
+                      )}
+                      <span
+                        className={`text-sm font-semibold ${ddmResult.undervalued ? 'text-green-600' : 'text-red-600'}`}
+                      >
+                        {ddmResult.undervalued ? 'Undervalued' : 'Overvalued'}
+                      </span>
+                    </div>
+                  </div>
 
+                  {/* Row 2: Current Price | Margin of Safety | Save button */}
+                  <div className="flex flex-wrap items-center gap-4 text-sm">
+                    <div>
+                      <span style={{ color: 'var(--text-secondary)' }}>
+                        Current Price:{' '}
+                      </span>
+                      <span
+                        className="font-semibold"
+                        style={{ color: 'var(--text-primary)' }}
+                      >
+                        ${data.currentPrice?.toFixed(2) || 'N/A'}
+                      </span>
+                    </div>
+                    <div>
+                      <span style={{ color: 'var(--text-secondary)' }}>
+                        Margin:{' '}
+                      </span>
+                      <span
+                        className={`font-semibold ${(ddmResult.marginOfSafety ?? 0) > 0 ? 'text-green-600' : 'text-red-600'}`}
+                      >
+                        {(ddmResult.marginOfSafety ?? 0) > 0 ? '+' : ''}
+                        {(ddmResult.marginOfSafety ?? 0).toFixed(1)}%
+                      </span>
+                    </div>
                     {isSignedIn && (
-                      <div className="mt-6 flex flex-col items-center gap-2">
+                      <div className="ml-auto flex items-center gap-2">
                         <button
                           onClick={handleSaveAnalysis}
                           disabled={saveMutation.isPending}
-                          className="px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+                          className="px-3 py-1.5 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-1.5"
                         >
                           {saveMutation.isPending ? (
                             <>
-                              <Loader2 size={16} className="animate-spin" />
+                              <Loader2 size={14} className="animate-spin" />
                               Saving...
                             </>
                           ) : (
                             <>
-                              <Save size={16} />
-                              Save Analysis
+                              <Save size={14} />
+                              Save
                             </>
                           )}
                         </button>
                         {saveSuccess && (
-                          <p className="text-sm text-green-600">
-                            Analysis saved successfully!
-                          </p>
+                          <p className="text-xs text-green-600">Saved!</p>
                         )}
                         {saveError && (
-                          <p className="text-sm text-red-600">{saveError}</p>
+                          <p className="text-xs text-red-600">{saveError}</p>
                         )}
                       </div>
                     )}
-                  </>
-                )}
-              </div>
+                  </div>
+                </>
+              )}
             </Card>
 
             {/* Stock Data and DDM Parameters side-by-side */}
