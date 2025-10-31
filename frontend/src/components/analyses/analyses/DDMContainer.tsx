@@ -301,108 +301,7 @@ export default function DDMContainer() {
         {/* Results */}
         {data && !isLoading && (
           <>
-            {/* Stock Data and DDM Parameters side-by-side */}
-            <div className="grid md:grid-cols-2 gap-4">
-              {/* Stock Data Card */}
-              <Card className="p-4">
-                <h4
-                  className="font-semibold mb-3"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  Stock Data for {searchSymbol}:
-                </h4>
-                <div className="space-y-3">
-                  <MetricRow
-                    label="Current Price:"
-                    value={`$${data.currentPrice?.toFixed(2) || 'N/A'}`}
-                  />
-                  <MetricRow
-                    label="Last Year's Total Dividend:"
-                    value={`$${data.totalDividend?.toFixed(2) || 'N/A'}`}
-                  />
-                  <MetricRow
-                    label="Dividend Payments per Year:"
-                    value={data.dividendCount.toString()}
-                  />
-                </div>
-              </Card>
-
-              {/* DDM Parameters Card */}
-              <Card className="p-4">
-                <h4
-                  className="font-semibold mb-3"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  DDM Parameters:
-                </h4>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span style={{ color: 'var(--text-secondary)' }}>
-                      Growth Rate (%):
-                    </span>
-                    <input
-                      type="number"
-                      value={growthRate}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setGrowthRate(Number(e.target.value))
-                      }
-                      min="0"
-                      max="50"
-                      step="0.1"
-                      className="w-20 p-2 rounded-md transition-colors"
-                      style={{
-                        backgroundColor: 'var(--bg-secondary)',
-                        border: '1px solid var(--border-color)',
-                        color: 'var(--text-primary)',
-                      }}
-                    />
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span style={{ color: 'var(--text-secondary)' }}>
-                      Required Return (%):
-                    </span>
-                    <input
-                      type="number"
-                      value={discountRate}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setDiscountRate(Number(e.target.value))
-                      }
-                      min="0"
-                      max="50"
-                      step="0.1"
-                      className="w-20 p-2 rounded-md transition-colors"
-                      style={{
-                        backgroundColor: 'var(--bg-secondary)',
-                        border: '1px solid var(--border-color)',
-                        color: 'var(--text-primary)',
-                      }}
-                    />
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span style={{ color: 'var(--text-secondary)' }}>
-                      Next Year Dividend ($):
-                    </span>
-                    <input
-                      type="number"
-                      value={expectedDividend}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setExpectedDividend(Number(e.target.value))
-                      }
-                      min="0"
-                      step="0.01"
-                      className="w-20 p-2 rounded-md transition-colors"
-                      style={{
-                        backgroundColor: 'var(--bg-secondary)',
-                        border: '1px solid var(--border-color)',
-                        color: 'var(--text-primary)',
-                      }}
-                    />
-                  </div>
-                </div>
-              </Card>
-            </div>
-
-            {/* Calculation Results */}
+            {/* Calculation Results - Prominent banner at top */}
             <Card className="p-6">
               <div className="text-center">
                 <h4
@@ -516,6 +415,107 @@ export default function DDMContainer() {
                 )}
               </div>
             </Card>
+
+            {/* Stock Data and DDM Parameters side-by-side */}
+            <div className="grid md:grid-cols-2 gap-4">
+              {/* Stock Data Card */}
+              <Card className="p-4">
+                <h4
+                  className="font-semibold mb-3"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  Stock Data for {searchSymbol}:
+                </h4>
+                <div className="space-y-3">
+                  <MetricRow
+                    label="Current Price:"
+                    value={`$${data.currentPrice?.toFixed(2) || 'N/A'}`}
+                  />
+                  <MetricRow
+                    label="Last Year's Total Dividend:"
+                    value={`$${data.totalDividend?.toFixed(2) || 'N/A'}`}
+                  />
+                  <MetricRow
+                    label="Dividend Payments per Year:"
+                    value={data.dividendCount.toString()}
+                  />
+                </div>
+              </Card>
+
+              {/* DDM Parameters Card */}
+              <Card className="p-4">
+                <h4
+                  className="font-semibold mb-3"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  DDM Parameters:
+                </h4>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span style={{ color: 'var(--text-secondary)' }}>
+                      Growth Rate (%):
+                    </span>
+                    <input
+                      type="number"
+                      value={growthRate}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setGrowthRate(Number(e.target.value))
+                      }
+                      min="0"
+                      max="50"
+                      step="0.1"
+                      className="w-20 p-2 rounded-md transition-colors"
+                      style={{
+                        backgroundColor: 'var(--bg-secondary)',
+                        border: '1px solid var(--border-color)',
+                        color: 'var(--text-primary)',
+                      }}
+                    />
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span style={{ color: 'var(--text-secondary)' }}>
+                      Required Return (%):
+                    </span>
+                    <input
+                      type="number"
+                      value={discountRate}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setDiscountRate(Number(e.target.value))
+                      }
+                      min="0"
+                      max="50"
+                      step="0.1"
+                      className="w-20 p-2 rounded-md transition-colors"
+                      style={{
+                        backgroundColor: 'var(--bg-secondary)',
+                        border: '1px solid var(--border-color)',
+                        color: 'var(--text-primary)',
+                      }}
+                    />
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span style={{ color: 'var(--text-secondary)' }}>
+                      Next Year Dividend ($):
+                    </span>
+                    <input
+                      type="number"
+                      value={expectedDividend}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setExpectedDividend(Number(e.target.value))
+                      }
+                      min="0"
+                      step="0.01"
+                      className="w-20 p-2 rounded-md transition-colors"
+                      style={{
+                        backgroundColor: 'var(--bg-secondary)',
+                        border: '1px solid var(--border-color)',
+                        color: 'var(--text-primary)',
+                      }}
+                    />
+                  </div>
+                </div>
+              </Card>
+            </div>
           </>
         )}
 
