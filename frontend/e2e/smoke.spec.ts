@@ -19,15 +19,20 @@ test('settings theme toggle persists on reload', async ({ page }) => {
   const before = await page.evaluate(() =>
     document.documentElement.getAttribute('data-theme'),
   )
-  await page.getByRole('button', { name: /switch to/i }).click()
+  // Disambiguate: click the settings page toggle (in main), not the header toggle
+  const main = page.getByRole('main')
+  await main.getByRole('button', { name: /switch to/i }).click()
+
+  // Wait for theme change on <html>
+  await expect(page.locator('html')).toHaveAttribute(
+    'data-theme',
+    /(dark|light)/,
+  )
   const after = await page.evaluate(() =>
     document.documentElement.getAttribute('data-theme'),
   )
   expect(after).not.toBe(before)
   await page.reload()
-  const persisted = await page.evaluate(() =>
-    document.documentElement.getAttribute('data-theme'),
-  )
-  expect(persisted).toBe(after)
+  // After reload, wait until the app sets theme from localStorage
+  await expect(page.locator('html')).toHaveAttribute('data-theme', after!)
 })
-
