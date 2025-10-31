@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from '@clerk/clerk-react'
 import {
@@ -17,6 +17,7 @@ export default function ChowderContainer() {
   const [searchSymbol, setSearchSymbol] = useState('')
   const [saveError, setSaveError] = useState<string | null>(null)
   const [saveSuccess, setSaveSuccess] = useState(false)
+  const [showColdStart, setShowColdStart] = useState(false)
   const { getToken, isSignedIn } = useAuth()
   const queryClient = useQueryClient()
 
@@ -26,6 +27,19 @@ export default function ChowderContainer() {
     enabled: !!searchSymbol && searchSymbol.length > 0,
     retry: false,
   })
+
+  // Show cold start message after 3 seconds of loading
+  useEffect(() => {
+    if (isLoading) {
+      setShowColdStart(false)
+      const timer = setTimeout(() => {
+        setShowColdStart(true)
+      }, 3000)
+      return () => clearTimeout(timer)
+    } else {
+      setShowColdStart(false)
+    }
+  }, [isLoading])
 
   const handleSearch = () => {
     const trimmed = inputSymbol.trim().toUpperCase()
@@ -265,6 +279,15 @@ export default function ChowderContainer() {
             <p style={{ color: 'var(--text-secondary)' }}>
               Loading Chowder analysis for {searchSymbol}...
             </p>
+            {showColdStart && (
+              <p
+                className="mt-3 text-xs"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                Backend is waking up from standby. This may take a few extra
+                seconds...
+              </p>
+            )}
           </Card>
         )}
 

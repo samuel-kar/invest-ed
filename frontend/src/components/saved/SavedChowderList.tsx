@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useAuth } from '@clerk/clerk-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Loader2, Trash2, Calendar } from 'lucide-react'
@@ -9,6 +10,7 @@ import {
 } from '../../services/api'
 
 export default function SavedChowderList() {
+  const [showColdStart, setShowColdStart] = useState(false)
   const { isSignedIn, isLoaded, getToken } = useAuth()
   const queryClient = useQueryClient()
 
@@ -27,6 +29,19 @@ export default function SavedChowderList() {
     },
     enabled: isSignedIn && isLoaded,
   })
+
+  // Show cold start message after 3 seconds of loading
+  useEffect(() => {
+    if (isLoading) {
+      setShowColdStart(false)
+      const timer = setTimeout(() => {
+        setShowColdStart(true)
+      }, 3000)
+      return () => clearTimeout(timer)
+    } else {
+      setShowColdStart(false)
+    }
+  }, [isLoading])
 
   const deleteMutation = useMutation({
     mutationFn: async (id: number) => {
@@ -119,12 +134,21 @@ export default function SavedChowderList() {
   return (
     <div className="p-0">
       {isLoading && (
-        <div className="flex items-center justify-center py-12">
+        <div className="flex flex-col items-center justify-center py-12">
           <Loader2
             size={32}
-            className="animate-spin"
+            className="animate-spin mb-4"
             style={{ color: 'var(--text-muted)' }}
           />
+          {showColdStart && (
+            <p
+              className="text-xs text-center"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              Backend is waking up from standby. This may take a few extra
+              seconds...
+            </p>
+          )}
         </div>
       )}
 

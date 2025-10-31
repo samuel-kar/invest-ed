@@ -15,6 +15,7 @@ export default function CompanySearch({
 }: CompanySearchProps) {
   const [symbol, setSymbol] = useState(initialSymbol.toUpperCase())
   const [searchSymbol, setSearchSymbol] = useState(initialSymbol.toUpperCase())
+  const [showColdStart, setShowColdStart] = useState(false)
   const navigate = useNavigate()
 
   const { data, isLoading, error } = useQuery({
@@ -30,6 +31,19 @@ export default function CompanySearch({
     setSearchSymbol(upperInitialSymbol)
     setSymbol(upperInitialSymbol)
   }, [initialSymbol])
+
+  // Show cold start message after 3 seconds of loading
+  useEffect(() => {
+    if (isLoading) {
+      setShowColdStart(false)
+      const timer = setTimeout(() => {
+        setShowColdStart(true)
+      }, 3000)
+      return () => clearTimeout(timer)
+    } else {
+      setShowColdStart(false)
+    }
+  }, [isLoading])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -113,6 +127,12 @@ export default function CompanySearch({
           <p style={{ color: 'var(--text-secondary)' }}>
             Loading company data...
           </p>
+          {showColdStart && (
+            <p className="mt-3 text-xs" style={{ color: 'var(--text-muted)' }}>
+              Backend is waking up from standby. This may take a few extra
+              seconds...
+            </p>
+          )}
         </Card>
       )}
 
