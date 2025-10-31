@@ -28,7 +28,7 @@ describe('api service', () => {
     const q = await fetchQuote('AAPL')
     expect(q.currentPrice).toBe(123)
     expect(global.fetch).toHaveBeenCalledWith(
-      expect.stringContaining('/quote/AAPL'),
+      expect.stringContaining('/market/quote/AAPL'),
     )
   })
 
@@ -50,22 +50,20 @@ describe('api service', () => {
   })
 
   it('saveDdmAnalysis sends Authorization header', async () => {
-    const spy = vi
-      .spyOn(global, 'fetch')
-      .mockResolvedValue(
-        ok({
-          id: 1,
-          symbol: 'AAPL',
-          expectedDividend: 1,
-          growthRate: 5,
-          discountRate: 8,
-          totalDividend: null,
-          currentPrice: null,
-          intrinsicValue: 10,
-          isUndervalued: true,
-          createdAt: new Date().toISOString(),
-        }),
-      )
+    const spy = vi.spyOn(global, 'fetch').mockResolvedValue(
+      ok({
+        id: 1,
+        symbol: 'AAPL',
+        expectedDividend: 1,
+        growthRate: 5,
+        discountRate: 8,
+        totalDividend: null,
+        currentPrice: null,
+        intrinsicValue: 10,
+        isUndervalued: true,
+        createdAt: new Date().toISOString(),
+      }),
+    )
 
     await saveDdmAnalysis(
       {
@@ -86,4 +84,3 @@ describe('api service', () => {
     expect(headers.get('Authorization')).toBe('Bearer token-123')
   })
 })
-
