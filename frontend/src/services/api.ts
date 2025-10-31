@@ -98,7 +98,7 @@ export interface DdmData {
  */
 export async function fetchQuote(symbol: string): Promise<Quote> {
   try {
-    const response = await fetch(`${API_BASE_URL}/quote/${symbol}`)
+    const response = await fetch(`${API_BASE_URL}/market/quote/${symbol}`)
 
     if (!response.ok) {
       if (response.status === 404) {
@@ -121,7 +121,9 @@ export async function fetchQuote(symbol: string): Promise<Quote> {
  */
 export async function fetchFundamentals(symbol: string): Promise<Fundamentals> {
   try {
-    const response = await fetch(`${API_BASE_URL}/fundamentals/${symbol}`)
+    const response = await fetch(
+      `${API_BASE_URL}/market/fundamentals/${symbol}`,
+    )
 
     if (!response.ok) {
       if (response.status === 404) {
