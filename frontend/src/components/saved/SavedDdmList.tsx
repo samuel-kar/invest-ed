@@ -111,8 +111,8 @@ export default function SavedDdmList() {
               className="text-xs text-center"
               style={{ color: 'var(--text-muted)' }}
             >
-              Backend is waking up from standby. This may take a few extra
-              seconds...
+              Backend server is waking up from standby mode. This may take a few
+              extra seconds...
             </p>
           )}
         </div>
@@ -131,7 +131,7 @@ export default function SavedDdmList() {
       {!isLoading && !error && analyses && analyses.length === 0 && (
         <Card className="p-8 text-center">
           <p style={{ color: 'var(--text-secondary)' }}>
-            You haven't saved any DDM analyses yet. Go to "Analysis" page and
+            You haven't saved any DDM analyses yet. Go to "Analysis" tab and
             save them to see them here.
           </p>
         </Card>
