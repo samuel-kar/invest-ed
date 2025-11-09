@@ -140,7 +140,7 @@ export default function Header() {
 
       {/* Mobile sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-80 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col lg:hidden ${
+        className={`fixed top-0 left-0 h-full w-48 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col lg:hidden ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
         style={{
