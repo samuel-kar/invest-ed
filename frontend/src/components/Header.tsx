@@ -100,33 +100,35 @@ export default function Header() {
           >
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          {/* Clerk buttons */}
-          <SignedOut>
-            <div
-              className="p-2 rounded-lg transition-colors transition-opacity duration-200 hover:opacity-80"
-              style={{ backgroundColor: 'var(--bg-tertiary)' }}
-            >
-              <SignInButton
-                mode="modal"
-                appearance={{
-                  elements: {
-                    rootBox: 'h-full',
-                    button: {
-                      backgroundColor: 'transparent',
-                      color: 'var(--text-primary)',
-                      padding: 0,
-                      border: 'none',
-                      fontSize: '0.875rem',
-                      fontWeight: 500,
+          {/* Clerk buttons - hidden on mobile, shown on desktop */}
+          <div className="hidden lg:flex items-center gap-2">
+            <SignedOut>
+              <div
+                className="p-2 rounded-lg transition-colors transition-opacity duration-200 hover:opacity-80"
+                style={{ backgroundColor: 'var(--bg-tertiary)' }}
+              >
+                <SignInButton
+                  mode="modal"
+                  appearance={{
+                    elements: {
+                      rootBox: 'h-full',
+                      button: {
+                        backgroundColor: 'transparent',
+                        color: 'var(--text-primary)',
+                        padding: 0,
+                        border: 'none',
+                        fontSize: '0.875rem',
+                        fontWeight: 500,
+                      },
                     },
-                  },
-                }}
-              />
-            </div>
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
+                  }}
+                />
+              </div>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
         </div>
       </header>
 
@@ -269,6 +271,41 @@ export default function Header() {
             <Settings size={20} />
             <span className="font-medium">Settings</span>
           </Link>
+
+          {/* Clerk buttons in mobile sidebar */}
+          <SignedOut>
+            <div
+              className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
+              style={{ backgroundColor: 'var(--sidebar-hover)' }}
+            >
+              <SignInButton
+                mode="modal"
+                appearance={{
+                  elements: {
+                    rootBox: 'w-full',
+                    button: {
+                      backgroundColor: 'transparent',
+                      color: 'var(--sidebar-text)',
+                      padding: 0,
+                      border: 'none',
+                      fontSize: '1rem',
+                      fontWeight: 500,
+                      width: '100%',
+                      justifyContent: 'flex-start',
+                    },
+                  },
+                }}
+              />
+            </div>
+          </SignedOut>
+          <SignedIn>
+            <div
+              className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
+              style={{ backgroundColor: 'var(--sidebar-hover)' }}
+            >
+              <UserButton />
+            </div>
+          </SignedIn>
         </nav>
       </aside>
     </>
