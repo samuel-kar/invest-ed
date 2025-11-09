@@ -42,7 +42,11 @@ export default function SettingsPage() {
               <button
                 onClick={toggleTheme}
                 className="flex items-center gap-3 p-3 rounded-lg transition-colors hover:opacity-80"
-                style={{ backgroundColor: 'var(--bg-tertiary)' }}
+                style={{
+                  backgroundColor: isDarkMode
+                    ? 'var(--bg-secondary)'
+                    : 'var(--bg-tertiary)',
+                }}
                 aria-label={
                   isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
                 }
@@ -108,7 +112,9 @@ export default function SettingsPage() {
                 onChange={(e) => setCurrency(e.target.value as Currency)}
                 className="p-2 rounded-lg"
                 style={{
-                  backgroundColor: 'var(--bg-tertiary)',
+                  backgroundColor: isDarkMode
+                    ? 'var(--bg-secondary)'
+                    : 'var(--bg-tertiary)',
                   color: 'var(--text-primary)',
                   border: '1px solid var(--border-color)',
                 }}
