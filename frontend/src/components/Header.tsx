@@ -1,5 +1,5 @@
 import { Link, useNavigate } from '@tanstack/react-router'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import {
   Home,
   Menu,
@@ -12,6 +12,8 @@ import {
   Sun,
   Moon,
   Bookmark,
+  LogIn,
+  User,
 } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
 import {
@@ -19,6 +21,7 @@ import {
   SignedOut,
   SignInButton,
   UserButton,
+  useUser,
 } from '@clerk/clerk-react'
 
 export default function Header() {
@@ -26,6 +29,8 @@ export default function Header() {
   const [searchValue, setSearchValue] = useState('')
   const { isDarkMode, toggleTheme } = useTheme()
   const navigate = useNavigate()
+  const { user } = useUser()
+  const userButtonRef = useRef<HTMLDivElement>(null)
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -274,36 +279,49 @@ export default function Header() {
 
           {/* Clerk buttons in mobile sidebar */}
           <SignedOut>
-            <div
-              className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
-              style={{ backgroundColor: 'var(--sidebar-hover)' }}
-            >
-              <SignInButton
-                mode="modal"
-                appearance={{
-                  elements: {
-                    rootBox: 'w-full',
-                    button: {
-                      backgroundColor: 'transparent',
-                      color: 'var(--sidebar-text)',
-                      padding: 0,
-                      border: 'none',
-                      fontSize: '1rem',
-                      fontWeight: 500,
-                      width: '100%',
-                      justifyContent: 'flex-start',
-                    },
-                  },
-                }}
-              />
-            </div>
+            <SignInButton mode="modal">
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80 w-full text-left"
+                style={{ backgroundColor: 'var(--sidebar-hover)' }}
+              >
+                <LogIn size={20} />
+                <span className="font-medium">Sign In</span>
+              </button>
+            </SignInButton>
           </SignedOut>
           <SignedIn>
-            <div
-              className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80"
-              style={{ backgroundColor: 'var(--sidebar-hover)' }}
-            >
-              <UserButton />
+            <div className="relative w-full" ref={userButtonRef}>
+              <div
+                className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80 w-full"
+                style={{ backgroundColor: 'var(--sidebar-hover)' }}
+              >
+                {user?.imageUrl ? (
+                  <img
+                    src={user.imageUrl}
+                    alt="Profile"
+                    className="w-5 h-5 rounded-full"
+                  />
+                ) : (
+                  <User size={20} />
+                )}
+                <span className="font-medium">Account</span>
+              </div>
+              <div className="absolute inset-0">
+                <UserButton
+                  appearance={{
+                    elements: {
+                      rootBox: 'w-full h-full',
+                      avatarBox: 'hidden',
+                      userButtonTrigger: {
+                        width: '100%',
+                        height: '100%',
+                        opacity: 0,
+                      },
+                    },
+                  }}
+                />
+              </div>
             </div>
           </SignedIn>
         </nav>
