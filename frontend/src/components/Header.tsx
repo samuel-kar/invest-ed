@@ -1,5 +1,5 @@
 import { Link, useNavigate } from '@tanstack/react-router'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
 import {
   Home,
   Menu,
@@ -13,7 +13,6 @@ import {
   Moon,
   Bookmark,
   LogIn,
-  User,
 } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
 import {
@@ -21,7 +20,6 @@ import {
   SignedOut,
   SignInButton,
   UserButton,
-  useUser,
 } from '@clerk/clerk-react'
 
 export default function Header() {
@@ -29,8 +27,6 @@ export default function Header() {
   const [searchValue, setSearchValue] = useState('')
   const { isDarkMode, toggleTheme } = useTheme()
   const navigate = useNavigate()
-  const { user } = useUser()
-  const userButtonRef = useRef<HTMLDivElement>(null)
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -291,37 +287,8 @@ export default function Header() {
             </SignInButton>
           </SignedOut>
           <SignedIn>
-            <div className="relative w-full" ref={userButtonRef}>
-              <div
-                className="flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 mb-2 hover:opacity-80 w-full"
-                style={{ backgroundColor: 'var(--sidebar-hover)' }}
-              >
-                {user?.imageUrl ? (
-                  <img
-                    src={user.imageUrl}
-                    alt="Profile"
-                    className="w-5 h-5 rounded-full"
-                  />
-                ) : (
-                  <User size={20} />
-                )}
-                <span className="font-medium">Account</span>
-              </div>
-              <div className="absolute inset-0">
-                <UserButton
-                  appearance={{
-                    elements: {
-                      rootBox: 'w-full h-full',
-                      avatarBox: 'hidden',
-                      userButtonTrigger: {
-                        width: '100%',
-                        height: '100%',
-                        opacity: 0,
-                      },
-                    },
-                  }}
-                />
-              </div>
+            <div className="flex justify-center mb-2">
+              <UserButton />
             </div>
           </SignedIn>
         </nav>
