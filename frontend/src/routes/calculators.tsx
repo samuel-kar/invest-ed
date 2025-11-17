@@ -20,76 +20,48 @@ function CalculatorsPage() {
 
         {/* Tab Navigation */}
         <div className="mb-8">
-          <nav className="tab-nav flex-col md:flex-row" role="tablist">
-            <Link
-              to="/calculators/CompoundInterest"
-              className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
-              style={{
-                backgroundColor: 'var(--bg-secondary)',
-                color: 'var(--text-primary)',
-                borderBottom: '2px solid var(--accent-color)',
-              }}
-              activeProps={{
-                style: {
-                  backgroundColor: 'var(--accent-color)',
-                  color: 'white',
-                },
-              }}
-            >
+          <div className="relative -mx-4 md:mx-0">
+            <nav className="tab-nav md:flex-wrap px-4 md:px-0" role="tablist">
+              <Link
+                to="/calculators/CompoundInterest"
+                className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
+              >
               Compound Interest
             </Link>
-            <Link
-              to="/calculators/savings-goal"
-              className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
-              style={{
-                backgroundColor: 'var(--bg-secondary)',
-                color: 'var(--text-primary)',
-                borderBottom: '2px solid var(--accent-color)',
-              }}
-              activeProps={{
-                style: {
-                  backgroundColor: 'var(--accent-color)',
-                  color: 'white',
-                },
-              }}
-            >
+              <Link
+                to="/calculators/savings-goal"
+                className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
+              >
               Savings Goal
             </Link>
-            <Link
-              to="/calculators/retirement4percent"
-              className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
-              style={{
-                backgroundColor: 'var(--bg-secondary)',
-                color: 'var(--text-primary)',
-                borderBottom: '2px solid var(--accent-color)',
-              }}
-              activeProps={{
-                style: {
-                  backgroundColor: 'var(--accent-color)',
-                  color: 'white',
-                },
-              }}
-            >
+              <Link
+                to="/calculators/retirement4percent"
+                className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
+              >
               Retirement (4% rule)
             </Link>
-            <Link
-              to="/calculators/retirement-dividend"
-              className="px-4 py-2.5 md:py-2 w-full md:w-auto rounded-lg md:rounded-t-lg md:rounded-b-none font-medium transition-colors duration-200"
-              style={{
-                backgroundColor: 'var(--bg-secondary)',
-                color: 'var(--text-primary)',
-                borderBottom: '2px solid var(--accent-color)',
-              }}
-              activeProps={{
-                style: {
-                  backgroundColor: 'var(--accent-color)',
-                  color: 'white',
-                },
-              }}
-            >
+              <Link
+                to="/calculators/retirement-dividend"
+                className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
+              >
               Retirement (dividend)
             </Link>
-          </nav>
+            </nav>
+            <div
+              className="pointer-events-none absolute inset-y-0 right-0 w-8 md:hidden"
+              style={{
+                background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--bg-primary) 70%)',
+              }}
+              aria-hidden="true"
+            />
+          </div>
+          <div
+            className="mt-2 text-xs font-medium text-emerald-600 md:hidden flex items-center gap-1 px-4"
+            aria-hidden="true"
+          >
+            <span>Swipe to explore calculators</span>
+            <span>→</span>
+          </div>
         </div>
 
         {/* Tab Content */}
