@@ -80,7 +80,7 @@ export default function Carousel({
         <>
           <button
             onClick={scrollPrev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-lg transition-all hover:opacity-80"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 p-2 rounded-lg transition-all hover:opacity-80 sm:-translate-x-0 sm:left-2"
             style={{ backgroundColor: 'var(--bg-tertiary)' }}
             aria-label="Previous slide"
           >
@@ -88,7 +88,7 @@ export default function Carousel({
           </button>
           <button
             onClick={scrollNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg transition-all hover:opacity-80"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 p-2 rounded-lg transition-all hover:opacity-80 sm:translate-x-0 sm:right-2"
             style={{ backgroundColor: 'var(--bg-tertiary)' }}
             aria-label="Next slide"
           >
