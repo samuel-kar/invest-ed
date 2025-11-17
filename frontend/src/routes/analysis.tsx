@@ -44,13 +44,13 @@ function AnalysisPage() {
               aria-hidden="true"
             />
           </div>
-          <div
+          {/* <div
             className="mt-2 text-xs font-medium text-emerald-600 md:hidden flex items-center gap-1 px-4"
             aria-hidden="true"
           >
             <span>Swipe to browse analyses</span>
             <span>→</span>
-          </div>
+          </div> */}
         </div>
 
         {/* Tab Content */}

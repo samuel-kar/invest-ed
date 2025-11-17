@@ -55,30 +55,31 @@ function SavedPage() {
                 to="/saved/ddm"
                 className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
               >
-              DDM
-            </Link>
+                DDM
+              </Link>
               <Link
                 to="/saved/chowder"
                 className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
               >
-              Chowder rule
-            </Link>
+                Chowder rule
+              </Link>
             </nav>
             <div
               className="pointer-events-none absolute inset-y-0 right-0 w-8 md:hidden"
               style={{
-                background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--bg-primary) 70%)',
+                background:
+                  'linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--bg-primary) 70%)',
               }}
               aria-hidden="true"
             />
           </div>
-          <div
+          {/* <div
             className="mt-2 text-xs font-medium text-emerald-600 md:hidden flex items-center gap-1 px-4"
             aria-hidden="true"
           >
             <span>Swipe to view saved tools</span>
             <span>→</span>
-          </div>
+          </div> */}
         </div>
 
         {/* Tab Content */}
