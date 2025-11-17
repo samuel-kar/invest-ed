@@ -19,6 +19,7 @@ import {
   TrendingDown,
   Save,
 } from 'lucide-react'
+import AnalysisTickerSearchForm from '../shared/TickerSearchForm'
 
 export default function DDMContainer() {
   const [inputSymbol, setInputSymbol] = useState('')
@@ -63,12 +64,6 @@ export default function DDMContainer() {
     const trimmed = inputSymbol.trim().toUpperCase()
     if (trimmed) {
       setSearchSymbol(trimmed)
-    }
-  }
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleSearch()
     }
   }
 
@@ -226,45 +221,15 @@ export default function DDMContainer() {
 
         {/* Search Bar */}
         <Card className="p-4">
-          <div className="flex gap-4">
-            <div className="flex-1 relative">
-              <Search
-                size={20}
-                className="absolute left-3 top-1/2 transform -translate-y-1/2"
-                style={{ color: 'var(--text-muted)' }}
-              />
-              <input
-                type="text"
-                value={inputSymbol}
-                onChange={(e) => setInputSymbol(e.target.value.toUpperCase())}
-                onKeyPress={handleKeyPress}
-                placeholder="Enter stock symbol (e.g., PG, KO, JNJ)"
-                className="w-full pl-10 pr-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
-                style={{
-                  backgroundColor: 'var(--bg-primary)',
-                  borderColor: 'var(--border-color)',
-                  color: 'var(--text-primary)',
-                }}
-              />
-            </div>
-            <button
-              onClick={handleSearch}
-              disabled={!inputSymbol.trim() || isLoading}
-              className="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 size={16} className="animate-spin" />
-                  Loading...
-                </>
-              ) : (
-                <>
-                  <Search size={16} />
-                  Search
-                </>
-              )}
-            </button>
-          </div>
+          <AnalysisTickerSearchForm
+            value={inputSymbol}
+            onChange={(value) => setInputSymbol(value.toUpperCase())}
+            onSubmit={handleSearch}
+            placeholder="Enter stock symbol (e.g., PG, KO, JNJ)"
+            buttonLabel="Search"
+            loadingLabel="Loading..."
+            isLoading={isLoading}
+          />
         </Card>
 
         {/* Loading State */}
