@@ -17,11 +17,8 @@ export default function AnalysesOverview() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Link
-            to="/analysis/ddm"
-            className="block transition-all duration-500 hover:shadow-md hover:scale-[1.02]"
-          >
-            <Card className="p-4 md:p-6 shadow-sm border">
+          <Link to="/analysis/ddm" className="block">
+            <Card className="overview-card p-4 md:p-6 rounded-lg">
               <h3
                 className="text-lg font-semibold mb-3"
                 style={{ color: 'var(--text-primary)' }}
@@ -45,11 +42,8 @@ export default function AnalysesOverview() {
             </Card>
           </Link>
 
-          <Link
-            to="/analysis/chowder"
-            className="block transition-all duration-500 hover:shadow-md hover:scale-[1.02]"
-          >
-            <Card className="p-4 md:p-6 shadow-sm border">
+          <Link to="/analysis/chowder" className="block">
+            <Card className="overview-card p-4 md:p-6 rounded-lg">
               <h3
                 className="text-lg font-semibold mb-3"
                 style={{ color: 'var(--text-primary)' }}

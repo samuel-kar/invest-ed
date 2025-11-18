@@ -136,3 +136,30 @@ textarea,
 select {
   transition-property: opacity, transform, box-shadow !important;
 }
+
+/* Overview Card Styles - Better Background + Visible Accent Border */
+.overview-card {
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--accent-color);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.overview-card:hover {
+  background-color: rgba(5, 150, 105, 0.08);
+  border-color: var(--accent-color);
+  box-shadow: 0 8px 24px rgba(5, 150, 105, 0.3);
+  transform: translateY(-2px) scale(1.02);
+}
+
+[data-theme='dark'] .overview-card {
+  background-color: var(--bg-secondary);
+  border-color: var(--accent-color);
+}
+
+[data-theme='dark'] .overview-card:hover {
+  background-color: rgba(5, 150, 105, 0.15);
+  border-color: var(--accent-color);
+  box-shadow: 0 8px 24px rgba(5, 150, 105, 0.45);
+  transform: translateY(-2px) scale(1.02);
+}
