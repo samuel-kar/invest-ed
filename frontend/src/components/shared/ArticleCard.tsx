@@ -36,7 +36,7 @@ export default function ArticleCard({
         </p>
         {comingSoon && (
           <div
-            className="absolute top-0 right-0 bg-emerald-600 text-white text-xs px-2 py-1 rounded-bl-lg"
+            className="hidden md:block absolute top-0 right-0 bg-emerald-600 text-white text-xs px-2 py-1 rounded-bl-lg"
             style={{ backgroundColor: 'var(--accent-color)' }}
           >
             Coming Soon
