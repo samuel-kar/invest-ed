@@ -50,6 +50,7 @@ export default function RetirementDividendContainer() {
   )
 
   return (
+    <div>
     <div className="grid md:grid-cols-5 gap-8">
       {/* Input Section */}
       <div className="md:col-span-2 space-y-6">
@@ -401,42 +402,43 @@ export default function RetirementDividendContainer() {
           </p>
         </FormulaBlock>
       </div>
-      <div>
-        <h4
-          className="text-sm font-medium mb-2"
-          style={{ color: 'var(--text-primary)' }}
-        >
-          Recommended Videos
-        </h4>
-        <div className="space-y-4">
-          <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-            <iframe
-              className="absolute top-0 left-0 w-full h-full"
-              src="https://www.youtube-nocookie.com/embed/O8HfQ5uycBg?si=_I237wsy-3DMHv0d"
-              title="YouTube video player"
-              frameBorder={0}
-              allow={
-                'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-              }
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
-          </div>
-          <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-            <iframe
-              className="absolute top-0 left-0 w-full h-full"
-              src="https://www.youtube-nocookie.com/embed/nJ1qzS3JM20?si=CaiyIe3xdRbpUrMI"
-              title="YouTube video player"
-              frameBorder={0}
-              allow={
-                'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-              }
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
-          </div>
+    </div>
+    <div className="mt-8 w-full max-w-2xl mx-auto">
+      <h4
+        className="text-sm font-medium mb-2"
+        style={{ color: 'var(--text-primary)' }}
+      >
+        Recommended Videos
+      </h4>
+      <div className="space-y-4">
+        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+          <iframe
+            className="absolute top-0 left-0 w-full h-full"
+            src="https://www.youtube-nocookie.com/embed/O8HfQ5uycBg?si=_I237wsy-3DMHv0d"
+            title="YouTube video player"
+            frameBorder={0}
+            allow={
+              'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            }
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
+        </div>
+        <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+          <iframe
+            className="absolute top-0 left-0 w-full h-full"
+            src="https://www.youtube-nocookie.com/embed/nJ1qzS3JM20?si=CaiyIe3xdRbpUrMI"
+            title="YouTube video player"
+            frameBorder={0}
+            allow={
+              'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            }
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
         </div>
       </div>
+    </div>
     </div>
   )
 }
