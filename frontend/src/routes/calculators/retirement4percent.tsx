@@ -17,12 +17,12 @@ function Retirement4PercentPage() {
         >
           Retirement (4% Rule)
         </h2>
-        <div className="flex justify-between items-top mb-6">
-          <p style={{ color: 'var(--text-secondary)' }}>
+        <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
+          <p className="flex-1 min-w-0" style={{ color: 'var(--text-secondary)' }}>
             Estimate your retirement savings and monthly income using the proven
             4% withdrawal rule.
           </p>
-          <span className="text-6xl">🏖️</span>
+          <span className="text-4xl md:text-6xl flex-shrink-0">🏖️</span>
         </div>
 
         <Retirement4PercentContainer />
