@@ -122,11 +122,6 @@ code {
 .glass-header {
   background-color: rgba(255, 255, 255, 0.95);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  transition:
-    background-color var(--theme-transition-duration)
-      var(--theme-transition-ease),
-    border-bottom-color var(--theme-transition-duration)
-      var(--theme-transition-ease);
 }
 
 [data-theme='dark'] .glass-header {
