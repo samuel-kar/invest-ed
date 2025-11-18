@@ -34,25 +34,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark'
-
-    // Check if user prefers reduced motion
-    const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches
-
-    if (!prefersReducedMotion) {
-      // Add theme transition class temporarily
-      document.documentElement.classList.add('theme-transition')
-    }
-
     setTheme(newTheme)
-
-    if (!prefersReducedMotion) {
-      // Remove theme transition class after animation completes
-      setTimeout(() => {
-        document.documentElement.classList.remove('theme-transition')
-      }, 220) // Slightly longer than the defined duration
-    }
   }
 
   return (
