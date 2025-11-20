@@ -20,6 +20,7 @@ import {
   Save,
 } from 'lucide-react'
 import AnalysisTickerSearchForm from '../shared/TickerSearchForm'
+import { getCompanyName } from '../../../data/tickers'
 
 export default function DDMContainer() {
   const [inputSymbol, setInputSymbol] = useState('')
@@ -299,12 +300,22 @@ export default function DDMContainer() {
           <>
             {/* Calculation Results - Prominent banner at top */}
             <Card className="p-4">
-              <h4
-                className="text-base font-semibold mb-3"
-                style={{ color: 'var(--text-primary)' }}
-              >
-                DDM Analysis Results
-              </h4>
+              <div className="mb-3">
+                <h4
+                  className="text-base font-semibold"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  DDM Analysis Results
+                </h4>
+                {getCompanyName(searchSymbol) && (
+                  <p
+                    className="text-xs opacity-80 mt-1"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    {getCompanyName(searchSymbol)}
+                  </p>
+                )}
+              </div>
 
               {!ddmResult.isValid && (
                 <div className="mb-3 p-2 bg-yellow-50 border border-yellow-200 rounded-lg">

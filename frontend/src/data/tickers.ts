@@ -56,4 +56,20 @@ export function getCachedTickers(): TickerEntry[] {
   return tickersCache ?? []
 }
 
+/**
+ * Looks up a company name by ticker symbol.
+ * Uses cached ticker data for synchronous lookup.
+ * 
+ * @param symbol - Ticker symbol to lookup (case-insensitive)
+ * @returns Company name if found, null otherwise
+ */
+export function getCompanyName(symbol: string): string | null {
+  if (!symbol) return null
+  const tickers = getCachedTickers()
+  const entry = tickers.find(
+    (t) => t.symbol.toUpperCase() === symbol.toUpperCase()
+  )
+  return entry?.name ?? null
+}
+
 

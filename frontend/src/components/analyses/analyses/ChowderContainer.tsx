@@ -12,6 +12,7 @@ import FormulaBlock from '../../calculators/shared/FormulaBlock'
 import Card from '../../shared/Card'
 import { Loader2, AlertCircle, Search, Save } from 'lucide-react'
 import AnalysisTickerSearchForm from '../shared/TickerSearchForm'
+import { getCompanyName } from '../../../data/tickers'
 
 export default function ChowderContainer() {
   const [inputSymbol, setInputSymbol] = useState('')
@@ -347,11 +348,20 @@ export default function ChowderContainer() {
                 <Card className="p-6">
                   <div className="text-center">
                     <h4
-                      className="text-lg font-semibold mb-4"
+                      className="text-lg font-semibold mb-1"
                       style={{ color: 'var(--text-primary)' }}
                     >
                       Chowder Score for {searchSymbol}
                     </h4>
+                    {getCompanyName(searchSymbol) && (
+                      <p
+                        className="text-xs opacity-80 mb-4"
+                        style={{ color: 'var(--text-secondary)' }}
+                      >
+                        {getCompanyName(searchSymbol)}
+                      </p>
+                    )}
+                    {!getCompanyName(searchSymbol) && <div className="mb-4" />}
                     <div
                       className={`text-5xl font-bold mb-2 ${interpretation.colorClass}`}
                     >

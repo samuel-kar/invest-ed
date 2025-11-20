@@ -4,6 +4,7 @@ import {
 } from 'lucide-react'
 import type { Quote, Fundamentals } from '../services/api'
 import Card from './shared/Card'
+import { getCompanyName } from '../data/tickers'
 
 interface CompanyDataProps {
   quote: Quote
@@ -85,6 +86,7 @@ function MetricSection({
 }
 
 export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
+  const companyName = getCompanyName(fundamentals.symbol)
 
   const getPriceChange = () => {
     if (!quote.currentPrice || !quote.previousClose) return null
@@ -108,6 +110,9 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold">{fundamentals.symbol}</h2>
+            {companyName && (
+              <p className="text-sm opacity-90 mt-1">{companyName}</p>
+            )}
             <div className="flex items-center gap-4 mt-2">
               <span className="text-3xl font-bold">
                 {quote.currentPrice
