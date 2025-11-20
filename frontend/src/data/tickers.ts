@@ -14,7 +14,7 @@ let loadingPromise: Promise<TickerEntry[]> | null = null
 /**
  * Lazy-loads ticker data from JSON file.
  * Uses caching to ensure data is only loaded once.
- * 
+ *
  * @returns Promise resolving to array of ticker entries
  */
 export async function loadTickers(): Promise<TickerEntry[]> {
@@ -49,7 +49,7 @@ export async function loadTickers(): Promise<TickerEntry[]> {
 /**
  * Gets cached tickers if available, otherwise returns empty array.
  * Use this for synchronous access when you know data is already loaded.
- * 
+ *
  * @returns Array of ticker entries (may be empty if not loaded yet)
  */
 export function getCachedTickers(): TickerEntry[] {
@@ -59,7 +59,7 @@ export function getCachedTickers(): TickerEntry[] {
 /**
  * Looks up a company name by ticker symbol.
  * Uses cached ticker data for synchronous lookup.
- * 
+ *
  * @param symbol - Ticker symbol to lookup (case-insensitive)
  * @returns Company name if found, null otherwise
  */
@@ -67,9 +67,7 @@ export function getCompanyName(symbol: string): string | null {
   if (!symbol) return null
   const tickers = getCachedTickers()
   const entry = tickers.find(
-    (t) => t.symbol.toUpperCase() === symbol.toUpperCase()
+    (t) => t.symbol.toUpperCase() === symbol.toUpperCase(),
   )
   return entry?.name ?? null
 }
-
-
