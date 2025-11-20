@@ -21,6 +21,8 @@ import {
   SignInButton,
   UserButton,
 } from '@clerk/clerk-react'
+import AutocompleteTickerInput from './shared/AutocompleteTickerInput'
+import { type TickerEntry } from '../data/tickers'
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -37,6 +39,14 @@ export default function Header() {
       })
       setSearchValue('')
     }
+  }
+
+  const handleTickerSelect = (ticker: TickerEntry) => {
+    navigate({
+      to: '/companies',
+      search: { symbol: ticker.symbol.toUpperCase() },
+    })
+    setSearchValue('')
   }
 
   return (
@@ -70,22 +80,11 @@ export default function Header() {
         {/* Search bar - centered */}
         <div className="hidden md:flex flex-1 max-w-md mx-8">
           <form onSubmit={handleSearch} className="relative w-full">
-            <Search
-              size={20}
-              className="absolute left-3 top-1/2 transform -translate-y-1/2"
-              style={{ color: 'var(--text-muted)' }}
-            />
-            <input
-              type="text"
+            <AutocompleteTickerInput
               value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value.toUpperCase())}
+              onChange={(value) => setSearchValue(value.toUpperCase())}
+              onSelect={handleTickerSelect}
               placeholder="Search companies..."
-              className="w-full pl-10 pr-4 py-2 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors duration-200"
-              style={{
-                backgroundColor: 'var(--bg-secondary)',
-                borderColor: 'var(--border-color)',
-                color: 'var(--text-primary)',
-              }}
             />
           </form>
         </div>
