@@ -5,6 +5,7 @@ interface AnalysisTickerSearchFormProps {
   value: string
   onChange: (value: string) => void
   onSubmit: () => void
+  onTickerSelect?: (symbol: string) => void
   placeholder?: string
   buttonLabel?: string
   loadingLabel?: string
@@ -17,6 +18,7 @@ export default function AnalysisTickerSearchForm({
   value,
   onChange,
   onSubmit,
+  onTickerSelect,
   placeholder = 'Enter stock symbol or company name',
   buttonLabel = 'Search',
   loadingLabel = 'Loading...',
@@ -41,6 +43,18 @@ export default function AnalysisTickerSearchForm({
         <AutocompleteTickerInput
           value={value}
           onChange={onChange}
+          onSelect={(ticker) => {
+            // onChange is already called by AutocompleteTickerInput with ticker.symbol
+            // If onTickerSelect is provided, call it with the symbol for immediate search
+            // Otherwise, use setTimeout to ensure state update is processed before onSubmit
+            if (onTickerSelect) {
+              onTickerSelect(ticker.symbol)
+            } else {
+              setTimeout(() => {
+                onSubmit()
+              }, 0)
+            }
+          }}
           placeholder={placeholder}
           disabled={disabled || isLoading}
         />

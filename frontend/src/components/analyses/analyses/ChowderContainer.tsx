@@ -49,6 +49,13 @@ export default function ChowderContainer() {
     }
   }
 
+  const handleTickerSelect = (symbol: string) => {
+    // Update input symbol and immediately trigger search
+    const trimmed = symbol.trim().toUpperCase()
+    setInputSymbol(trimmed)
+    setSearchSymbol(trimmed)
+  }
+
   const getScoreInterpretation = (score: number | null) => {
     if (score === null) return null
 
@@ -226,6 +233,7 @@ export default function ChowderContainer() {
             value={inputSymbol}
             onChange={(value) => setInputSymbol(value.toUpperCase())}
             onSubmit={handleSearch}
+            onTickerSelect={handleTickerSelect}
             placeholder="Enter stock symbol (e.g., PG, KO, JNJ)"
             buttonLabel="Analyze"
             loadingLabel="Analyzing..."

@@ -67,6 +67,13 @@ export default function DDMContainer() {
     }
   }
 
+  const handleTickerSelect = (symbol: string) => {
+    // Update input symbol and immediately trigger search
+    const trimmed = symbol.trim().toUpperCase()
+    setInputSymbol(trimmed)
+    setSearchSymbol(trimmed)
+  }
+
   // DDM calculation
   const ddmResult = ddmCalculator(
     expectedDividend,
@@ -225,6 +232,7 @@ export default function DDMContainer() {
             value={inputSymbol}
             onChange={(value) => setInputSymbol(value.toUpperCase())}
             onSubmit={handleSearch}
+            onTickerSelect={handleTickerSelect}
             placeholder="Enter stock symbol (e.g., PG, KO, JNJ)"
             buttonLabel="Search"
             loadingLabel="Loading..."
