@@ -60,7 +60,7 @@ export default function CompanySearch({
   }
 
   const handleInputChange = (value: string) => {
-    setSymbol(value.toUpperCase())
+    setSymbol(value)
   }
 
   const handleTickerSelect = (ticker: TickerEntry) => {

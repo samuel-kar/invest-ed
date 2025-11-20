@@ -82,7 +82,7 @@ export default function Header() {
           <form onSubmit={handleSearch} className="relative w-full">
             <AutocompleteTickerInput
               value={searchValue}
-              onChange={(value) => setSearchValue(value.toUpperCase())}
+              onChange={setSearchValue}
               onSelect={handleTickerSelect}
               placeholder="Search companies..."
             />

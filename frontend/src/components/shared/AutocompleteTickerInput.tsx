@@ -126,13 +126,13 @@ export default function AutocompleteTickerInput({
   }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value.toUpperCase()
+    const newValue = e.target.value
     onChange(newValue)
     setShowSuggestions(true)
   }
 
   const handleSelect = (ticker: TickerEntry) => {
-    onChange(ticker.symbol)
+    onChange(ticker.symbol.toUpperCase())
     setShowSuggestions(false)
     if (onSelect) {
       onSelect(ticker)

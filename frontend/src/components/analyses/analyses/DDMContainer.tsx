@@ -230,7 +230,7 @@ export default function DDMContainer() {
         <Card className="p-4">
           <AnalysisTickerSearchForm
             value={inputSymbol}
-            onChange={(value) => setInputSymbol(value.toUpperCase())}
+            onChange={setInputSymbol}
             onSubmit={handleSearch}
             onTickerSelect={handleTickerSelect}
             placeholder="Enter stock symbol (e.g., PG, KO, JNJ)"
