@@ -3,8 +3,10 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { Search, Loader2, AlertCircle } from 'lucide-react'
 import { fetchCompanyData } from '../services/api'
+import { type TickerEntry } from '../data/tickers'
 import CompanyData from './CompanyData'
 import Card from './shared/Card'
+import AutocompleteTickerInput from './shared/AutocompleteTickerInput'
 
 interface CompanySearchProps {
   initialSymbol?: string
@@ -57,8 +59,18 @@ export default function CompanySearch({
     }
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSymbol(e.target.value.toUpperCase())
+  const handleInputChange = (value: string) => {
+    setSymbol(value.toUpperCase())
+  }
+
+  const handleTickerSelect = (ticker: TickerEntry) => {
+    // Auto-submit when a ticker is selected from autocomplete
+    const trimmedSymbol = ticker.symbol.trim().toUpperCase()
+    setSearchSymbol(trimmedSymbol)
+    navigate({
+      to: '/companies',
+      search: { symbol: trimmedSymbol },
+    })
   }
 
   return (
@@ -66,23 +78,13 @@ export default function CompanySearch({
       {/* Search Form */}
       <Card className="shadow-sm p-6">
         <form onSubmit={handleSearch} className="flex gap-4">
-          <div className="flex-1 relative">
-            <Search
-              size={20}
-              className="absolute left-3 top-1/2 transform -translate-y-1/2"
-              style={{ color: 'var(--text-muted)' }}
-            />
-            <input
-              type="text"
+          <div className="flex-1">
+            <AutocompleteTickerInput
               value={symbol}
               onChange={handleInputChange}
-              placeholder="Enter stock symbol (e.g., AAPL, MSFT, TSLA)"
-              className="w-full pl-10 pr-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
-              style={{
-                backgroundColor: 'var(--bg-primary)',
-                borderColor: 'var(--border-color)',
-                color: 'var(--text-primary)',
-              }}
+              onSelect={handleTickerSelect}
+              placeholder="Enter stock symbol or company name (e.g., AAPL, Apple, MSFT)"
+              disabled={isLoading}
             />
           </div>
           <button
@@ -156,8 +158,8 @@ export default function CompanySearch({
             Search for a Company
           </h3>
           <p style={{ color: 'var(--text-secondary)' }}>
-            Enter a stock symbol above to view detailed financial data and
-            metrics.
+            Enter a stock symbol or company name above to view detailed financial
+            data and metrics.
           </p>
         </Card>
       )}

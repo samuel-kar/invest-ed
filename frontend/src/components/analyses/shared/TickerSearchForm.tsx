@@ -1,5 +1,5 @@
-// TODO: This analysis-specific search form could be refactored into a truly shared component with CompanySearch in the future.
 import { Loader2, Search } from 'lucide-react'
+import AutocompleteTickerInput from '../../shared/AutocompleteTickerInput'
 
 interface AnalysisTickerSearchFormProps {
   value: string
@@ -17,7 +17,7 @@ export default function AnalysisTickerSearchForm({
   value,
   onChange,
   onSubmit,
-  placeholder = 'Enter stock symbol',
+  placeholder = 'Enter stock symbol or company name',
   buttonLabel = 'Search',
   loadingLabel = 'Loading...',
   isLoading = false,
@@ -37,25 +37,12 @@ export default function AnalysisTickerSearchForm({
       onSubmit={handleSubmit}
       className={`flex flex-col gap-3 sm:flex-row ${className}`}
     >
-      <div className="flex-1 relative">
-        <Search
-          size={20}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-emerald-600"
-        />
-        <input
-          type="text"
+      <div className="flex-1">
+        <AutocompleteTickerInput
           value={value}
-          onChange={(event) => onChange(event.target.value)}
+          onChange={onChange}
           placeholder={placeholder}
-          className="w-full pl-10 pr-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
-          style={{
-            backgroundColor: 'var(--bg-primary)',
-            borderColor: 'var(--border-color)',
-            color: 'var(--text-primary)',
-          }}
-          autoComplete="off"
-          spellCheck="false"
-          data-lpignore="true"
+          disabled={disabled || isLoading}
         />
       </div>
       <button
