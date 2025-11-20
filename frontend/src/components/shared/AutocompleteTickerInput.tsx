@@ -217,9 +217,15 @@ export default function AutocompleteTickerInput({
               key={ticker.symbol}
               type="button"
               onClick={() => handleSelect(ticker)}
-              className="w-full text-left px-4 py-2 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-colors border-b last:border-b-0"
+              className="w-full text-left px-4 py-2 transition-colors border-b last:border-b-0"
               style={{
                 borderColor: 'var(--border-color)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(5, 150, 105, 0.1)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent'
               }}
             >
               <div className="flex items-center justify-between">
