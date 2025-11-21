@@ -13,18 +13,11 @@ import java.util.List;
 /**
  * CORS (Cross-Origin Resource Sharing) configuration for the application.
  * 
- * ⚠️  SECURITY WARNING FOR PRODUCTION DEPLOYMENT ⚠️
- * 
- * This configuration is designed for DEVELOPMENT purposes.
- * Before deploying to production, you MUST:
- * 
- * 1. Replace "http://localhost:3000" with your actual frontend domain
- * 2. Remove wildcards (*) and specify exact allowed origins
- * 3. Review and restrict allowed methods if needed
- * 4. Consider reducing maxAge for more frequent preflight checks
- * 5. Evaluate if credentials support is needed
- * 
- * Current configuration allows frontend running on localhost:3000 to access the API.
+ * Production configuration:
+ * - Allowed origins are configured via environment variable (app.cors.allowed-origins)
+ * - Supports credentials (cookies, authorization headers) for authenticated requests
+ * - Preflight cache set to 1 hour for performance
+ * - Configured in application-prod.yml to use ALLOWED_ORIGINS environment variable
  */
 @Configuration
 public class CorsConfig {

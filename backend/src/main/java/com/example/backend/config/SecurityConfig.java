@@ -14,20 +14,13 @@ import org.springframework.web.cors.CorsConfigurationSource;
 /**
  * Security configuration for the application.
  * 
- * ⚠️  SECURITY WARNING FOR PRODUCTION DEPLOYMENT ⚠️
- * 
- * This configuration is designed for DEVELOPMENT and TESTING purposes.
- * Before deploying to production, you MUST review and update this configuration:
- * 
- * 1. AUTHENTICATION: Add proper authentication mechanism (JWT, OAuth2, etc.)
- * 2. AUTHORIZATION: Implement role-based access control
- * 3. CORS: Configure Cross-Origin Resource Sharing for your frontend domain
- * 4. RATE LIMITING: Add rate limiting to prevent API abuse
- * 5. HTTPS: Ensure all communication uses HTTPS in production
- * 6. API KEY PROTECTION: Consider additional API key validation
- * 
- * Current configuration allows unrestricted access to /api/market/** endpoints.
- * This is acceptable for development but NOT for production!
+ * Production security configuration with:
+ * - JWT authentication via Clerk using JWKS verification
+ * - Public endpoints for market data (allows unauthenticated stock analysis)
+ * - Protected endpoints for saved analyses (requires authentication)
+ * - Security headers configured (HSTS, CSP, X-Frame-Options, etc.)
+ * - CORS configured via environment variables
+ * - Stateless session management for JWT tokens
  */
 @Configuration
 @EnableWebSecurity
@@ -42,7 +35,28 @@ public class SecurityConfig {
             // Enable CORS with custom configuration
             .cors(cors -> cors.configurationSource(corsConfigurationSource))
             
-            // Disable CSRF for API testing (⚠️ NOT recommended for production)
+            // Configure security headers
+            .headers(headers -> headers
+                // Prevent clickjacking attacks
+                .frameOptions(frameOptions -> frameOptions.deny())
+                // Prevent MIME type sniffing
+                .contentTypeOptions(contentTypeOptions -> {})
+                // Enable HTTP Strict Transport Security (HSTS)
+                .httpStrictTransportSecurity(hsts -> hsts
+                    .maxAgeInSeconds(31536000)
+                    .includeSubDomains(true)
+                )
+                // Content Security Policy
+                .contentSecurityPolicy(csp -> csp
+                    .policyDirectives("default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.finnhub.io https://*.polygon.io https://*.clerk.accounts.dev;")
+                )
+                // Referrer Policy
+                .referrerPolicy(referrerPolicy -> referrerPolicy
+                    .policy(org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
+                )
+            )
+            
+            // Disable CSRF for stateless JWT API (acceptable for REST APIs with JWT authentication)
             .csrf(csrf -> csrf.disable())
             
             // Stateless session management for JWT
@@ -53,17 +67,14 @@ public class SecurityConfig {
             
             // Configure endpoint access
             .authorizeHttpRequests(authz -> authz
-                // Allow unrestricted access to market API endpoints (⚠️ DEVELOPMENT ONLY)
+                // Public endpoints: Allow unauthenticated access to market data
+                // This enables users to search and analyze stocks without logging in.
+                // Note: Rate limiting should be considered in the future to prevent abuse,
+                // as these endpoints call external APIs (Finnhub/Polygon) which have rate limits.
                 .requestMatchers("/api/market/**").permitAll()
                 
                 // Allow health check endpoint (for waking up backend from standby)
                 .requestMatchers("/api/health").permitAll()
-                
-                // Allow actuator endpoints for health checks (⚠️ Consider restricting in production)
-                .requestMatchers("/actuator/**").permitAll()
-                
-                // Allow Swagger/OpenAPI documentation (⚠️ Remove in production)
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 
                 // Protected endpoints require authentication
                 .requestMatchers("/api/saved/**").authenticated()

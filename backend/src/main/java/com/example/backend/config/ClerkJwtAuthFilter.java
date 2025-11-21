@@ -60,8 +60,8 @@ public class ClerkJwtAuthFilter extends OncePerRequestFilter {
                 }
 
                 if (jwkSet == null) {
-                    logger.warn("JWKS not initialized. Skipping JWT verification.");
-                    chain.doFilter(request, response);
+                    logger.error("JWKS not initialized. Rejecting request to prevent authentication bypass.");
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Authentication service unavailable");
                     return;
                 }
 
@@ -135,7 +135,8 @@ public class ClerkJwtAuthFilter extends OncePerRequestFilter {
         
         try {
             if (clerkJwksUrl == null || clerkJwksUrl.isEmpty()) {
-                logger.warn("CLERK_JWKS_URL not configured. JWT verification will not work.");
+                logger.error("CLERK_JWKS_URL not configured. JWT verification cannot be initialized.");
+                // Leave jwkSet as null - requests with Bearer tokens will be rejected
                 initialized = true;
                 return;
             }
