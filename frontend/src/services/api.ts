@@ -7,6 +7,28 @@ const API_BASE_URL =
 
 const SAVED_API_BASE_URL = `${API_BASE_URL}/saved`
 
+/**
+ * Pings the backend health endpoint to wake it up from standby.
+ * This is a fire-and-forget operation with no error handling.
+ * Silent failures are acceptable as this is just a wake-up call.
+ */
+export async function pingHealth(): Promise<void> {
+  try {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 5000) // 5 second timeout
+
+    await fetch(`${API_BASE_URL}/health`, {
+      method: 'GET',
+      signal: controller.signal,
+    })
+
+    clearTimeout(timeoutId)
+  } catch (error) {
+    // Silently ignore errors - this is just a wake-up ping
+    // No need to log or handle errors
+  }
+}
+
 export interface Quote {
   currentPrice: number | null
   high: number | null

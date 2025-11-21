@@ -56,6 +56,9 @@ public class SecurityConfig {
                 // Allow unrestricted access to market API endpoints (⚠️ DEVELOPMENT ONLY)
                 .requestMatchers("/api/market/**").permitAll()
                 
+                // Allow health check endpoint (for waking up backend from standby)
+                .requestMatchers("/api/health").permitAll()
+                
                 // Allow actuator endpoints for health checks (⚠️ Consider restricting in production)
                 .requestMatchers("/actuator/**").permitAll()
                 

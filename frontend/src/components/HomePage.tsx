@@ -1,8 +1,15 @@
+import { useEffect } from 'react'
 import Card from './shared/Card'
 import QuoteCarousel from './shared/QuoteCarousel'
 import { investingQuotes } from '../data/quotes'
+import { pingHealth } from '../services/api'
 
 export default function HomePage() {
+  // Ping backend health endpoint on mount to wake it up from standby
+  useEffect(() => {
+    pingHealth()
+  }, [])
+
   return (
     <div
       className="min-h-screen"
