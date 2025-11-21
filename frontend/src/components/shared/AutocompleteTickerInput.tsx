@@ -27,8 +27,10 @@ export default function AutocompleteTickerInput({
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [tickers, setTickers] = useState<TickerEntry[]>([])
   const [isLoadingTickers, setIsLoadingTickers] = useState(false)
+  const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const suggestionsRef = useRef<HTMLDivElement>(null)
+  const suggestionRefs = useRef<(HTMLButtonElement | null)[]>([])
 
   // Lazy-load tickers on component mount
   useEffect(() => {
@@ -108,6 +110,23 @@ export default function AutocompleteTickerInput({
     return results.slice(0, 50)
   }, [debouncedQuery, minQueryLength, tickers])
 
+  // Reset highlighted index when suggestions change
+  useEffect(() => {
+    if (highlightedIndex !== null && highlightedIndex >= suggestions.length) {
+      setHighlightedIndex(null)
+    }
+  }, [suggestions, highlightedIndex])
+
+  // Scroll highlighted item into view
+  useEffect(() => {
+    if (highlightedIndex !== null && suggestionRefs.current[highlightedIndex]) {
+      suggestionRefs.current[highlightedIndex]?.scrollIntoView({
+        block: 'nearest',
+        behavior: 'smooth',
+      })
+    }
+  }, [highlightedIndex])
+
   // Close suggestions when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -118,6 +137,7 @@ export default function AutocompleteTickerInput({
         !inputRef.current.contains(event.target as Node)
       ) {
         setShowSuggestions(false)
+        setHighlightedIndex(null)
       }
     }
 
@@ -129,15 +149,63 @@ export default function AutocompleteTickerInput({
     const newValue = e.target.value
     onChange(newValue)
     setShowSuggestions(true)
+    setHighlightedIndex(null) // Reset highlight when user types
   }
 
   const handleSelect = (ticker: TickerEntry) => {
     onChange(ticker.symbol.toUpperCase())
     setShowSuggestions(false)
+    setHighlightedIndex(null)
     if (onSelect) {
       onSelect(ticker)
     }
     inputRef.current?.blur()
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!displaySuggestions || suggestions.length === 0) {
+      return
+    }
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        if (highlightedIndex === null) {
+          setHighlightedIndex(0)
+        } else if (highlightedIndex < suggestions.length - 1) {
+          setHighlightedIndex(highlightedIndex + 1)
+        }
+        break
+
+      case 'ArrowUp':
+        e.preventDefault()
+        if (highlightedIndex === null) {
+          setHighlightedIndex(suggestions.length - 1)
+        } else if (highlightedIndex > 0) {
+          setHighlightedIndex(highlightedIndex - 1)
+        }
+        break
+
+      case 'Enter':
+        e.preventDefault()
+        if (
+          highlightedIndex !== null &&
+          highlightedIndex < suggestions.length
+        ) {
+          handleSelect(suggestions[highlightedIndex])
+        } else if (suggestions.length > 0) {
+          // Select first suggestion if none highlighted
+          handleSelect(suggestions[0])
+        }
+        break
+
+      case 'Escape':
+        e.preventDefault()
+        setShowSuggestions(false)
+        setHighlightedIndex(null)
+        inputRef.current?.blur()
+        break
+    }
   }
 
   const handleClear = () => {
@@ -172,6 +240,7 @@ export default function AutocompleteTickerInput({
           type="text"
           value={value}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           onFocus={handleFocus}
           placeholder={placeholder}
           disabled={disabled}
@@ -212,40 +281,49 @@ export default function AutocompleteTickerInput({
             borderColor: 'var(--border-color)',
           }}
         >
-          {suggestions.map((ticker) => (
-            <button
-              key={ticker.symbol}
-              type="button"
-              onClick={() => handleSelect(ticker)}
-              className="w-full text-left px-4 py-2 transition-colors border-b last:border-b-0"
-              style={{
-                borderColor: 'var(--border-color)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(5, 150, 105, 0.1)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent'
-              }}
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <div
-                    className="font-semibold"
-                    style={{ color: 'var(--text-primary)' }}
-                  >
-                    {ticker.symbol}
-                  </div>
-                  <div
-                    className="text-sm"
-                    style={{ color: 'var(--text-secondary)' }}
-                  >
-                    {ticker.name}
+          {suggestions.map((ticker, index) => {
+            const isHighlighted = index === highlightedIndex
+            return (
+              <button
+                key={ticker.symbol}
+                ref={(el) => {
+                  suggestionRefs.current[index] = el
+                }}
+                type="button"
+                onClick={() => handleSelect(ticker)}
+                className="w-full text-left px-4 py-2 transition-colors border-b last:border-b-0"
+                style={{
+                  borderColor: 'var(--border-color)',
+                  backgroundColor: isHighlighted
+                    ? 'rgba(5, 150, 105, 0.1)'
+                    : 'transparent',
+                }}
+                onMouseEnter={() => {
+                  setHighlightedIndex(index)
+                }}
+                onMouseLeave={() => {
+                  // Don't clear on mouse leave to keep keyboard navigation in sync
+                }}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div
+                      className="font-semibold"
+                      style={{ color: 'var(--text-primary)' }}
+                    >
+                      {ticker.symbol}
+                    </div>
+                    <div
+                      className="text-sm"
+                      style={{ color: 'var(--text-secondary)' }}
+                    >
+                      {ticker.name}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            )
+          })}
         </div>
       )}
     </div>
