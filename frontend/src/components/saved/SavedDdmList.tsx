@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '@clerk/clerk-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Loader2, Trash2, Calendar } from 'lucide-react'
@@ -10,6 +11,7 @@ import {
 } from '../../services/api'
 
 export default function SavedDdmList() {
+  const { t } = useTranslation()
   const [showColdStart, setShowColdStart] = useState(false)
   const { isSignedIn, isLoaded, getToken } = useAuth()
   const queryClient = useQueryClient()
@@ -65,7 +67,7 @@ export default function SavedDdmList() {
       if (context?.previous) {
         queryClient.setQueryData(['savedDdmAnalyses'], context.previous)
       }
-      alert(err instanceof Error ? err.message : 'Failed to delete analysis')
+      alert(err instanceof Error ? err.message : t('saved.deleteError'))
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['savedDdmAnalyses'] })
@@ -73,7 +75,7 @@ export default function SavedDdmList() {
   })
 
   const handleDelete = (id: number) => {
-    if (!confirm('Are you sure you want to delete this analysis?')) return
+    if (!confirm(t('saved.confirmDelete'))) return
     deleteMutation.mutate(id)
   }
 
@@ -90,7 +92,7 @@ export default function SavedDdmList() {
   if (!isLoaded) {
     return (
       <div className="p-6">
-        <p style={{ color: 'var(--text-secondary)' }}>Loading...</p>
+        <p style={{ color: 'var(--text-secondary)' }}>{t('common.loading')}</p>
       </div>
     )
   }
@@ -111,8 +113,7 @@ export default function SavedDdmList() {
               className="text-xs text-center"
               style={{ color: 'var(--text-muted)' }}
             >
-              Backend server is waking up from standby mode. This may take a few
-              extra seconds...
+              {t('saved.coldStartMessage')}
             </p>
           )}
         </div>
@@ -123,7 +124,7 @@ export default function SavedDdmList() {
           <p className="text-red-700">
             {error instanceof Error
               ? error.message
-              : 'Failed to load saved analyses'}
+              : t('saved.loadError')}
           </p>
         </Card>
       )}
@@ -131,8 +132,7 @@ export default function SavedDdmList() {
       {!isLoading && !error && analyses && analyses.length === 0 && (
         <Card className="p-8 text-center">
           <p style={{ color: 'var(--text-secondary)' }}>
-            You haven't saved any DDM analyses yet. Go to "Analysis" tab and
-            save them to see them here.
+            {t('saved.noDdmAnalyses')}
           </p>
         </Card>
       )}
@@ -157,7 +157,7 @@ export default function SavedDdmList() {
                           : 'bg-red-100 text-red-800'
                       }`}
                     >
-                      {analysis.isUndervalued ? 'Undervalued' : 'Overvalued'}
+                      {analysis.isUndervalued ? t('ddm.isUndervalued') : t('ddm.isOvervalued')}
                     </span>
                   </div>
 
@@ -167,7 +167,7 @@ export default function SavedDdmList() {
                         className="text-sm"
                         style={{ color: 'var(--text-secondary)' }}
                       >
-                        Intrinsic Value
+                        {t('ddm.intrinsicValue')}
                       </p>
                       <p
                         className="text-lg font-semibold"
@@ -181,7 +181,7 @@ export default function SavedDdmList() {
                         className="text-sm"
                         style={{ color: 'var(--text-secondary)' }}
                       >
-                        Current Price
+                        {t('ddm.currentPrice')}
                       </p>
                       <p
                         className="text-lg font-semibold"
@@ -195,7 +195,7 @@ export default function SavedDdmList() {
                         className="text-sm"
                         style={{ color: 'var(--text-secondary)' }}
                       >
-                        Growth Rate
+                        {t('ddm.growthRate')}
                       </p>
                       <p
                         className="text-lg font-semibold"
@@ -209,7 +209,7 @@ export default function SavedDdmList() {
                         className="text-sm"
                         style={{ color: 'var(--text-secondary)' }}
                       >
-                        Discount Rate
+                        {t('ddm.discountRate')}
                       </p>
                       <p
                         className="text-lg font-semibold"
@@ -236,7 +236,7 @@ export default function SavedDdmList() {
                     deleteMutation.variables === analysis.id
                   }
                   className="ml-4 p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
-                  aria-label="Delete analysis"
+                  aria-label={t('saved.deleteAnalysis')}
                 >
                   {deleteMutation.isPending &&
                   deleteMutation.variables === analysis.id ? (

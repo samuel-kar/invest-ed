@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useCurrency } from '../../../contexts/CurrencyContext'
 
 interface AdjustPlanProps {
@@ -13,6 +14,7 @@ export default function AdjustPlan({
   altMonths,
   altMonthly,
 }: AdjustPlanProps) {
+  const { t } = useTranslation()
   const { formatCurrency } = useCurrency()
   return (
     <div
@@ -23,20 +25,21 @@ export default function AdjustPlan({
         className="font-semibold mb-2"
         style={{ color: 'var(--accent-color)' }}
       >
-        Adjust Your Plan
+        {t('adjustPlan.title')}
       </h4>
       <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>
-        If {formatCurrency(Math.round(currentMonthly))}/month seems too high,
-        consider:
+        {t('adjustPlan.currentPlan')} {formatCurrency(Math.round(currentMonthly))}/month {t('adjustPlan.alternativePlan')}
       </p>
       <ul
         className="text-sm space-y-1"
         style={{ color: 'var(--text-secondary)' }}
       >
         <li>
-          • Extending your timeline to {altYears} years
-          {altMonths > 0 ? ` ${altMonths} months` : ''} would reduce it to{' '}
-          {formatCurrency(Math.round(altMonthly))}/month
+          • {t('adjustPlan.ifYouExtend', {
+            years: altYears.toString(),
+            months: altMonths.toString(),
+          })}{' '}
+          {t('adjustPlan.monthlyPayment')} {formatCurrency(Math.round(altMonthly))}/month
         </li>
         <li>• Starting with a larger initial amount</li>
         <li>• Looking for higher-return investments (with appropriate risk)</li>

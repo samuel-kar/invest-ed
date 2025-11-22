@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { Search, Loader2, AlertCircle } from 'lucide-react'
@@ -15,6 +16,7 @@ interface CompanySearchProps {
 export default function CompanySearch({
   initialSymbol = '',
 }: CompanySearchProps) {
+  const { t } = useTranslation()
   const [symbol, setSymbol] = useState(initialSymbol.toUpperCase())
   const [searchSymbol, setSearchSymbol] = useState(initialSymbol.toUpperCase())
   const [showColdStart, setShowColdStart] = useState(false)
@@ -83,7 +85,7 @@ export default function CompanySearch({
               value={symbol}
               onChange={handleInputChange}
               onSelect={handleTickerSelect}
-              placeholder="Enter stock symbol or company name (e.g., AAPL, Apple, MSFT)"
+              placeholder={t('companies.searchPlaceholder')}
               disabled={isLoading}
             />
           </div>
@@ -95,12 +97,12 @@ export default function CompanySearch({
             {isLoading ? (
               <>
                 <Loader2 size={16} className="animate-spin" />
-                Loading...
+                {t('common.loading')}
               </>
             ) : (
               <>
                 <Search size={16} />
-                Search
+                {t('companies.searchButton')}
               </>
             )}
           </button>
@@ -112,7 +114,7 @@ export default function CompanySearch({
         <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center gap-3">
           <AlertCircle size={20} className="text-red-500" />
           <div>
-            <h3 className="font-semibold text-red-800">Error</h3>
+            <h3 className="font-semibold text-red-800">{t('companies.error')}</h3>
             <p className="text-red-700">{error.message}</p>
           </div>
         </div>
@@ -127,12 +129,11 @@ export default function CompanySearch({
             style={{ color: 'var(--text-muted)' }}
           />
           <p style={{ color: 'var(--text-secondary)' }}>
-            Loading company data...
+            {t('companies.loading')}
           </p>
           {showColdStart && (
             <p className="mt-3 text-xs" style={{ color: 'var(--text-muted)' }}>
-              Backend server is waking up from standby mode. This may take a few
-              extra seconds...
+              {t('companies.coldStartMessage')}
             </p>
           )}
         </Card>
@@ -155,11 +156,10 @@ export default function CompanySearch({
             className="text-lg font-semibold mb-2"
             style={{ color: 'var(--text-primary)' }}
           >
-            Search for a Company
+            {t('companies.searchForCompany')}
           </h3>
           <p style={{ color: 'var(--text-secondary)' }}>
-            Enter a stock symbol or company name above to view detailed financial
-            data and metrics.
+            {t('companies.searchDescription')}
           </p>
         </Card>
       )}

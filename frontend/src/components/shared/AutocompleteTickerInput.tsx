@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Search, Loader2, X } from 'lucide-react'
 import { loadTickers, type TickerEntry } from '../../data/tickers'
 
@@ -17,12 +18,14 @@ export default function AutocompleteTickerInput({
   value,
   onChange,
   onSelect,
-  placeholder = 'Enter stock symbol or company name',
+  placeholder,
   className = '',
   disabled = false,
   minQueryLength = 2,
   debounceMs = 300,
 }: AutocompleteTickerInputProps) {
+  const { t } = useTranslation()
+  const defaultPlaceholder = placeholder || t('companies.searchPlaceholder')
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [tickers, setTickers] = useState<TickerEntry[]>([])
@@ -242,7 +245,7 @@ export default function AutocompleteTickerInput({
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onFocus={handleFocus}
-          placeholder={placeholder}
+          placeholder={defaultPlaceholder}
           disabled={disabled}
           className="w-full pl-10 pr-10 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-emerald-500 transition-colors"
           style={{
@@ -259,7 +262,7 @@ export default function AutocompleteTickerInput({
             type="button"
             onClick={handleClear}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
-            aria-label="Clear input"
+            aria-label={t('common.clear')}
           >
             <X size={16} />
           </button>

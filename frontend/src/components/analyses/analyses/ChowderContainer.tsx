@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from '@clerk/clerk-react'
 import {
@@ -15,6 +16,7 @@ import AnalysisTickerSearchForm from '../shared/TickerSearchForm'
 import { getCompanyName } from '../../../data/tickers'
 
 export default function ChowderContainer() {
+  const { t } = useTranslation()
   const [inputSymbol, setInputSymbol] = useState('')
   const [searchSymbol, setSearchSymbol] = useState('')
   const [saveError, setSaveError] = useState<string | null>(null)
@@ -127,7 +129,7 @@ export default function ChowderContainer() {
         queryClient.setQueryData(['savedChowderAnalyses'], context.previous)
       }
       setSaveError(
-        err instanceof Error ? err.message : 'Failed to save analysis',
+        err instanceof Error ? err.message : t('chowder.saveError'),
       )
     },
     onSuccess: (result, _vars, context) => {
@@ -168,24 +170,20 @@ export default function ChowderContainer() {
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          About the Chowder Rule
+          {t('chowder.about')}
         </h3>
 
-        <FormulaBlock title="Chowder Rule Formula:">
+        <FormulaBlock title={t('chowder.formulaTitle')}>
           <p className="mb-2">
             <strong>
-              Chowder Score = Dividend Yield (%) + Dividend CAGR (%)
+              {t('chowder.formula')}
             </strong>
           </p>
           <div
             className="text-xs space-y-1"
             style={{ color: 'var(--text-muted)' }}
           >
-            <p>• Dividend Yield = TTM Dividends / Current Price</p>
-            <p>
-              • Dividend CAGR = 5-year compound annual growth rate of dividends
-            </p>
-            <p>• Falls back to 3-year CAGR if insufficient 5-year data</p>
+            <p>• {t('chowder.description')}</p>
           </div>
         </FormulaBlock>
 
@@ -197,24 +195,15 @@ export default function ChowderContainer() {
             className="font-semibold mb-2"
             style={{ color: 'var(--text-primary)' }}
           >
-            Score Interpretation:
+            {t('chowder.interpretation')}
           </h4>
           <ul
             className="text-sm space-y-1"
             style={{ color: 'var(--text-secondary)' }}
           >
-            <li>
-              • <strong>15+:</strong> Excellent dividend stock
-            </li>
-            <li>
-              • <strong>12-14:</strong> Good dividend opportunity
-            </li>
-            <li>
-              • <strong>8-11:</strong> Fair dividend potential
-            </li>
-            <li>
-              • <strong>&lt;8:</strong> Poor dividend characteristics
-            </li>
+            <li>• {t('chowder.interpretation1')}</li>
+            <li>• {t('chowder.interpretation2')}</li>
+            <li>• {t('chowder.interpretation3')}</li>
           </ul>
         </Card>
       </div>
@@ -225,7 +214,7 @@ export default function ChowderContainer() {
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          Analyze a Stock
+          {t('chowder.analyzeStock')}
         </h3>
 
         {/* Search Bar */}
@@ -235,9 +224,9 @@ export default function ChowderContainer() {
             onChange={setInputSymbol}
             onSubmit={handleSearch}
             onTickerSelect={handleTickerSelect}
-            placeholder="Enter stock symbol (e.g., PG, KO, JNJ)"
-            buttonLabel="Analyze"
-            loadingLabel="Analyzing..."
+            placeholder={t('chowder.searchPlaceholder')}
+            buttonLabel={t('chowder.searchButton')}
+            loadingLabel={t('chowder.loadingData')}
             isLoading={isLoading}
           />
         </Card>
@@ -251,15 +240,14 @@ export default function ChowderContainer() {
               style={{ color: 'var(--text-muted)' }}
             />
             <p style={{ color: 'var(--text-secondary)' }}>
-              Loading Chowder analysis for {searchSymbol}...
+              {t('chowder.loadingData')} {searchSymbol}...
             </p>
             {showColdStart && (
               <p
                 className="mt-3 text-xs"
                 style={{ color: 'var(--text-muted)' }}
               >
-                Backend server is waking up from standby mode. This may take a
-                few extra seconds...
+                {t('chowder.coldStartMessage')}
               </p>
             )}
           </Card>
@@ -275,17 +263,12 @@ export default function ChowderContainer() {
               />
               <div>
                 <h4 className="font-semibold text-red-800 mb-2">
-                  {isRateLimitError ? 'Rate Limit Exceeded' : 'Error'}
+                  {isRateLimitError ? t('chowder.rateLimitError') : t('common.error')}
                 </h4>
                 {isRateLimitError ? (
                   <div className="text-red-700 space-y-2">
                     <p>
-                      You've exceeded the API rate limit. Please try again in a
-                      few moments.
-                    </p>
-                    <p className="text-sm">
-                      Tip: The free tier of Polygon API has limited requests per
-                      minute. Consider waiting 60 seconds before trying again.
+                      {t('chowder.rateLimitError')}
                     </p>
                   </div>
                 ) : (
@@ -308,28 +291,28 @@ export default function ChowderContainer() {
                     className="font-semibold mb-3"
                     style={{ color: 'var(--text-primary)' }}
                   >
-                    Breakdown:
+                    {t('chowder.breakdown')}
                   </h4>
                   <div className="space-y-3">
                     <MetricRow
-                      label="Current Price:"
+                      label={t('chowder.currentPrice')}
                       value={`$${data.currentPrice?.toFixed(2) || 'N/A'}`}
                     />
                     <MetricRow
-                      label="Dividend Yield:"
+                      label={t('chowder.currentYield')}
                       value={`${data.dividendYield?.toFixed(2) || 'N/A'}%`}
                     />
                     <MetricRow
-                      label="Dividend CAGR:"
+                      label={t('chowder.dividendGrowthRate')}
                       value={`${data.dividendCAGR?.toFixed(2) || 'N/A'}%`}
                     />
                     <MetricRow
-                      label="Years of Data:"
+                      label={t('chowder.yearsOfData')}
                       value={data.yearsOfData.toString()}
                     />
                     <hr style={{ borderColor: 'var(--border-color)' }} />
                     <MetricRow
-                      label="Chowder Score:"
+                      label={t('chowder.chowderNumber')}
                       value={
                         interpretation ? (
                           <span className={interpretation.colorClass}>
@@ -351,7 +334,7 @@ export default function ChowderContainer() {
                       className="text-lg font-semibold mb-1"
                       style={{ color: 'var(--text-primary)' }}
                     >
-                      Chowder Score for {searchSymbol}
+                      {t('chowder.chowderScoreFor', { symbol: searchSymbol })}
                     </h4>
                     {getCompanyName(searchSymbol) && (
                       <p
@@ -391,18 +374,18 @@ export default function ChowderContainer() {
                         {saveMutation.isPending ? (
                           <>
                             <Loader2 size={16} className="animate-spin" />
-                            Saving...
+                            {t('common.loading')}
                           </>
                         ) : (
                           <>
                             <Save size={16} />
-                            Save Analysis
+                            {t('chowder.saveAnalysis')}
                           </>
                         )}
                       </button>
                       {saveSuccess && (
                         <p className="text-sm text-green-600">
-                          Analysis saved successfully!
+                          {t('chowder.saveSuccess')}
                         </p>
                       )}
                       {saveError && (
@@ -439,7 +422,7 @@ export default function ChowderContainer() {
               style={{ color: 'var(--text-muted)' }}
             />
             <p style={{ color: 'var(--text-secondary)' }}>
-              Enter a stock symbol above to view Chowder Rule analysis.
+              {t('chowder.noData')}
             </p>
           </Card>
         )}

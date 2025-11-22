@@ -1,19 +1,21 @@
 import { useState, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import SearchBar from '../shared/SearchBar'
 import MetricCard from '../shared/MetricCard'
 import { financialMetrics } from '../../data/financialMetrics'
 
 export default function MetricsSection() {
+  const { t } = useTranslation()
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<string>('All')
+  const [selectedCategory, setSelectedCategory] = useState<string>(t('learn.all'))
 
   const categories = useMemo(() => {
     const cats = [
-      'All',
+      t('learn.all'),
       ...new Set(financialMetrics.map((metric) => metric.category)),
     ]
     return cats
-  }, [])
+  }, [t])
 
   const filteredMetrics = useMemo(() => {
     return financialMetrics.filter((metric) => {
@@ -21,10 +23,10 @@ export default function MetricsSection() {
         metric.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         metric.description.toLowerCase().includes(searchTerm.toLowerCase())
       const matchesCategory =
-        selectedCategory === 'All' || metric.category === selectedCategory
+        selectedCategory === t('learn.all') || metric.category === selectedCategory
       return matchesSearch && matchesCategory
     })
-  }, [searchTerm, selectedCategory])
+  }, [searchTerm, selectedCategory, t])
 
   return (
     <div className="space-y-6">
@@ -33,18 +35,17 @@ export default function MetricsSection() {
           className="text-2xl font-bold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          Financial Metrics Dictionary
+          {t('learn.financialMetricsDictionary')}
         </h2>
         <p className="text-lg mb-6" style={{ color: 'var(--text-secondary)' }}>
-          Learn about key financial metrics used in investment analysis. Click
-          on any metric to see detailed information.
+          {t('learn.financialMetricsDescription')}
         </p>
       </div>
 
       {/* Search and Filter Controls */}
       <div className="space-y-4">
         <SearchBar
-          placeholder="Search metrics by name or description..."
+          placeholder={t('learn.searchMetrics')}
           value={searchTerm}
           onChange={setSearchTerm}
         />
@@ -78,7 +79,10 @@ export default function MetricsSection() {
 
       {/* Results Count */}
       <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-        Showing {filteredMetrics.length} of {financialMetrics.length} metrics
+        {t('learn.showingMetrics', {
+          showing: filteredMetrics.length.toString(),
+          total: financialMetrics.length.toString(),
+        })}
       </div>
 
       {/* Metrics Grid */}
@@ -102,7 +106,7 @@ export default function MetricsSection() {
           className="text-center py-8"
           style={{ color: 'var(--text-secondary)' }}
         >
-          No metrics found matching your search criteria.
+          {t('learn.noMetricsFound')}
         </div>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '@clerk/clerk-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Loader2, Trash2, Calendar } from 'lucide-react'
@@ -10,6 +11,7 @@ import {
 } from '../../services/api'
 
 export default function SavedChowderList() {
+  const { t } = useTranslation()
   const [showColdStart, setShowColdStart] = useState(false)
   const { isSignedIn, isLoaded, getToken } = useAuth()
   const queryClient = useQueryClient()
@@ -65,7 +67,7 @@ export default function SavedChowderList() {
       if (context?.previous) {
         queryClient.setQueryData(['savedChowderAnalyses'], context.previous)
       }
-      alert(err instanceof Error ? err.message : 'Failed to delete analysis')
+      alert(err instanceof Error ? err.message : t('saved.deleteError'))
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['savedChowderAnalyses'] })
@@ -73,7 +75,7 @@ export default function SavedChowderList() {
   })
 
   const handleDelete = (id: number) => {
-    if (!confirm('Are you sure you want to delete this analysis?')) return
+    if (!confirm(t('saved.confirmDelete'))) return
     deleteMutation.mutate(id)
   }
 
@@ -92,28 +94,28 @@ export default function SavedChowderList() {
 
     if (score >= 15) {
       return {
-        level: 'Excellent',
+        level: t('chowder.excellent'),
         colorClass: 'text-green-600',
         bgClass: 'bg-green-100',
         textClass: 'text-green-800',
       }
     } else if (score >= 12) {
       return {
-        level: 'Good',
+        level: t('chowder.good'),
         colorClass: 'text-blue-600',
         bgClass: 'bg-blue-100',
         textClass: 'text-blue-800',
       }
     } else if (score >= 8) {
       return {
-        level: 'Fair',
+        level: t('chowder.fair'),
         colorClass: 'text-yellow-600',
         bgClass: 'bg-yellow-100',
         textClass: 'text-yellow-800',
       }
     } else {
       return {
-        level: 'Poor',
+        level: t('chowder.poor'),
         colorClass: 'text-red-600',
         bgClass: 'bg-red-100',
         textClass: 'text-red-800',
@@ -124,7 +126,7 @@ export default function SavedChowderList() {
   if (!isLoaded) {
     return (
       <div className="p-6">
-        <p style={{ color: 'var(--text-secondary)' }}>Loading...</p>
+        <p style={{ color: 'var(--text-secondary)' }}>{t('common.loading')}</p>
       </div>
     )
   }
@@ -145,8 +147,7 @@ export default function SavedChowderList() {
               className="text-xs text-center"
               style={{ color: 'var(--text-muted)' }}
             >
-              Backend server is waking up from standby mode. This may take a few
-              extra seconds...
+              {t('saved.coldStartMessage')}
             </p>
           )}
         </div>
@@ -155,9 +156,7 @@ export default function SavedChowderList() {
       {error && (
         <Card className="p-6 border-2 border-red-200 bg-red-50">
           <p className="text-red-700">
-            {error instanceof Error
-              ? error.message
-              : 'Failed to load saved analyses'}
+            {error instanceof Error ? error.message : t('saved.loadError')}
           </p>
         </Card>
       )}
@@ -165,8 +164,7 @@ export default function SavedChowderList() {
       {!isLoading && !error && analyses && analyses.length === 0 && (
         <Card className="p-8 text-center">
           <p style={{ color: 'var(--text-secondary)' }}>
-            You haven't saved any Chowder analyses yet. Go to "Analysis" page
-            and save them to see them here.
+            {t('saved.noChowderAnalyses')}
           </p>
         </Card>
       )}
@@ -201,7 +199,7 @@ export default function SavedChowderList() {
                           className="text-sm"
                           style={{ color: 'var(--text-secondary)' }}
                         >
-                          Chowder Score
+                          {t('chowder.chowderNumber')}
                         </p>
                         <p
                           className={`text-lg font-semibold ${
@@ -216,7 +214,7 @@ export default function SavedChowderList() {
                           className="text-sm"
                           style={{ color: 'var(--text-secondary)' }}
                         >
-                          Current Price
+                          {t('chowder.currentPrice')}
                         </p>
                         <p
                           className="text-lg font-semibold"
@@ -230,7 +228,7 @@ export default function SavedChowderList() {
                           className="text-sm"
                           style={{ color: 'var(--text-secondary)' }}
                         >
-                          Dividend Yield
+                          {t('chowder.currentYield')}
                         </p>
                         <p
                           className="text-lg font-semibold"
@@ -244,7 +242,7 @@ export default function SavedChowderList() {
                           className="text-sm"
                           style={{ color: 'var(--text-secondary)' }}
                         >
-                          Dividend CAGR
+                          {t('chowder.dividendGrowthRate')}
                         </p>
                         <p
                           className="text-lg font-semibold"
@@ -261,7 +259,7 @@ export default function SavedChowderList() {
                           className="text-sm"
                           style={{ color: 'var(--text-secondary)' }}
                         >
-                          Years of Data: {analysis.yearsOfData}
+                          {t('chowder.yearsOfData')}: {analysis.yearsOfData}
                         </p>
                       </div>
                     )}
@@ -282,7 +280,7 @@ export default function SavedChowderList() {
                       deleteMutation.variables === analysis.id
                     }
                     className="ml-4 p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
-                    aria-label="Delete analysis"
+                    aria-label={t('saved.deleteAnalysis')}
                   >
                     {deleteMutation.isPending &&
                     deleteMutation.variables === analysis.id ? (

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { LabeledInput } from '../shared/InputsGroup'
 import FormulaBlock from '../shared/FormulaBlock'
 import { useCurrency } from '../../../contexts/CurrencyContext'
@@ -6,6 +7,7 @@ import { dividendPortfolioCalculator } from '../../../utils/calculations'
 import Card from '../../shared/Card'
 
 export default function RetirementDividendContainer() {
+  const { t } = useTranslation()
   const [desiredMonthlyIncome, setDesiredMonthlyIncome] = useState<number>(3000)
   const [monthlyInvestment, setMonthlyInvestment] = useState<number>(500)
   const [dividendYieldPercent, setDividendYieldPercent] = useState<number>(4)
@@ -58,11 +60,11 @@ export default function RetirementDividendContainer() {
             className="text-lg font-semibold mb-4"
             style={{ color: 'var(--text-primary)' }}
           >
-            Dividend Plan
+            {t('calculator.dividendPlan')}
           </h3>
 
           <LabeledInput
-            label="Desired monthly income ($)"
+            label={t('retirement.desiredMonthlyIncome')}
             type="number"
             value={desiredMonthlyIncome}
             onChange={(e) => setDesiredMonthlyIncome(Number(e.target.value))}
@@ -72,7 +74,7 @@ export default function RetirementDividendContainer() {
           />
 
           <LabeledInput
-            label="Monthly Investment ($)"
+            label={t('retirement.monthlyInvestment')}
             type="number"
             value={monthlyInvestment}
             onChange={(e) => setMonthlyInvestment(Number(e.target.value))}
@@ -81,12 +83,12 @@ export default function RetirementDividendContainer() {
             placeholder="500"
           />
           <p className="text-sm text-gray-500">
-            Amount you plan to invest each month during the accumulation phase.
+            {t('calculator.amountYouPlanToInvest')}
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <LabeledInput
-              label="Dividend Yield (%)"
+              label={t('retirement.dividendYield')}
               type="number"
               value={dividendYieldPercent}
               onChange={(e) => setDividendYieldPercent(Number(e.target.value))}
@@ -97,7 +99,7 @@ export default function RetirementDividendContainer() {
             />
 
             <LabeledInput
-              label="Capital Appreciation (%)"
+              label={t('retirement.capitalAppreciation')}
               type="number"
               value={capitalAppreciation}
               onChange={(e) => setCapitalAppreciation(Number(e.target.value))}
@@ -108,10 +110,7 @@ export default function RetirementDividendContainer() {
             />
           </div>
           <p className="text-sm text-gray-500">
-            <strong>Capital appreciation</strong> is stock price growth only
-            (excluding dividends). This avoids double-counting since dividend
-            growth is already reflected in price appreciation. Your total return
-            = Dividend Yield + Capital Appreciation.
+            {t('calculator.capitalAppreciationNote')}
           </p>
 
           {/* Display growth rate used */}
@@ -122,8 +121,8 @@ export default function RetirementDividendContainer() {
                 style={{ color: 'var(--text-secondary)' }}
               >
                 {reinvestDividends
-                  ? 'Total annual return used (reinvesting):'
-                  : 'Growth rate used (no reinvest):'}
+                  ? t('calculator.totalAnnualReturnUsed')
+                  : t('calculator.growthRateUsed')}
               </span>
               <span
                 className="text-lg font-bold"
@@ -138,18 +137,19 @@ export default function RetirementDividendContainer() {
             >
               {reinvestDividends ? (
                 <>
-                  {' '}
-                  = Dividend Yield ({dividendYieldPercent}%) + Price Growth (
-                  {capitalAppreciation}%)
+                  {t('calculator.dividendYieldPlusPriceGrowth', {
+                    yield: dividendYieldPercent.toString(),
+                    growth: capitalAppreciation.toString(),
+                  })}
                 </>
               ) : (
-                <> = Price Growth only</>
+                <> {t('calculator.priceGrowthOnly')}</>
               )}
             </p>
           </Card>
 
           <LabeledInput
-            label="Years until income needed (T)"
+            label={t('retirement.yearsUntilIncome')}
             type="number"
             value={yearsUntilIncome}
             onChange={(e) => setYearsUntilIncome(Number(e.target.value))}
@@ -159,7 +159,7 @@ export default function RetirementDividendContainer() {
           />
 
           <LabeledInput
-            label="Expected Annual Inflation Rate (%)"
+            label={t('retirement.expectedInflation')}
             type="number"
             value={inflationRate}
             onChange={(e) => setInflationRate(Number(e.target.value))}
@@ -169,8 +169,7 @@ export default function RetirementDividendContainer() {
             placeholder="0"
           />
           <p className="text-sm text-gray-500">
-            Inflation increases your future cost of living. This rate adjusts
-            your desired income to maintain its purchasing power in year T.
+            {t('calculator.inflationNote')}
           </p>
 
           <div className="flex items-center gap-2">
@@ -189,12 +188,11 @@ export default function RetirementDividendContainer() {
               className="text-sm font-medium cursor-pointer"
               style={{ color: 'var(--text-primary)' }}
             >
-              Reinvest dividends during accumulation phase
+              {t('calculator.reinvestDividendsLabel')}
             </label>
           </div>
           <p className="text-sm text-gray-500">
-            If checked, dividends earned before year T will be reinvested to
-            grow your portfolio. If unchecked, only price growth compounds.
+            {t('calculator.reinvestDividendsNote')}
           </p>
         </div>
 
@@ -207,7 +205,7 @@ export default function RetirementDividendContainer() {
                 className="text-sm mb-1"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                Starting Principal Needed Today
+                {t('calculator.startingPrincipalNeededToday')}
               </div>
               <div
                 className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
@@ -216,7 +214,7 @@ export default function RetirementDividendContainer() {
                 {startingPrincipalNeeded === Infinity
                   ? '∞'
                   : startingPrincipalNeeded <= 0 && monthlyInvestment > 0
-                    ? '$0 (Contributions sufficient)'
+                    ? t('calculator.contributionsSufficient')
                     : formatCurrency(Math.round(startingPrincipalNeeded))}
               </div>
             </Card>
@@ -226,7 +224,9 @@ export default function RetirementDividendContainer() {
                 className="text-sm mb-1"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                Portfolio Target at Year {yearsUntilIncome}
+                {t('calculator.portfolioTargetAtYear', {
+                  year: yearsUntilIncome.toString(),
+                })}
               </div>
               <div
                 className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
@@ -243,7 +243,7 @@ export default function RetirementDividendContainer() {
                 className="text-sm mb-1"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                Dividend yield
+                {t('calculator.dividendYield')}
               </div>
               <div
                 className="text-2xl font-bold"
@@ -258,7 +258,7 @@ export default function RetirementDividendContainer() {
                 className="text-sm mb-1"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                Years until income
+                {t('calculator.yearsUntilIncome')}
               </div>
               <div
                 className="text-2xl font-bold"
@@ -275,7 +275,7 @@ export default function RetirementDividendContainer() {
               className="font-semibold mb-3"
               style={{ color: 'var(--text-primary)' }}
             >
-              Dividend Projection
+              {t('calculator.dividendProjection')}
             </h4>
             <ul
               className="space-y-3"
@@ -284,64 +284,62 @@ export default function RetirementDividendContainer() {
               {yearsUntilIncome === 0 ? (
                 <>
                   <li className="break-words">
-                    • For immediate income: You need a portfolio of{' '}
-                    {startingPrincipalNeeded === Infinity
-                      ? '∞'
-                      : formatCurrency(
-                          Math.round(startingPrincipalNeeded),
-                        )}{' '}
-                    today to generate {formatCurrency(desiredMonthlyIncome)} per
-                    month
+                    •{' '}
+                    {t('calculator.forImmediateIncome', {
+                      amount:
+                        startingPrincipalNeeded === Infinity
+                          ? '∞'
+                          : formatCurrency(Math.round(startingPrincipalNeeded)),
+                      monthly: formatCurrency(desiredMonthlyIncome),
+                    })}
                   </li>
                   <li className="break-words">
-                    • Annual income target: {formatCurrency(annualIncome)}
+                    •{' '}
+                    {t('calculator.annualIncomeTarget', {
+                      amount: formatCurrency(annualIncome),
+                    })}
                   </li>
                   <li className="break-words">
-                    • This uses the simple formula (no growth assumptions)
+                    • {t('calculator.usesSimpleFormula')}
                   </li>
                 </>
               ) : (
                 <>
                   <li className="break-words">
-                    • Your target annual income will be{' '}
-                    <strong>
-                      {formatCurrency(Math.round(futureAnnualIncome))}
-                    </strong>{' '}
-                    after {inflationRate}% annual inflation.
+                    •{' '}
+                    {t('calculator.targetAnnualIncomeWillBe', {
+                      amount: formatCurrency(Math.round(futureAnnualIncome)),
+                      inflation: inflationRate.toString(),
+                    })}
                   </li>
                   <li className="break-words">
-                    • To reach your{' '}
-                    <strong>
-                      {formatCurrency(Math.round(portfolioNeededAtYearT))}
-                    </strong>{' '}
-                    goal, you need an initial principal of{' '}
-                    <strong>
-                      {formatCurrency(
+                    •{' '}
+                    {t('calculator.toReachGoal', {
+                      goal: formatCurrency(Math.round(portfolioNeededAtYearT)),
+                      principal: formatCurrency(
                         Math.round(
                           startingPrincipalNeeded < 0
                             ? 0
                             : startingPrincipalNeeded,
                         ),
-                      )}
-                    </strong>
-                    .
+                      ),
+                    })}
                   </li>
                   <li className="break-words">
-                    • Your monthly investments of{' '}
-                    {formatCurrency(monthlyInvestment)} are projected to grow to{' '}
-                    <strong>
-                      {formatCurrency(Math.round(totalContributions))}
-                    </strong>
-                    .
+                    •{' '}
+                    {t('calculator.monthlyInvestmentsProjected', {
+                      monthly: formatCurrency(monthlyInvestment),
+                      total: formatCurrency(Math.round(totalContributions)),
+                    })}
                   </li>
                   <li className="break-words">
-                    • Your initial principal is projected to grow to{' '}
-                    <strong>
-                      {growthFromPrincipal === Infinity
-                        ? '∞'
-                        : formatCurrency(Math.round(growthFromPrincipal))}
-                    </strong>
-                    .
+                    •{' '}
+                    {t('calculator.initialPrincipalProjected', {
+                      growth:
+                        growthFromPrincipal === Infinity
+                          ? '∞'
+                          : formatCurrency(Math.round(growthFromPrincipal)),
+                    })}
                   </li>
                 </>
               )}
@@ -349,52 +347,51 @@ export default function RetirementDividendContainer() {
           </Card>
 
           {/* Info Block: Formula + Disclaimer */}
-          <FormulaBlock title="Dividend Income Formulas">
+          <FormulaBlock title={t('retirement.formulaTitle')}>
             <div className="space-y-4">
               <div>
                 <p className="mb-2 font-medium">
-                  1. Future Income (Inflation-Adjusted)
+                  1. {t('calculator.futureIncomeInflationAdjusted')}
                 </p>
-                <p className="text-sm">
-                  Future Income = Annual Income × (1 + Inflation)<sup>T</sup>
-                </p>
+                <p className="text-sm">{t('calculator.futureIncomeFormula')}</p>
               </div>
               <div>
-                <p className="mb-2 font-medium">2. Portfolio Goal</p>
+                <p className="mb-2 font-medium">
+                  2. {t('calculator.portfolioGoal')}
+                </p>
                 <p className="text-sm">
-                  Portfolio Goal = Future Income / Dividend Yield
+                  {t('calculator.portfolioGoalFormula')}
                 </p>
               </div>
               <div>
                 <p className="mb-2 font-medium">
-                  3. Future Value of Monthly Investments
+                  3. {t('calculator.futureValueOfMonthlyInvestments')}
                 </p>
                 <p className="text-sm">
-                  FV Contributions = Monthly × [((1+r)<sup>n</sup> - 1) / r]
+                  {t('calculator.fvContributionsFormula')}
                 </p>
                 <p
                   className="text-xs mt-1"
                   style={{ color: 'var(--text-secondary)' }}
                 >
-                  Where r = monthly rate, n = number of months
+                  {t('calculator.fvContributionsWhere')}
                 </p>
               </div>
               <div>
-                <p className="mb-2 font-medium">4. Starting Principal Needed</p>
-                <p className="text-sm">
-                  Principal = (Portfolio Goal − FV Contributions) / (1 +{' '}
-                  <strong>{(growthRateUsed / 100).toFixed(4)}</strong>)
-                  <sup>T</sup>
+                <p className="mb-2 font-medium">
+                  4. {t('calculator.startingPrincipalNeededFormula')}
                 </p>
+                <p className="text-sm">{t('calculator.principalFormula')}</p>
                 <p
                   className="text-xs mt-1"
                   style={{ color: 'var(--text-secondary)' }}
                 >
-                  The growth rate {(growthRateUsed / 100).toFixed(4)} is{' '}
-                  {reinvestDividends
-                    ? 'Dividend Yield + Price Growth'
-                    : 'Price Growth only'}
-                  .
+                  {t('calculator.growthRateIs', {
+                    rate: (growthRateUsed / 100).toFixed(4),
+                    type: reinvestDividends
+                      ? t('calculator.dividendYieldPlusPriceGrowthFormula')
+                      : t('calculator.priceGrowthOnlyFormula'),
+                  })}
                 </p>
               </div>
             </div>
@@ -402,8 +399,8 @@ export default function RetirementDividendContainer() {
               className="text-xs mt-4"
               style={{ color: 'var(--text-secondary)' }}
             >
-              <strong>Note:</strong> All rates are assumed constant. These are
-              estimates for planning purposes only.
+              <strong>{t('common.note')}:</strong>{' '}
+              {t('calculator.allRatesConstant')}
             </p>
           </FormulaBlock>
         </div>
@@ -413,7 +410,7 @@ export default function RetirementDividendContainer() {
           className="text-sm font-medium mb-2"
           style={{ color: 'var(--text-primary)' }}
         >
-          Recommended Videos
+          {t('calculator.recommendedVideos')}
         </h4>
         <div className="space-y-4">
           <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>

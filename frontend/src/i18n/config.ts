@@ -47,6 +47,8 @@ i18n.use(initReactI18next).init({
   defaultNS: 'translation',
   interpolation: {
     escapeValue: false, // React already escapes values
+    prefix: '{',
+    suffix: '}',
   },
 })
 

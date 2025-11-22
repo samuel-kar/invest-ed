@@ -28,7 +28,8 @@ export const sv = {
   },
   home: {
     title: 'InvestEd',
-    subtitle: 'Din omfattande plattform för utdelnings- och tillväxtinvesteringar',
+    subtitle:
+      'Din omfattande plattform för utdelnings- och tillväxtinvesteringar',
     heading: 'Investering + Utbildning = Ekonomisk Frihet',
     welcome1:
       'Välkommen till InvestEd, där sann ekonomisk frihet kommer från den perfekta kombinationen av Investeringskunskap och Utbildning. Denna plattform är designad för att ge dig den utbildningsgrund du behöver för att fatta välgrundade investeringsbeslut som bygger varaktig förmögenhet.',
@@ -111,7 +112,8 @@ export const sv = {
       'Kapitalvärdering är endast aktiekurs tillväxt (exklusive utdelningar). Detta undviker dubbelräkning eftersom utdelnings tillväxt redan återspeglas i kursvärdering. Din totala avkastning = Utdelningsavkastning + Kapitalvärdering.',
     totalAnnualReturnUsed: 'Total årlig avkastning använd (återinvestering):',
     growthRateUsed: 'Tillväxttakt använd (ingen återinvestering):',
-    reinvestDividendsLabel: 'Återinvestera utdelningar under ackumuleringsfasen',
+    reinvestDividendsLabel:
+      'Återinvestera utdelningar under ackumuleringsfasen',
     reinvestDividendsNote:
       'Om markerad kommer utdelningar som tjänas innan år T återinvesteras för att växa din portfölj. Om avmarkerad sammansätts endast kurs tillväxt.',
     inflationNote:
@@ -123,30 +125,40 @@ export const sv = {
     atRetirement: 'Vid pension',
     retirementProjection: 'Pensionsprognos',
     startingWith: 'Startar med {amount} kommer att växa till {growth}',
-    monthlyContributionsWillAdd: 'Månadsbidrag på {amount} kommer att lägga till {total}',
+    monthlyContributionsWillAdd:
+      'Månadsbidrag på {amount} kommer att lägga till {total}',
     totalAtAge: 'Totalt vid ålder {age}: {amount}',
     canSafelyWithdraw: 'Du kan säkert ta ut {monthly}/månad ({annual}/år)',
     the4PercentRule: '4%-regeln',
-    fourPercentRuleDescription: 'Baserat på historiska data har uttag av 4% årligen från din portfölj hög sannolikhet att räcka i 30+ år i pension.',
-    fourPercentRuleNote: 'Detta förutsätter en balanserad portfölj och justering för inflation varje år.',
+    fourPercentRuleDescription:
+      'Baserat på historiska data har uttag av 4% årligen från din portfölj hög sannolikhet att räcka i 30+ år i pension.',
+    fourPercentRuleNote:
+      'Detta förutsätter en balanserad portfölj och justering för inflation varje år.',
     recommendedVideos: 'Rekommenderade videor',
     startingPrincipalNeededToday: 'Startkapital som behövs idag',
     portfolioTargetAtYear: 'Portföljmål vid år {year}',
     dividendYield: 'Utdelningsavkastning',
     yearsUntilIncome: 'År tills inkomst',
     dividendProjection: 'Utdelningsprognos',
-    forImmediateIncome: 'För omedelbar inkomst: Du behöver en portfölj på {amount} idag för att generera {monthly} per månad',
+    forImmediateIncome:
+      'För omedelbar inkomst: Du behöver en portfölj på {amount} idag för att generera {monthly} per månad',
     annualIncomeTarget: 'Årlig inkomstmål: {amount}',
-    usesSimpleFormula: 'Detta använder den enkla formeln (inga tillväxtantaganden)',
-    targetAnnualIncomeWillBe: 'Ditt mål för årlig inkomst kommer att vara {amount} efter {inflation}% årlig inflation.',
-    toReachGoal: 'För att nå ditt {goal} mål behöver du ett initialt kapital på {principal}.',
-    monthlyInvestmentsProjected: 'Dina månadsinvesteringar på {monthly} beräknas växa till {total}.',
-    initialPrincipalProjected: 'Ditt initiala kapital beräknas växa till {growth}.',
+    usesSimpleFormula:
+      'Detta använder den enkla formeln (inga tillväxtantaganden)',
+    targetAnnualIncomeWillBe:
+      'Ditt mål för årlig inkomst kommer att vara {amount} efter {inflation}% årlig inflation.',
+    toReachGoal:
+      'För att nå ditt {goal} mål behöver du ett initialt kapital på {principal}.',
+    monthlyInvestmentsProjected:
+      'Dina månadsinvesteringar på {monthly} beräknas växa till {total}.',
+    initialPrincipalProjected:
+      'Ditt initiala kapital beräknas växa till {growth}.',
     contributionsSufficient: '$0 (Bidrag tillräckliga)',
     futureIncomeInflationAdjusted: 'Framtida inkomst (inflation justerad)',
     futureIncomeFormula: 'Framtida inkomst = Årlig inkomst × (1 + Inflation)^T',
     portfolioGoal: 'Portföljmål',
-    portfolioGoalFormula: 'Portföljmål = Framtida inkomst / Utdelningsavkastning',
+    portfolioGoalFormula:
+      'Portföljmål = Framtida inkomst / Utdelningsavkastning',
     futureValueOfMonthlyInvestments: 'Framtida värde av månadsinvesteringar',
     fvContributionsFormula: 'FV Bidrag = Månads × [((1+r)^n - 1) / r]',
     fvContributionsWhere: 'Där r = månadsränta, n = antal månader',
@@ -155,7 +167,8 @@ export const sv = {
     growthRateIs: 'Tillväxttakten {rate} är {type}.',
     dividendYieldPlusPriceGrowthFormula: 'Utdelningsavkastning + Kurs tillväxt',
     priceGrowthOnlyFormula: 'Endast kurs tillväxt',
-    allRatesConstant: 'Obs: Alla räntor antas vara konstanta. Dessa är uppskattningar endast för planeringsändamål.',
+    allRatesConstant:
+      'Obs: Alla räntor antas vara konstanta. Dessa är uppskattningar endast för planeringsändamål.',
   },
   analysis: {
     title: 'Investeringsanalys',
@@ -202,8 +215,10 @@ export const sv = {
     signInToSave: 'Logga in för att spara din analys',
     noData: 'Ingen data tillgänglig. Vänligen sök efter ett företag först.',
     invalidCalculation: 'Ogiltig beräkning. Vänligen kontrollera dina indata.',
-    requiredReturnGreater: 'Erforderlig avkastning måste vara större än tillväxttakt',
+    requiredReturnGreater:
+      'Erforderlig avkastning måste vara större än tillväxttakt',
     expectedDividendGreater: 'Förväntad utdelning måste vara större än 0',
+    analyzeStock: 'Analysera en aktie',
     ddmAnalysisResults: 'DDM-analysresultat',
     ddmParameters: 'DDM-parametrar',
     stockDataFor: 'Aktiedata för {symbol}',
@@ -214,7 +229,8 @@ export const sv = {
     description:
       'Chowder-regeln är en utdelnings tillväxtinvesteringsstrategi som hjälper till att identifiera kvalitetsutdelnings tillväxtaktier. Den kombinerar nuvarande avkastning och utdelnings tillväxttakt för att skapa ett "Chowder-nummer".',
     formulaTitle: 'Chowder-nummerformel:',
-    formula: 'Chowder-nummer = Nuvarande avkastning (%) + Utdelnings tillväxttakt (%)',
+    formula:
+      'Chowder-nummer = Nuvarande avkastning (%) + Utdelnings tillväxttakt (%)',
     interpretation: 'Tolkning:',
     interpretation1: '• Chowder-nummer ≥ 12: Stark utdelnings tillväxtkandidat',
     interpretation2: '• Chowder-nummer 8-11: Bra utdelnings tillväxtkandidat',
@@ -249,7 +265,8 @@ export const sv = {
     noSavedAnalyses: 'Inga sparade analyser hittades.',
   },
   companies: {
-    searchPlaceholder: 'Ange aktiesymbol eller företagsnamn (t.ex. AAPL, Apple, MSFT)',
+    searchPlaceholder:
+      'Ange aktiesymbol eller företagsnamn (t.ex. AAPL, Apple, MSFT)',
     searchButton: 'Sök',
     loading: 'Laddar företagsdata...',
     coldStartMessage:
@@ -303,12 +320,22 @@ export const sv = {
     title: 'Inställningar',
     theme: 'Tema',
     themeDescription: '{mode} läge',
-    light: 'Ljus',
-    dark: 'Mörk',
+    light: 'Ljust',
+    dark: 'Mörkt',
     switchToLight: 'Växla till ljust läge',
     switchToDark: 'Växla till mörkt läge',
-    currency: 'Kalkylatörvaluta',
+    currency: 'Kalkylatorvaluta',
     currencyDescription: '{name}',
+    currencyNames: {
+      USD: 'US Dollar ($)',
+      EUR: 'Euro (€)',
+      SEK: 'Svensk Krona (kr)',
+      PLN: 'Polsk Zloty (zł)',
+      DKK: 'Dansk Krona (kr)',
+      NOK: 'Norsk Krona (kr)',
+      CNY: 'Kinesisk Yuan (¥)',
+      JPY: 'Japansk Yen (¥)',
+    },
     language: 'Språk',
     languageDescription: '{name}',
     english: 'Engelska',
@@ -361,8 +388,8 @@ export const sv = {
     title: 'Justera din plan',
     currentPlan: 'Nuvarande plan:',
     alternativePlan: 'Alternativ plan:',
-    ifYouExtend: 'Om du förlänger din tidslinje till {years} år {months} månader:',
+    ifYouExtend:
+      'Om du förlänger din tidslinje till {years} år {months} månader:',
     monthlyPayment: 'Månadsbetalning:',
   },
 }
-

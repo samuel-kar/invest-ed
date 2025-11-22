@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface FormulaBlockProps {
   title?: string
@@ -6,9 +7,11 @@ interface FormulaBlockProps {
 }
 
 export default function FormulaBlock({
-  title = 'Formula Used:',
+  title,
   children,
 }: FormulaBlockProps) {
+  const { t } = useTranslation()
+  const defaultTitle = title || t('calculator.formulaUsed')
   return (
     <div
       className="p-4 rounded-lg"
@@ -18,7 +21,7 @@ export default function FormulaBlock({
         className="font-semibold mb-2"
         style={{ color: 'var(--text-primary)' }}
       >
-        {title}
+        {defaultTitle}
       </h4>
       <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
         {children}

@@ -2,6 +2,7 @@ import {
   TrendingUp,
   TrendingDown,
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { Quote, Fundamentals } from '../services/api'
 import Card from './shared/Card'
 import { getCompanyName } from '../data/tickers'
@@ -86,6 +87,7 @@ function MetricSection({
 }
 
 export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
+  const { t } = useTranslation()
   const companyName = getCompanyName(fundamentals.symbol)
 
   const getPriceChange = () => {
@@ -141,25 +143,25 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 text-sm">
           <div>
-            <span className="opacity-80">High</span>
+            <span className="opacity-80">{t('companies.high')}</span>
             <div className="font-semibold">
               {quote.high ? `$${quote.high.toFixed(2)}` : 'N/A'}
             </div>
           </div>
           <div>
-            <span className="opacity-80">Low</span>
+            <span className="opacity-80">{t('companies.low')}</span>
             <div className="font-semibold">
               {quote.low ? `$${quote.low.toFixed(2)}` : 'N/A'}
             </div>
           </div>
           <div>
-            <span className="opacity-80">Open</span>
+            <span className="opacity-80">{t('companies.open')}</span>
             <div className="font-semibold">
               {quote.open ? `$${quote.open.toFixed(2)}` : 'N/A'}
             </div>
           </div>
           <div>
-            <span className="opacity-80">Previous Close</span>
+            <span className="opacity-80">{t('companies.previousClose')}</span>
             <div className="font-semibold">
               {quote.previousClose
                 ? `$${quote.previousClose.toFixed(2)}`
@@ -172,30 +174,30 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
       {/* Financial Metrics Sections */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <MetricSection
-          title="Valuation Ratios"
+          title={t('companies.valuationRatios')}
           metrics={[
             {
-              label: 'Price-to-Earnings (P/E)',
+              label: t('companies.priceToEarnings'),
               value: fundamentals.priceToEarningsRatio,
               format: 'ratio',
             },
             {
-              label: 'Price-to-Book (P/B)',
+              label: t('companies.priceToBook'),
               value: fundamentals.priceToBookRatio,
               format: 'ratio',
             },
             {
-              label: 'Price-to-Sales (P/S)',
+              label: t('companies.priceToSales'),
               value: fundamentals.priceToSalesRatio,
               format: 'ratio',
             },
             {
-              label: 'Price-to-Free Cash Flow',
+              label: t('companies.priceToFreeCashFlow'),
               value: fundamentals.priceToFreeCashFlowRatio,
               format: 'ratio',
             },
             {
-              label: 'Price-to-Tangible Book Value',
+              label: t('companies.priceToTangibleBookValue'),
               value: fundamentals.priceToTangibleBookValueRatio,
               format: 'ratio',
             },
@@ -203,30 +205,30 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
         />
 
         <MetricSection
-          title="Profitability Margins"
+          title={t('companies.profitabilityMargins')}
           metrics={[
             {
-              label: 'Gross Margin',
+              label: t('companies.grossMargin'),
               value: fundamentals.grossMargin,
               format: 'percentage',
             },
             {
-              label: 'Operating Margin',
+              label: t('companies.operatingMargin'),
               value: fundamentals.operatingMargin,
               format: 'percentage',
             },
             {
-              label: 'Net Margin',
+              label: t('companies.netMargin'),
               value: fundamentals.netMargin,
               format: 'percentage',
             },
             {
-              label: 'Pre-tax Margin',
+              label: t('companies.pretaxMargin'),
               value: fundamentals.pretaxMargin,
               format: 'percentage',
             },
             {
-              label: 'Free Cash Flow Margin',
+              label: t('companies.freeCashFlowMargin'),
               value: fundamentals.freeCashFlowMargin,
               format: 'percentage',
             },
@@ -234,20 +236,20 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
         />
 
         <MetricSection
-          title="Per-Share Metrics"
+          title={t('companies.perShareMetrics')}
           metrics={[
             {
-              label: 'Earnings Per Share',
+              label: t('companies.earningsPerShare'),
               value: fundamentals.earningsPerShare,
               format: 'currency',
             },
             {
-              label: 'EBIT Per Share',
+              label: t('companies.ebitPerShare'),
               value: fundamentals.ebitPerShare,
               format: 'currency',
             },
             {
-              label: 'Sales Per Share',
+              label: t('companies.salesPerShare'),
               value: fundamentals.salesPerShare,
               format: 'currency',
             },
@@ -255,20 +257,20 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
         />
 
         <MetricSection
-          title="Liquidity Ratios"
+          title={t('companies.liquidityRatios')}
           metrics={[
             {
-              label: 'Current Ratio',
+              label: t('companies.currentRatio'),
               value: fundamentals.currentRatio,
               format: 'ratio',
             },
             {
-              label: 'Quick Ratio',
+              label: t('companies.quickRatio'),
               value: fundamentals.quickRatio,
               format: 'ratio',
             },
             {
-              label: 'Cash Ratio',
+              label: t('companies.cashRatio'),
               value: fundamentals.cashRatio,
               format: 'ratio',
             },
@@ -276,45 +278,45 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
         />
 
         <MetricSection
-          title="Leverage Ratios"
+          title={t('companies.leverageRatios')}
           metrics={[
             {
-              label: 'Total Debt to Equity',
+              label: t('companies.totalDebtToEquity'),
               value: fundamentals.totalDebtToEquity,
               format: 'ratio',
             },
             {
-              label: 'Total Debt to Total Asset',
+              label: t('companies.totalDebtToTotalAsset'),
               value: fundamentals.totalDebtToTotalAsset,
               format: 'ratio',
             },
             {
-              label: 'Total Debt to Total Capital',
+              label: t('companies.totalDebtToTotalCapital'),
               value: fundamentals.totalDebtToTotalCapital,
               format: 'ratio',
             },
             {
-              label: 'Long-term Debt to Total Asset',
+              label: t('companies.longtermDebtToTotalAsset'),
               value: fundamentals.longtermDebtToTotalAsset,
               format: 'ratio',
             },
             {
-              label: 'Long-term Debt to Total Capital',
+              label: t('companies.longtermDebtToTotalCapital'),
               value: fundamentals.longtermDebtToTotalCapital,
               format: 'ratio',
             },
             {
-              label: 'Long-term Debt to Total Equity',
+              label: t('companies.longtermDebtToTotalEquity'),
               value: fundamentals.longtermDebtToTotalEquity,
               format: 'ratio',
             },
             {
-              label: 'Net Debt to Total Capital',
+              label: t('companies.netDebtToTotalCapital'),
               value: fundamentals.netDebtToTotalCapital,
               format: 'ratio',
             },
             {
-              label: 'Net Debt to Total Equity',
+              label: t('companies.netDebtToTotalEquity'),
               value: fundamentals.netDebtToTotalEquity,
               format: 'ratio',
             },
@@ -322,78 +324,36 @@ export default function CompanyData({ quote, fundamentals }: CompanyDataProps) {
         />
 
         <MetricSection
-          title="Efficiency Ratios"
+          title={t('companies.efficiencyRatios')}
           metrics={[
             {
-              label: 'Return on Assets (ROA)',
+              label: t('companies.returnOnAssets'),
               value: fundamentals.returnOnAssets,
               format: 'percentage',
             },
             {
-              label: 'Return on Equity (ROE)',
+              label: t('companies.returnOnEquity'),
               value: fundamentals.returnOnEquity,
               format: 'percentage',
             },
             {
-              label: 'Return on Invested Capital (ROIC)',
+              label: t('companies.returnOnCapital'),
               value: fundamentals.returnOnInvestedCapital,
               format: 'percentage',
             },
             {
-              label: 'Return on Total Capital (ROTC)',
+              label: t('companies.assetTurnover'),
               value: fundamentals.returnOnTotalCapital,
               format: 'percentage',
             },
             {
-              label: 'Inventory Turnover',
+              label: t('companies.inventoryTurnover'),
               value: fundamentals.inventoryTurnover,
               format: 'ratio',
             },
             {
-              label: 'Receivables Turnover',
+              label: t('companies.receivablesTurnover'),
               value: fundamentals.receivablesTurnover,
-              format: 'ratio',
-            },
-          ]}
-        />
-
-        <MetricSection
-          title="Valuation Metrics"
-          metrics={[
-            {
-              label: 'Enterprise Value',
-              value: fundamentals.enterpriseValue,
-              format: 'currency',
-            },
-            {
-              label: 'EV/EBITDA',
-              value: fundamentals.evToEbitda,
-              format: 'ratio',
-            },
-            {
-              label: 'EV/Revenue',
-              value: fundamentals.evToRevenue,
-              format: 'ratio',
-            },
-          ]}
-        />
-
-        <MetricSection
-          title="Other Metrics"
-          metrics={[
-            {
-              label: 'Payout Ratio',
-              value: fundamentals.payoutRatio,
-              format: 'percentage',
-            },
-            {
-              label: 'SG&A to Sales',
-              value: fundamentals.sgaToSale,
-              format: 'percentage',
-            },
-            {
-              label: 'Total Ratio',
-              value: fundamentals.totalRatio,
               format: 'ratio',
             },
           ]}

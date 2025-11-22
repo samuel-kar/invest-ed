@@ -96,21 +96,9 @@ export default function SettingsPage() {
                   className="text-sm"
                   style={{ color: 'var(--text-secondary)' }}
                 >
-                  {currency === 'USD'
-                    ? 'US Dollar ($)'
-                    : currency === 'EUR'
-                      ? 'Euro (€)'
-                      : currency === 'SEK'
-                        ? 'Swedish Krona (kr)'
-                        : currency === 'PLN'
-                          ? 'Polish Zloty (zł)'
-                          : currency === 'DKK'
-                            ? 'Danish Krone (kr)'
-                            : currency === 'NOK'
-                              ? 'Norwegian Krone (kr)'
-                              : currency === 'CNY'
-                                ? 'Chinese Yuan (¥)'
-                                : 'Japanese Yen (¥)'}
+                  {t('settings.currencyDescription', {
+                    name: t(`settings.currencyNames.${currency}`),
+                  })}
                 </p>
               </div>
               <select

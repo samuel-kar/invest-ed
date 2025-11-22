@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { LabeledInput } from '../shared/InputsGroup'
 import FormulaBlock from '../shared/FormulaBlock'
 import { useCurrency } from '../../../contexts/CurrencyContext'
@@ -6,6 +7,7 @@ import { retirement4PercentCalculator } from '../../../utils/calculations'
 import Card from '../../shared/Card'
 
 export default function Retirement4PercentContainer() {
+  const { t } = useTranslation()
   const [currentAge, setCurrentAge] = useState<number>(30)
   const [retirementAge, setRetirementAge] = useState<number>(65)
   const [currentSavings, setCurrentSavings] = useState<number>(50000)
@@ -47,11 +49,11 @@ export default function Retirement4PercentContainer() {
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          Retirement Plan
+          {t('calculator.retirementPlan')}
         </h3>
 
         <LabeledInput
-          label="Current age"
+          label={t('calculator.currentAge')}
           type="number"
           value={currentAge}
           onChange={(e) => setCurrentAge(Number(e.target.value))}
@@ -62,7 +64,7 @@ export default function Retirement4PercentContainer() {
         />
 
         <LabeledInput
-          label="Retirement age"
+          label={t('calculator.retirementAge')}
           type="number"
           value={retirementAge}
           onChange={(e) => setRetirementAge(Number(e.target.value))}
@@ -73,7 +75,7 @@ export default function Retirement4PercentContainer() {
         />
 
         <LabeledInput
-          label="Current Savings ($)"
+          label={t('calculator.currentSavingsLabel')}
           type="number"
           value={currentSavings}
           onChange={(e) => setCurrentSavings(Number(e.target.value))}
@@ -83,7 +85,7 @@ export default function Retirement4PercentContainer() {
         />
 
         <LabeledInput
-          label="Monthly Contribution ($)"
+          label={t('calculator.monthlyContributionLabel')}
           type="number"
           value={monthlyContribution}
           onChange={(e) => setMonthlyContribution(Number(e.target.value))}
@@ -93,7 +95,7 @@ export default function Retirement4PercentContainer() {
         />
 
         <LabeledInput
-          label="Expected portfolio growth per year (%)"
+          label={t('calculator.expectedPortfolioGrowth')}
           type="number"
           value={annualRate}
           onChange={(e) => setAnnualRate(Number(e.target.value))}
@@ -103,13 +105,11 @@ export default function Retirement4PercentContainer() {
           placeholder="7"
         />
         <p className="text-sm text-gray-500">
-          This is the expected growth of your portfolio each year. Historically,
-          broad market index funds have grown at an average of 7-10% per year.
+          {t('calculator.expectedReturnNote')}
           <br />
           <br />
-          <strong>Note:</strong> This is a historical average and is not a
-          guarantee. The actual growth of your portfolio will depend on the
-          performance of your specific investments and market conditions.
+          <strong>{t('common.note')}:</strong>{' '}
+          {t('calculator.expectedReturnNote2')}
         </p>
       </div>
 
@@ -122,7 +122,7 @@ export default function Retirement4PercentContainer() {
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
             >
-              At Retirement
+              {t('calculator.atRetirement')}
             </div>
             <div
               className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
@@ -137,7 +137,7 @@ export default function Retirement4PercentContainer() {
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
             >
-              Monthly Income
+              {t('calculator.monthlyIncome')}
             </div>
             <div
               className="text-lg sm:text-xl lg:text-2xl font-bold break-words"
@@ -152,7 +152,7 @@ export default function Retirement4PercentContainer() {
               className="text-sm mb-1"
               style={{ color: 'var(--text-secondary)' }}
             >
-              Years to Retirement
+              {t('calculator.yearsToRetirement')}
             </div>
             <div
               className="text-2xl font-bold"
@@ -161,7 +161,7 @@ export default function Retirement4PercentContainer() {
               {yearsToRetirement}
             </div>
             <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-              years
+              {t('common.years')}
             </div>
           </Card>
         </div>
@@ -172,36 +172,43 @@ export default function Retirement4PercentContainer() {
             className="font-semibold mb-3"
             style={{ color: 'var(--text-primary)' }}
           >
-            Retirement Projection
+            {t('calculator.retirementProjection')}
           </h4>
           <ul className="space-y-3" style={{ color: 'var(--text-secondary)' }}>
             <li className="break-words">
-              • Starting with {formatCurrency(currentSavings)} will grow to{' '}
-              {formatCurrency(startingGrowthValue)}
+              • {t('calculator.startingWith', {
+                amount: formatCurrency(currentSavings),
+                growth: formatCurrency(startingGrowthValue),
+              })}
             </li>
             <li className="break-words">
-              • Monthly contributions of {formatCurrency(monthlyContribution)}{' '}
-              will add {formatCurrency(contributionsValue)}
+              • {t('calculator.monthlyContributionsWillAdd', {
+                amount: formatCurrency(monthlyContribution),
+                total: formatCurrency(contributionsValue),
+              })}
             </li>
             <li className="break-words">
-              • Total at age {retirementAge}: {formatCurrency(fundAtRetirement)}
+              • {t('calculator.totalAtAge', {
+                age: retirementAge.toString(),
+                amount: formatCurrency(fundAtRetirement),
+              })}
             </li>
             <li className="break-words">
-              You can safely withdraw {formatCurrency(monthlyIncome)}/month (
-              {formatCurrency(annualIncome)}/year)
+              {t('calculator.canSafelyWithdraw', {
+                monthly: formatCurrency(monthlyIncome),
+                annual: formatCurrency(annualIncome),
+              })}
             </li>
           </ul>
         </Card>
 
         {/* Info Block: 4% Rule */}
-        <FormulaBlock title="The 4% Rule">
+        <FormulaBlock title={t('calculator.the4PercentRule')}>
           <p className="mb-2">
-            Based on historical data, withdrawing 4% annually from your
-            portfolio has a high probability of lasting 30+ years in retirement.
+            {t('calculator.fourPercentRuleDescription')}
           </p>
           <p>
-            This assumes a balanced portfolio and adjusting for inflation each
-            year.
+            {t('calculator.fourPercentRuleNote')}
           </p>
         </FormulaBlock>
       </div>
@@ -211,7 +218,7 @@ export default function Retirement4PercentContainer() {
         className="text-sm font-medium mb-2"
         style={{ color: 'var(--text-primary)' }}
       >
-        Recommended Videos
+        {t('calculator.recommendedVideos')}
       </h4>
       <div className="space-y-4">
         <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>

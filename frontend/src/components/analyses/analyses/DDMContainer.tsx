@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useAuth } from '@clerk/clerk-react'
 import {
@@ -23,6 +24,7 @@ import AnalysisTickerSearchForm from '../shared/TickerSearchForm'
 import { getCompanyName } from '../../../data/tickers'
 
 export default function DDMContainer() {
+  const { t } = useTranslation()
   const [inputSymbol, setInputSymbol] = useState('')
   const [searchSymbol, setSearchSymbol] = useState('')
   const [growthRate, setGrowthRate] = useState(5)
@@ -122,7 +124,7 @@ export default function DDMContainer() {
         queryClient.setQueryData(['savedDdmAnalyses'], context.previous)
       }
       setSaveError(
-        err instanceof Error ? err.message : 'Failed to save analysis',
+        err instanceof Error ? err.message : t('ddm.saveError'),
       )
     },
     onSuccess: (result, _vars, context) => {
@@ -163,22 +165,22 @@ export default function DDMContainer() {
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          About DDM Analysis
+          {t('ddm.about')}
         </h3>
 
-        <FormulaBlock title="Dividend Discount Model Formula:">
+        <FormulaBlock title={t('ddm.formulaTitle')}>
           <p className="mb-2">
-            <strong>V = D × (1 + g) / (r - g)</strong>
+            <strong>{t('ddm.formula')}</strong>
           </p>
           <div
             className="text-xs space-y-1"
             style={{ color: 'var(--text-muted)' }}
           >
-            <p>• V = Intrinsic value</p>
-            <p>• D = Expected next year's dividend</p>
-            <p>• g = Dividend growth rate (%)</p>
-            <p>• r = Required return rate (%)</p>
-            <p>• Note: r must be greater than g</p>
+            <p>• {t('ddm.formulaV')}</p>
+            <p>• {t('ddm.formulaD')}</p>
+            <p>• {t('ddm.formulaG')}</p>
+            <p>• {t('ddm.formulaR')}</p>
+            <p>• {t('ddm.formulaNote')}</p>
           </div>
         </FormulaBlock>
 
@@ -190,30 +192,16 @@ export default function DDMContainer() {
             className="font-semibold mb-2"
             style={{ color: 'var(--text-primary)' }}
           >
-            Interpretation:
+            {t('ddm.interpretation')}
           </h4>
           <ul
             className="text-sm space-y-1"
             style={{ color: 'var(--text-secondary)' }}
           >
-            <li>
-              •{' '}
-              <span className="text-green-600 font-semibold">
-                Intrinsic Value &gt; Current Price:
-              </span>{' '}
-              Undervalued
-            </li>
-            <li>
-              •{' '}
-              <span className="text-red-600 font-semibold">
-                Intrinsic Value &lt; Current Price:
-              </span>{' '}
-              Overvalued
-            </li>
-            <li>
-              • <strong>Margin of Safety:</strong> Percentage difference between
-              intrinsic and current price
-            </li>
+            <li>• {t('ddm.interpretation1')}</li>
+            <li>• {t('ddm.interpretation2')}</li>
+            <li>• {t('ddm.interpretation3')}</li>
+            <li>• {t('ddm.interpretation4')}</li>
           </ul>
         </Card>
       </div>
@@ -224,7 +212,7 @@ export default function DDMContainer() {
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          Analyze a Stock
+          {t('ddm.analyzeStock')}
         </h3>
 
         {/* Search Bar */}
@@ -234,9 +222,9 @@ export default function DDMContainer() {
             onChange={setInputSymbol}
             onSubmit={handleSearch}
             onTickerSelect={handleTickerSelect}
-            placeholder="Enter stock symbol (e.g., PG, KO, JNJ)"
-            buttonLabel="Search"
-            loadingLabel="Loading..."
+            placeholder={t('ddm.searchPlaceholder')}
+            buttonLabel={t('ddm.searchButton')}
+            loadingLabel={t('ddm.loadingData')}
             isLoading={isLoading}
           />
         </Card>
@@ -250,15 +238,14 @@ export default function DDMContainer() {
               style={{ color: 'var(--text-muted)' }}
             />
             <p style={{ color: 'var(--text-secondary)' }}>
-              Loading DDM data for {searchSymbol}...
+              {t('ddm.loadingData')} {searchSymbol}...
             </p>
             {showColdStart && (
               <p
                 className="mt-3 text-xs"
                 style={{ color: 'var(--text-muted)' }}
               >
-                Backend server is waking up from standby mode. This may take a
-                few extra seconds...
+                {t('ddm.coldStartMessage')}
               </p>
             )}
           </Card>
@@ -274,17 +261,12 @@ export default function DDMContainer() {
               />
               <div>
                 <h4 className="font-semibold text-red-800 mb-2">
-                  {isRateLimitError ? 'Rate Limit Exceeded' : 'Error'}
+                  {isRateLimitError ? t('ddm.rateLimitError') : t('common.error')}
                 </h4>
                 {isRateLimitError ? (
                   <div className="text-red-700 space-y-2">
                     <p>
-                      You've exceeded the API rate limit. Please try again in a
-                      few moments.
-                    </p>
-                    <p className="text-sm">
-                      Tip: The free tier of Polygon API has limited requests per
-                      minute. Consider waiting 60 seconds before trying again.
+                      {t('ddm.rateLimitError')}
                     </p>
                   </div>
                 ) : (
@@ -305,7 +287,7 @@ export default function DDMContainer() {
                   className="text-base font-semibold"
                   style={{ color: 'var(--text-primary)' }}
                 >
-                  DDM Analysis Results
+                  {t('ddm.ddmAnalysisResults')}
                 </h4>
                 {getCompanyName(searchSymbol) && (
                   <p
@@ -321,8 +303,8 @@ export default function DDMContainer() {
                 <div className="mb-3 p-2 bg-yellow-50 border border-yellow-200 rounded-lg">
                   <p className="text-yellow-700 text-xs">
                     {discountRate <= growthRate
-                      ? 'Required return must be greater than growth rate'
-                      : 'Expected dividend must be greater than 0'}
+                      ? t('ddm.requiredReturnGreater')
+                      : t('ddm.expectedDividendGreater')}
                   </p>
                 </div>
               )}
@@ -341,7 +323,7 @@ export default function DDMContainer() {
                         className="text-xs mt-1"
                         style={{ color: 'var(--text-secondary)' }}
                       >
-                        Intrinsic Value
+                        {t('ddm.intrinsicValue')}
                       </span>
                     </div>
                     <div className="flex items-center justify-center gap-2">
@@ -353,7 +335,7 @@ export default function DDMContainer() {
                       <span
                         className={`text-sm font-semibold ${ddmResult.undervalued ? 'text-green-600' : 'text-red-600'}`}
                       >
-                        {ddmResult.undervalued ? 'Undervalued' : 'Overvalued'}
+                        {ddmResult.undervalued ? t('ddm.isUndervalued') : t('ddm.isOvervalued')}
                       </span>
                     </div>
                     <div></div>
@@ -363,7 +345,7 @@ export default function DDMContainer() {
                   <div className="grid md:grid-cols-3 gap-4 text-sm items-center">
                     <div>
                       <span style={{ color: 'var(--text-secondary)' }}>
-                        Current Price:{' '}
+                        {t('ddm.currentPrice')}{' '}
                       </span>
                       <span
                         className="font-semibold"
@@ -393,17 +375,17 @@ export default function DDMContainer() {
                           {saveMutation.isPending ? (
                             <>
                               <Loader2 size={14} className="animate-spin" />
-                              Saving...
+                              {t('common.loading')}
                             </>
                           ) : (
                             <>
                               <Save size={14} />
-                              Save
+                              {t('ddm.saveAnalysis')}
                             </>
                           )}
                         </button>
                         {saveSuccess && (
-                          <p className="text-xs text-green-600">Saved!</p>
+                          <p className="text-xs text-green-600">{t('ddm.saveSuccess')}</p>
                         )}
                         {saveError && (
                           <p className="text-xs text-red-600">{saveError}</p>
@@ -425,19 +407,19 @@ export default function DDMContainer() {
                   className="font-semibold mb-3"
                   style={{ color: 'var(--text-primary)' }}
                 >
-                  Stock Data for {searchSymbol}:
+                  {t('ddm.stockDataFor', { symbol: searchSymbol })}
                 </h4>
                 <div className="space-y-3">
                   <MetricRow
-                    label="Current Price:"
+                    label={t('ddm.currentPrice')}
                     value={`$${data.currentPrice?.toFixed(2) || 'N/A'}`}
                   />
                   <MetricRow
-                    label="Last Year's Total Dividend:"
+                    label={t('ddm.expectedDividend')}
                     value={`$${data.totalDividend?.toFixed(2) || 'N/A'}`}
                   />
                   <MetricRow
-                    label="Dividend Payments per Year:"
+                    label={t('ddm.dividendPaymentsPerYear')}
                     value={data.dividendCount.toString()}
                   />
                 </div>
@@ -449,12 +431,12 @@ export default function DDMContainer() {
                   className="font-semibold mb-3"
                   style={{ color: 'var(--text-primary)' }}
                 >
-                  DDM Parameters:
+                  {t('ddm.ddmParameters')}
                 </h4>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span style={{ color: 'var(--text-secondary)' }}>
-                      Growth Rate (%):
+                      {t('ddm.growthRate')}
                     </span>
                     <input
                       type="number"
@@ -475,7 +457,7 @@ export default function DDMContainer() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span style={{ color: 'var(--text-secondary)' }}>
-                      Required Return (%):
+                      {t('ddm.discountRate')}
                     </span>
                     <input
                       type="number"
@@ -496,7 +478,7 @@ export default function DDMContainer() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span style={{ color: 'var(--text-secondary)' }}>
-                      Next Year Dividend ($):
+                      {t('ddm.expectedDividend')}
                     </span>
                     <input
                       type="number"
@@ -529,7 +511,7 @@ export default function DDMContainer() {
               style={{ color: 'var(--text-muted)' }}
             />
             <p style={{ color: 'var(--text-secondary)' }}>
-              Enter a stock symbol above to view DDM analysis.
+              {t('ddm.noData')}
             </p>
           </Card>
         )}
