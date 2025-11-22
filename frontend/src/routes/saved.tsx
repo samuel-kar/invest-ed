@@ -6,8 +6,10 @@ import {
 } from '@tanstack/react-router'
 import { useAuth } from '@clerk/clerk-react'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 function SavedPage() {
+  const { t } = useTranslation()
   const { isSignedIn, isLoaded } = useAuth()
   const navigate = useNavigate()
 
@@ -25,7 +27,7 @@ function SavedPage() {
   if (!isLoaded) {
     return (
       <div className="p-6">
-        <p style={{ color: 'var(--text-secondary)' }}>Loading...</p>
+        <p style={{ color: 'var(--text-secondary)' }}>{t('common.loading')}</p>
       </div>
     )
   }
@@ -44,7 +46,7 @@ function SavedPage() {
           className="text-3xl font-bold mb-6"
           style={{ color: 'var(--text-primary)' }}
         >
-          Saved Analyses
+          {t('saved.title')}
         </h1>
 
         {/* Tab Navigation */}
@@ -55,13 +57,13 @@ function SavedPage() {
                 to="/saved/ddm"
                 className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
               >
-                DDM
+                {t('saved.ddm')}
               </Link>
               <Link
                 to="/saved/chowder"
                 className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
               >
-                Chowder rule
+                {t('saved.chowder')}
               </Link>
             </nav>
             <div

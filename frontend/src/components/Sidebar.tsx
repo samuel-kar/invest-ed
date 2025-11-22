@@ -8,8 +8,10 @@ import {
   Settings,
   Bookmark,
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 export default function Sidebar() {
+  const { t } = useTranslation()
   return (
     <aside
       className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:top-16 lg:bottom-0 lg:left-0 lg:pb-6"
@@ -30,7 +32,7 @@ export default function Sidebar() {
           }}
         >
           <Home size={20} />
-          <span className="font-medium">Home</span>
+          <span className="font-medium">{t('navigation.home')}</span>
         </Link>
 
         <Link
@@ -44,7 +46,7 @@ export default function Sidebar() {
           }}
         >
           <BookOpen size={20} />
-          <span className="font-medium">Learn</span>
+          <span className="font-medium">{t('navigation.learn')}</span>
         </Link>
 
         <Link
@@ -58,7 +60,7 @@ export default function Sidebar() {
           }}
         >
           <Calculator size={20} />
-          <span className="font-medium">Calculators</span>
+          <span className="font-medium">{t('navigation.calculators')}</span>
         </Link>
 
         <Link
@@ -72,7 +74,7 @@ export default function Sidebar() {
           }}
         >
           <Search size={20} />
-          <span className="font-medium">Analysis</span>
+          <span className="font-medium">{t('navigation.analysis')}</span>
         </Link>
 
         <Link
@@ -87,7 +89,7 @@ export default function Sidebar() {
           }}
         >
           <Building2 size={20} />
-          <span className="font-medium">Companies</span>
+          <span className="font-medium">{t('navigation.companies')}</span>
         </Link>
 
         <Link
@@ -101,7 +103,7 @@ export default function Sidebar() {
           }}
         >
           <Bookmark size={20} />
-          <span className="font-medium">Saved</span>
+          <span className="font-medium">{t('navigation.saved')}</span>
         </Link>
 
         <Link
@@ -115,7 +117,7 @@ export default function Sidebar() {
           }}
         >
           <Settings size={20} />
-          <span className="font-medium">Settings</span>
+          <span className="font-medium">{t('navigation.settings')}</span>
         </Link>
       </nav>
     </aside>

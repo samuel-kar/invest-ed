@@ -13,6 +13,7 @@ if (!clerkPubKey) {
 import { routeTree } from './routeTree.gen'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { CurrencyProvider } from './contexts/CurrencyContext'
+import './i18n/config' // Initialize i18next
 
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'

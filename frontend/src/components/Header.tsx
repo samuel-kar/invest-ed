@@ -21,6 +21,7 @@ import {
   SignInButton,
   UserButton,
 } from '@clerk/clerk-react'
+import { useTranslation } from 'react-i18next'
 import AutocompleteTickerInput from './shared/AutocompleteTickerInput'
 import { type TickerEntry } from '../data/tickers'
 
@@ -28,6 +29,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [searchValue, setSearchValue] = useState('')
   const { isDarkMode, toggleTheme } = useTheme()
+  const { t } = useTranslation()
   const navigate = useNavigate()
 
   const handleSearch = (e: React.FormEvent) => {
@@ -61,7 +63,7 @@ export default function Header() {
         <button
           onClick={() => setIsMobileMenuOpen(true)}
           className="lg:hidden p-2 hover:bg-gray-700 rounded-lg transition-colors"
-          aria-label="Open menu"
+          aria-label={t('header.openMenu')}
         >
           <Menu size={24} />
         </button>
@@ -84,7 +86,7 @@ export default function Header() {
               value={searchValue}
               onChange={setSearchValue}
               onSelect={handleTickerSelect}
-              placeholder="Search companies..."
+              placeholder={t('header.searchPlaceholder')}
             />
           </form>
         </div>
@@ -95,7 +97,9 @@ export default function Header() {
             className="p-2 rounded-lg transition-colors transition-opacity duration-200 hover:opacity-80"
             style={{ backgroundColor: 'var(--bg-tertiary)' }}
             aria-label={
-              isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
+              isDarkMode
+                ? t('header.switchToLight')
+                : t('header.switchToDark')
             }
           >
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
@@ -154,12 +158,12 @@ export default function Header() {
           className="flex items-center justify-between p-4 border-b"
           style={{ borderColor: 'var(--border-color)' }}
         >
-          <h2 className="text-xl font-bold">Navigation</h2>
+          <h2 className="text-xl font-bold">{t('common.navigation')}</h2>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
             className="p-2 rounded-lg transition-colors transition-opacity duration-200 hover:opacity-80"
             style={{ backgroundColor: 'var(--sidebar-hover)' }}
-            aria-label="Close menu"
+            aria-label={t('header.closeMenu')}
           >
             <X size={24} />
           </button>
@@ -178,7 +182,7 @@ export default function Header() {
             }}
           >
             <Home size={20} />
-            <span className="font-medium">Home</span>
+            <span className="font-medium">{t('navigation.home')}</span>
           </Link>
 
           <Link
@@ -193,7 +197,7 @@ export default function Header() {
             }}
           >
             <BookOpen size={20} />
-            <span className="font-medium">Learn</span>
+            <span className="font-medium">{t('navigation.learn')}</span>
           </Link>
 
           <Link
@@ -208,7 +212,7 @@ export default function Header() {
             }}
           >
             <Calculator size={20} />
-            <span className="font-medium">Calculators</span>
+            <span className="font-medium">{t('navigation.calculators')}</span>
           </Link>
 
           <Link
@@ -223,7 +227,7 @@ export default function Header() {
             }}
           >
             <Search size={20} />
-            <span className="font-medium">Analysis</span>
+            <span className="font-medium">{t('navigation.analysis')}</span>
           </Link>
 
           <Link
@@ -239,7 +243,7 @@ export default function Header() {
             }}
           >
             <Building2 size={20} />
-            <span className="font-medium">Companies</span>
+            <span className="font-medium">{t('navigation.companies')}</span>
           </Link>
 
           <Link
@@ -254,7 +258,7 @@ export default function Header() {
             }}
           >
             <Bookmark size={20} />
-            <span className="font-medium">Saved</span>
+            <span className="font-medium">{t('navigation.saved')}</span>
           </Link>
 
           <Link
@@ -269,7 +273,7 @@ export default function Header() {
             }}
           >
             <Settings size={20} />
-            <span className="font-medium">Settings</span>
+            <span className="font-medium">{t('navigation.settings')}</span>
           </Link>
 
           {/* Clerk buttons in mobile sidebar */}
@@ -281,7 +285,7 @@ export default function Header() {
                 style={{ backgroundColor: 'var(--sidebar-hover)' }}
               >
                 <LogIn size={20} />
-                <span className="font-medium">Sign In</span>
+                <span className="font-medium">{t('common.signIn')}</span>
               </button>
             </SignInButton>
           </SignedOut>

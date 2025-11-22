@@ -1,11 +1,13 @@
 import { Sun, Moon } from 'lucide-react'
 import { useTheme } from '../contexts/ThemeContext'
 import { useCurrency, type Currency } from '../contexts/CurrencyContext'
+import { useTranslation } from 'react-i18next'
 import Card from './shared/Card'
 
 export default function SettingsPage() {
   const { isDarkMode, toggleTheme } = useTheme()
   const { currency, setCurrency } = useCurrency()
+  const { i18n, t } = useTranslation()
 
   return (
     <div
@@ -17,7 +19,7 @@ export default function SettingsPage() {
           className="text-3xl font-bold mb-6"
           style={{ color: 'var(--text-primary)' }}
         >
-          Settings
+          {t('settings.title')}
         </h1>
 
         <div className="space-y-6">
@@ -29,13 +31,15 @@ export default function SettingsPage() {
                   className="text-lg font-medium mb-1"
                   style={{ color: 'var(--text-primary)' }}
                 >
-                  Theme
+                  {t('settings.theme')}
                 </h3>
                 <p
                   className="text-sm"
                   style={{ color: 'var(--text-secondary)' }}
                 >
-                  {isDarkMode ? 'Dark mode' : 'Light mode'}
+                  {t('settings.themeDescription', {
+                    mode: isDarkMode ? t('settings.dark') : t('settings.light'),
+                  })}
                 </p>
               </div>
 
@@ -48,7 +52,9 @@ export default function SettingsPage() {
                     : 'var(--bg-tertiary)',
                 }}
                 aria-label={
-                  isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
+                  isDarkMode
+                    ? t('settings.switchToLight')
+                    : t('settings.switchToDark')
                 }
               >
                 {isDarkMode ? (
@@ -58,7 +64,7 @@ export default function SettingsPage() {
                       className="text-sm font-medium"
                       style={{ color: 'var(--text-primary)' }}
                     >
-                      Light
+                      {t('settings.light')}
                     </span>
                   </>
                 ) : (
@@ -68,7 +74,7 @@ export default function SettingsPage() {
                       className="text-sm font-medium"
                       style={{ color: 'var(--text-primary)' }}
                     >
-                      Dark
+                      {t('settings.dark')}
                     </span>
                   </>
                 )}
@@ -84,7 +90,7 @@ export default function SettingsPage() {
                   className="text-lg font-medium mb-1"
                   style={{ color: 'var(--text-primary)' }}
                 >
-                  Calculator currency
+                  {t('settings.currency')}
                 </h3>
                 <p
                   className="text-sm"
@@ -127,6 +133,46 @@ export default function SettingsPage() {
                 <option value="NOK">NOK (kr)</option>
                 <option value="CNY">CNY (¥)</option>
                 <option value="JPY">JPY (¥)</option>
+              </select>
+            </div>
+          </Card>
+
+          {/* Language Settings */}
+          <Card className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3
+                  className="text-lg font-medium mb-1"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  {t('settings.language')}
+                </h3>
+                <p
+                  className="text-sm"
+                  style={{ color: 'var(--text-secondary)' }}
+                >
+                  {t('settings.languageDescription', {
+                    name:
+                      i18n.language === 'sv'
+                        ? t('settings.swedish')
+                        : t('settings.english'),
+                  })}
+                </p>
+              </div>
+              <select
+                value={i18n.language}
+                onChange={(e) => i18n.changeLanguage(e.target.value)}
+                className="p-2 rounded-lg"
+                style={{
+                  backgroundColor: isDarkMode
+                    ? 'var(--bg-secondary)'
+                    : 'var(--bg-tertiary)',
+                  color: 'var(--text-primary)',
+                  border: '1px solid var(--border-color)',
+                }}
+              >
+                <option value="en">{t('settings.english')}</option>
+                <option value="sv">{t('settings.swedish')}</option>
               </select>
             </div>
           </Card>

@@ -1,5 +1,7 @@
+import { useTranslation } from 'react-i18next'
 
 export default function Footer() {
+  const { t } = useTranslation()
   return (
     <footer
       className="mt-auto py-6 px-4 lg:pl-64"
@@ -16,20 +18,23 @@ export default function Footer() {
               className="text-base font-semibold mb-3"
               style={{ color: 'var(--text-primary)' }}
             >
-              Important Disclaimers
+              {t('footer.importantDisclaimers')}
             </h3>
             <div
               className="space-y-2 text-xs leading-relaxed"
               style={{ color: 'var(--text-secondary)' }}
             >
               <p>
-                <strong>Educational Only:</strong> This site provides educational content only. Nothing constitutes investment or financial advice.
+                <strong>{t('footer.educationalOnly')}</strong>{' '}
+                {t('footer.educationalOnlyText')}
               </p>
               <p>
-                <strong>Investment Risks:</strong> All investments carry risk of loss. Past performance doesn't guarantee future results.
+                <strong>{t('footer.investmentRisks')}</strong>{' '}
+                {t('footer.investmentRisksText')}
               </p>
               <p>
-                <strong>No Liability:</strong> This site is not responsible for any losses from decisions made based on this information.
+                <strong>{t('footer.noLiability')}</strong>{' '}
+                {t('footer.noLiabilityText')}
               </p>
             </div>
           </div>
@@ -40,17 +45,19 @@ export default function Footer() {
               className="text-base font-semibold mb-3"
               style={{ color: 'var(--text-primary)' }}
             >
-              Additional Information
+              {t('footer.additionalInformation')}
             </h3>
             <div
               className="space-y-2 text-xs leading-relaxed"
               style={{ color: 'var(--text-secondary)' }}
             >
               <p>
-                <strong>Data Accuracy:</strong> Information may not be accurate or current. Consult qualified professionals before investing.
+                <strong>{t('footer.dataAccuracy')}</strong>{' '}
+                {t('footer.dataAccuracyText')}
               </p>
               <p>
-                <strong>No Professional Relationship:</strong> Use of this site doesn't create any advisor-client relationship.
+                <strong>{t('footer.noProfessionalRelationship')}</strong>{' '}
+                {t('footer.noProfessionalRelationshipText')}
               </p>
             </div>
           </div>
@@ -65,8 +72,8 @@ export default function Footer() {
           }}
         >
           <div className="flex flex-col sm:flex-row justify-between items-center">
-            <p>© 2025 InvestEd. All rights reserved.</p>
-            <p className="mt-1 sm:mt-0">Educational purposes only.</p>
+            <p>{t('footer.copyright')}</p>
+            <p className="mt-1 sm:mt-0">{t('footer.educationalPurposes')}</p>
           </div>
         </div>
       </div>

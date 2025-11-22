@@ -1,10 +1,12 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 
 export const Route = createFileRoute('/analysis')({
   component: AnalysisPage,
 })
 
 function AnalysisPage() {
+  const { t } = useTranslation()
   return (
     <div
       className="min-h-screen"
@@ -15,7 +17,7 @@ function AnalysisPage() {
           className="text-3xl font-bold mb-6"
           style={{ color: 'var(--text-primary)' }}
         >
-          Investment Analysis
+          {t('analysis.title')}
         </h1>
 
         {/* Tab Navigation */}
@@ -26,13 +28,13 @@ function AnalysisPage() {
                 to="/analysis/ddm"
                 className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
               >
-                DDM Analysis
+                {t('analysis.ddm')}
               </Link>
               <Link
                 to="/analysis/chowder"
                 className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
               >
-                Chowder Rule
+                {t('analysis.chowder')}
               </Link>
             </nav>
             <div

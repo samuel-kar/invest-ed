@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 import ArticleCard from '../components/shared/ArticleCard'
 import MetricsSection from '../components/learn/MetricsSection'
 import { learningArticles } from '../data/learningArticles'
@@ -8,6 +9,7 @@ export const Route = createFileRoute('/learn')({
 })
 
 function LearnPage() {
+  const { t } = useTranslation()
   return (
     <div
       className="min-h-screen"
@@ -20,15 +22,13 @@ function LearnPage() {
             className="text-4xl font-bold mb-4"
             style={{ color: 'var(--text-primary)' }}
           >
-            Learn to Invest Smarter
+            {t('learn.title')}
           </h1>
           <p
             className="text-xl max-w-3xl mx-auto"
             style={{ color: 'var(--text-secondary)' }}
           >
-            Master the fundamentals of investing with our comprehensive guides
-            and financial metrics dictionary. Build the knowledge you need to
-            make informed investment decisions.
+            {t('learn.subtitle')}
           </p>
         </div>
 
@@ -38,7 +38,7 @@ function LearnPage() {
             className="text-2xl font-bold mb-6"
             style={{ color: 'var(--text-primary)' }}
           >
-            Featured Learning Guides
+            {t('learn.featuredGuides')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {learningArticles.map((article) => (

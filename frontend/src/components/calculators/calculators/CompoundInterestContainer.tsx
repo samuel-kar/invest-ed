@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { monthlyCompoundInterestCalculator } from '../../../utils/calculations'
 import { LabeledInput } from '../shared/InputsGroup'
 import MetricRow from '../shared/MetricRow'
@@ -7,6 +8,7 @@ import { useCurrency } from '../../../contexts/CurrencyContext'
 import Card from '../../shared/Card'
 
 export default function CompoundInterestContainer() {
+  const { t } = useTranslation()
   const [startValue, setStartValue] = useState<number>(10000)
   const [annualRate, setAnnualRate] = useState<number>(7)
   const [years, setYears] = useState<number>(10)
@@ -32,11 +34,11 @@ export default function CompoundInterestContainer() {
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          Investment Parameters
+          {t('calculator.investmentParameters')}
         </h3>
 
         <LabeledInput
-          label="Initial Investment ($)"
+          label={t('calculator.initialInvestmentLabel')}
           type="number"
           value={startValue}
           onChange={(e) => setStartValue(Number(e.target.value))}
@@ -45,7 +47,7 @@ export default function CompoundInterestContainer() {
         />
 
         <LabeledInput
-          label="Investment Period (Years)"
+          label={t('calculator.investmentPeriod')}
           type="number"
           value={years}
           onChange={(e) => setYears(Number(e.target.value))}
@@ -55,7 +57,7 @@ export default function CompoundInterestContainer() {
         />
 
         <LabeledInput
-          label="Monthly Contribution ($)"
+          label={t('calculator.monthlyContributionLabel')}
           type="number"
           value={monthlyInput}
           onChange={(e) => setMonthlyInput(Number(e.target.value))}
@@ -64,7 +66,7 @@ export default function CompoundInterestContainer() {
         />
 
         <LabeledInput
-          label="Expected return per year (%)"
+          label={t('calculator.expectedReturn')}
           type="number"
           value={annualRate}
           onChange={(e) => setAnnualRate(Number(e.target.value))}
@@ -73,13 +75,11 @@ export default function CompoundInterestContainer() {
           step={0.1}
         />
         <p className="text-sm text-gray-500">
-          This is the expected annual return on your investments. Historically,
-          broad market index funds have grown at an average of 7-10% per year.
+          {t('calculator.expectedReturnNote')}
           <br />
           <br />
-          <strong>Note:</strong> This is a historical average and is not a
-          guarantee. The actual growth of your portfolio will depend on the
-          performance of your specific investments and market conditions.
+          <strong>{t('common.note')}:</strong>{' '}
+          {t('calculator.expectedReturnNote2')}
         </p>
       </div>
 
@@ -89,30 +89,30 @@ export default function CompoundInterestContainer() {
           className="text-lg font-semibold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          Investment Results
+          {t('calculator.investmentResults')}
         </h3>
 
         <Card className="p-4 max-w-lg">
           <div className="space-y-3">
             <MetricRow
-              label="Initial Investment:"
+              label={t('calculator.initialInvestment')}
               value={formatCurrency(startValue)}
             />
             <MetricRow
-              label="Total Contributions:"
+              label={t('calculator.totalContributions')}
               value={formatCurrency(monthlyInput * years * 12)}
             />
             <MetricRow
-              label="Total Invested:"
+              label={t('calculator.totalInvested')}
               value={formatCurrency(totalContributions)}
             />
             <hr style={{ borderColor: 'var(--border-color)' }} />
             <MetricRow
-              label="Investment Gains:"
+              label={t('calculator.investmentGains')}
               value={formatCurrency(totalGains)}
             />
             <MetricRow
-              label="Final Value:"
+              label={t('calculator.finalValue')}
               value={formatCurrency(finalValue)}
               highlight
             />
@@ -131,8 +131,7 @@ export default function CompoundInterestContainer() {
               </span>
             </p>
             <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
-              Where: FV = Future Value, PV = Present Value, r = Monthly Rate, n
-              = Number of Months, PMT = Monthly Payment
+              {t('calculator.formulaWhere')}
             </p>
           </FormulaBlock>
         </div>
@@ -143,7 +142,7 @@ export default function CompoundInterestContainer() {
         className="text-sm font-medium"
         style={{ color: 'var(--text-primary)' }}
       >
-        Learn More
+        {t('calculator.learnMore')}
       </h4>
       <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
         <iframe

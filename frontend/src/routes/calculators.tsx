@@ -1,10 +1,12 @@
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 
 export const Route = createFileRoute('/calculators')({
   component: CalculatorsPage,
 })
 
 function CalculatorsPage() {
+  const { t } = useTranslation()
   return (
     <div
       className="min-h-screen"
@@ -15,7 +17,7 @@ function CalculatorsPage() {
           className="text-3xl font-bold mb-6"
           style={{ color: 'var(--text-primary)' }}
         >
-          Calculators
+          {t('calculators.title')}
         </h1>
 
         {/* Tab Navigation */}
@@ -26,31 +28,32 @@ function CalculatorsPage() {
                 to="/calculators/CompoundInterest"
                 className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
               >
-              Compound Interest
-            </Link>
+                {t('calculators.compoundInterest')}
+              </Link>
               <Link
                 to="/calculators/savings-goal"
                 className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
               >
-              Savings Goal
-            </Link>
+                {t('calculators.savingsGoal')}
+              </Link>
               <Link
                 to="/calculators/retirement4percent"
                 className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
               >
-              Retirement (4% rule)
-            </Link>
+                {t('calculators.retirement4Percent')}
+              </Link>
               <Link
                 to="/calculators/retirement-dividend"
                 className="inline-flex items-center justify-center font-medium transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent-color)]"
               >
-              Retirement (dividend)
-            </Link>
+                {t('calculators.retirementDividend')}
+              </Link>
             </nav>
             <div
               className="pointer-events-none absolute inset-y-0 right-0 w-8 md:hidden"
               style={{
-                background: 'linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--bg-primary) 70%)',
+                background:
+                  'linear-gradient(90deg, rgba(255,255,255,0) 0%, var(--bg-primary) 70%)',
               }}
               aria-hidden="true"
             />
@@ -59,7 +62,7 @@ function CalculatorsPage() {
             className="mt-2 text-xs font-medium text-emerald-600 md:hidden flex items-center gap-1 px-4"
             aria-hidden="true"
           >
-            <span>Swipe to explore calculators</span>
+            <span>{t('calculators.swipeToExplore')}</span>
             <span>→</span>
           </div>
         </div>

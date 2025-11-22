@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import Card from './shared/Card'
 import QuoteCarousel from './shared/QuoteCarousel'
 import { investingQuotes } from '../data/quotes'
 import { pingHealth } from '../services/api'
 
 export default function HomePage() {
+  const { t } = useTranslation()
   // Ping backend health endpoint on mount to wake it up from standby
   useEffect(() => {
     pingHealth()
@@ -25,8 +27,7 @@ export default function HomePage() {
             className="text-xl mb-8"
             style={{ color: 'var(--text-secondary)' }}
           >
-            Your comprehensive platform for dividend and growth investing
-            analysis
+            {t('home.subtitle')}
           </p>
 
           {/* Quote Carousel */}
@@ -49,39 +50,26 @@ export default function HomePage() {
                 className="text-3xl font-bold mb-6 text-center"
                 style={{ color: 'var(--text-primary)' }}
               >
-                Investment + Education = Financial Freedom
+                {t('home.heading')}
               </h2>
               <div className="max-w-4xl mx-auto">
                 <p
                   className="text-lg leading-relaxed mb-6"
                   style={{ color: 'var(--text-secondary)' }}
                 >
-                  Welcome to InvestEd, where true financial freedom comes from
-                  the perfect combination of <strong>Investment</strong>{' '}
-                  knowledge and <strong>Education</strong>. This platform is
-                  designed to give you the educational foundation you need to
-                  make informed investment decisions that build lasting wealth.
+                  {t('home.welcome1')}
                 </p>
                 <p
                   className="text-lg leading-relaxed mb-6"
                   style={{ color: 'var(--text-secondary)' }}
                 >
-                  Whether you're pursuing dividend income for steady cash flow
-                  or growth investing for long-term wealth building, education
-                  is your most powerful tool. Here you'll find comprehensive
-                  learning resources and analysis tools to help you understand
-                  market dynamics, evaluate investment opportunities, and create
-                  a strategy that aligns with your financial goals.
+                  {t('home.welcome2')}
                 </p>
                 <p
                   className="text-lg leading-relaxed"
                   style={{ color: 'var(--text-secondary)' }}
                 >
-                  From basic investment concepts to advanced analysis
-                  techniques, this platform guides your journey toward financial
-                  independence. When you combine knowledge with action, you
-                  don't just invest—you build the foundation for lasting
-                  financial freedom.
+                  {t('home.welcome3')}
                 </p>
               </div>
             </Card>
