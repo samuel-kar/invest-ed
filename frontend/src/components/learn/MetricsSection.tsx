@@ -7,7 +7,9 @@ import { financialMetrics } from '../../data/financialMetrics'
 export default function MetricsSection() {
   const { t } = useTranslation()
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<string>(t('learn.all'))
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    t('learn.all'),
+  )
 
   const categories = useMemo(() => {
     const cats = [
@@ -23,7 +25,8 @@ export default function MetricsSection() {
         metric.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         metric.description.toLowerCase().includes(searchTerm.toLowerCase())
       const matchesCategory =
-        selectedCategory === t('learn.all') || metric.category === selectedCategory
+        selectedCategory === t('learn.all') ||
+        metric.category === selectedCategory
       return matchesSearch && matchesCategory
     })
   }, [searchTerm, selectedCategory, t])
@@ -80,8 +83,8 @@ export default function MetricsSection() {
       {/* Results Count */}
       <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
         {t('learn.showingMetrics', {
-          count: filteredMetrics.length.toString(),
-          total: financialMetrics.length.toString(),
+          count: filteredMetrics.length,
+          total: financialMetrics.length,
         })}
       </div>
 
