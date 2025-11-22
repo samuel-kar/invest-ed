@@ -49,6 +49,100 @@ export const sv = {
     searchMetrics: 'Sök nyckeltal efter namn eller beskrivning...',
     showingMetrics: 'Visar {count} av {total} nyckeltal',
     noMetricsFound: 'Inga nyckeltal hittades som matchar dina sökkriterier.',
+    all: 'Alla',
+    backToLearn: 'Tillbaka till Lär dig',
+    guides: {
+      dividendAnalysis: {
+        title: 'Snabbstartsguide för att analysera utdelningsföretag',
+        description:
+          'En omfattande steg-för-steg-guide för att analysera utdelningsföretag, som täcker allt från företagstypidentifiering till viktiga finansiella nyckeltal.',
+        step1: {
+          title:
+            'Gå in på Yahoo Finance, Seeking Alpha eller valfri nätmäklare och mata in ticker-symbol',
+          content:
+            'Kolla vilken typ av företag det är; om det är REIT, BDC eller annat.',
+        },
+        step2: {
+          title:
+            'Kolla på share price-historik för att se vilken inställning man kan gå in med',
+          content:
+            'Avgör om andra investerare är optimistiska eller pessimistiska – varför, i sådana fall?',
+        },
+        step3: {
+          title:
+            'Kolla på företagets hemsida och leta efter "Investor Presentation"',
+          content:
+            'Under investor relations. De är dock skrivna av företaget själva, men ger en bra inblick.',
+        },
+        step4: {
+          title: 'Kolla utdelningshistoriken (dividend distribution history)',
+          content:
+            'En röd flagg är om de kapar/reducerar utdelningen (helst på Seeking Alpha). Historiken är ingen garanti åt något håll, men bra fingervisare (se "The Ultimate Dividend Playbook" av Josh Peters). "The safest dividend is the one that\'s just been raised" (förutom royalty trusts).',
+        },
+        step5: {
+          title:
+            'Total return calculator (aktievärde + återinvesterade utdelningar)',
+          content:
+            'Dividendchannel.com. Customstockalerts.com (Kanske bara denna som är inkl DRIP?)',
+        },
+        step6: {
+          title:
+            'Kolla payout ratio (en av de viktigare) – sv: utdelningsandel',
+          content:
+            'Hur stor andel som betalas ut av intäkterna. Seeking Alpha räknar ut detta automatiskt. Consumer staples: <50% är hälsosamt, men >80% är risky. BDC och REIT måste dock paya ut >90% enligt lag.',
+        },
+        step7: {
+          title:
+            'REITs – book value är inte oviktigt, men "Funds from Operations" är viktigare (se income statement)',
+          content:
+            'Den bör öka år från år. Se annars "Earnings from Continuing Operations".',
+        },
+        step8: {
+          title: 'Viktiga metrics för olika typer av bolag',
+          regularStocks: {
+            title: '"Vanliga" aktier (tillväxtaktier med utdelning)',
+            metrics: {
+              peRatio: 'P/E ratio',
+              freeCashFlowToEquity: 'Free cash flow to equity',
+              dividendCoverageRatio: 'Dividend coverage ratio',
+            },
+          },
+          reits: {
+            title: 'REIT:s',
+            metrics: {
+              fundsFromOperations:
+                'Funds from Operation - book value är inte oviktigt, men FFO är viktigare (se income statement). Den bör öka år från år. Se annars "Earnings from Continuing Operations".',
+              debt: 'Debt/skuld – REITS är känsligare vid hög ränta',
+              interestCoverageRatio: 'Interest coverage ratio',
+            },
+          },
+          bdcs: {
+            title: 'BDC:s',
+            metrics: {
+              nav: 'NAV (Net Asset Value) aka Book Value – finns i balansräkningen (Seeking Alpha)',
+              netInterestIncome: 'Net interest income',
+              weightedAveragePortfolioYield: 'Weighted average portfolio yield',
+            },
+          },
+        },
+        step9: {
+          title:
+            'Man kan också ta in åsikter från andra (ex. hemsidan Tipranks)',
+        },
+        step10: {
+          title: 'Kolla deras (företagets) portfölj, särskilt för BDCs',
+          content: 'Diversifiering är särskilt viktigt för BDC.',
+        },
+        step11: {
+          title:
+            'Kolla insider ownership percentage – hur säkra de är på sitt företag?',
+          content: 'Ibland svårt att hitta, men finns hemsidan Fintel.',
+        },
+        step12: {
+          title: 'Kolla trender och nyheter i branschen där de är aktiva.',
+        },
+      },
+    },
   },
   calculators: {
     title: 'Kalkylatorer',

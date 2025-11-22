@@ -49,6 +49,88 @@ export const en = {
     searchMetrics: 'Search metrics by name or description...',
     showingMetrics: 'Showing {count} of {total} metrics',
     noMetricsFound: 'No metrics found matching your search criteria.',
+    all: 'All',
+    backToLearn: 'Back to Learn',
+    guides: {
+      dividendAnalysis: {
+        title: 'Quick Start Guide to Analyze Dividend Companies',
+        description:
+          'A comprehensive step-by-step guide to analyzing dividend-paying companies, covering everything from company type identification to key financial metrics.',
+        step1: {
+          title: 'Go to Yahoo Finance, Seeking Alpha, or any online broker and enter the ticker symbol',
+          content: 'Check what type of company it is; whether it is a REIT, BDC, or other type.',
+        },
+        step2: {
+          title: 'Check the share price history to see what entry point you can use',
+          content: 'Determine if other investors are optimistic or pessimistic – why, in that case?',
+        },
+        step3: {
+          title: 'Check the company website and look for "Investor Presentation"',
+          content: 'Under investor relations. They are written by the company itself, but provide good insight.',
+        },
+        step4: {
+          title: 'Check the dividend history (dividend distribution history)',
+          content:
+            'A red flag is if they cut/reduce the dividend (preferably on Seeking Alpha). History is no guarantee either way, but a good indicator (see "The Ultimate Dividend Playbook" by Josh Peters). "The safest dividend is the one that\'s just been raised" (except for royalty trusts).',
+        },
+        step5: {
+          title: 'Total return calculator (stock value + reinvested dividends)',
+          content: 'Dividendchannel.com. Customstockalerts.com (Maybe only this one includes DRIP?)',
+        },
+        step6: {
+          title: 'Check payout ratio (one of the more important) – payout ratio',
+          content:
+            'What portion is paid out of revenues. Seeking Alpha calculates this automatically. Consumer staples: <50% is healthy, but >80% is risky. BDC and REIT must however pay out >90% by law.',
+        },
+        step7: {
+          title: 'REITs – book value is not unimportant, but "Funds from Operations" is more important (see income statement)',
+          content:
+            'It should increase year over year. Otherwise see "Earnings from Continuing Operations".',
+        },
+        step8: {
+          title: 'Important metrics for different types of companies',
+          regularStocks: {
+            title: 'Regular stocks (growth stocks with dividends)',
+            metrics: {
+              peRatio: 'P/E ratio',
+              freeCashFlowToEquity: 'Free cash flow to equity',
+              dividendCoverageRatio: 'Dividend coverage ratio',
+            },
+          },
+          reits: {
+            title: 'REITs',
+            metrics: {
+              fundsFromOperations:
+                'Funds from Operations - book value is not unimportant, but FFO is more important (see income statement). It should increase year over year. Otherwise see "Earnings from Continuing Operations".',
+              debt: 'Debt/liabilities – REITs are more sensitive at high interest rates',
+              interestCoverageRatio: 'Interest coverage ratio',
+            },
+          },
+          bdcs: {
+            title: 'BDCs',
+            metrics: {
+              nav: 'NAV (Net Asset Value) aka Book Value – found in the balance sheet (Seeking Alpha)',
+              netInterestIncome: 'Net interest income',
+              weightedAveragePortfolioYield: 'Weighted average portfolio yield',
+            },
+          },
+        },
+        step9: {
+          title: 'You can also take in opinions from others (e.g., the website Tipranks)',
+        },
+        step10: {
+          title: 'Check their (company\'s) portfolio, especially for BDCs',
+          content: 'Diversification is especially important for BDC.',
+        },
+        step11: {
+          title: 'Check insider ownership percentage – how confident are they in their company?',
+          content: 'Sometimes difficult to find, but the website Fintel has it.',
+        },
+        step12: {
+          title: 'Check trends and news in the industry where they are active.',
+        },
+      },
+    },
   },
   calculators: {
     title: 'Calculators',

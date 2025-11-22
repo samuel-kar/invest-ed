@@ -18,10 +18,12 @@ import { Route as CalculatorsRouteImport } from './routes/calculators'
 import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SavedIndexRouteImport } from './routes/saved/index'
+import { Route as LearnIndexRouteImport } from './routes/learn/index'
 import { Route as CalculatorsIndexRouteImport } from './routes/calculators/index'
 import { Route as AnalysisIndexRouteImport } from './routes/analysis/index'
 import { Route as SavedDdmRouteImport } from './routes/saved/ddm'
 import { Route as SavedChowderRouteImport } from './routes/saved/chowder'
+import { Route as LearnQuickStartDividendRouteImport } from './routes/learn/quick-start-dividend'
 import { Route as CalculatorsSavingsGoalRouteImport } from './routes/calculators/savings-goal'
 import { Route as CalculatorsRetirement4percentRouteImport } from './routes/calculators/retirement4percent'
 import { Route as CalculatorsRetirementDividendRouteImport } from './routes/calculators/retirement-dividend'
@@ -74,6 +76,11 @@ const SavedIndexRoute = SavedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SavedRoute,
 } as any)
+const LearnIndexRoute = LearnIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LearnRoute,
+} as any)
 const CalculatorsIndexRoute = CalculatorsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -93,6 +100,11 @@ const SavedChowderRoute = SavedChowderRouteImport.update({
   id: '/chowder',
   path: '/chowder',
   getParentRoute: () => SavedRoute,
+} as any)
+const LearnQuickStartDividendRoute = LearnQuickStartDividendRouteImport.update({
+  id: '/quick-start-dividend',
+  path: '/quick-start-dividend',
+  getParentRoute: () => LearnRoute,
 } as any)
 const CalculatorsSavingsGoalRoute = CalculatorsSavingsGoalRouteImport.update({
   id: '/savings-goal',
@@ -133,7 +145,7 @@ export interface FileRoutesByFullPath {
   '/analysis': typeof AnalysisRouteWithChildren
   '/calculators': typeof CalculatorsRouteWithChildren
   '/companies': typeof CompaniesRoute
-  '/learn': typeof LearnRoute
+  '/learn': typeof LearnRouteWithChildren
   '/saved': typeof SavedRouteWithChildren
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
@@ -143,16 +155,17 @@ export interface FileRoutesByFullPath {
   '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
   '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
   '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/learn/quick-start-dividend': typeof LearnQuickStartDividendRoute
   '/saved/chowder': typeof SavedChowderRoute
   '/saved/ddm': typeof SavedDdmRoute
   '/analysis/': typeof AnalysisIndexRoute
   '/calculators/': typeof CalculatorsIndexRoute
+  '/learn/': typeof LearnIndexRoute
   '/saved/': typeof SavedIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/companies': typeof CompaniesRoute
-  '/learn': typeof LearnRoute
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
   '/analysis/chowder': typeof AnalysisChowderRoute
@@ -161,10 +174,12 @@ export interface FileRoutesByTo {
   '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
   '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
   '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/learn/quick-start-dividend': typeof LearnQuickStartDividendRoute
   '/saved/chowder': typeof SavedChowderRoute
   '/saved/ddm': typeof SavedDdmRoute
   '/analysis': typeof AnalysisIndexRoute
   '/calculators': typeof CalculatorsIndexRoute
+  '/learn': typeof LearnIndexRoute
   '/saved': typeof SavedIndexRoute
 }
 export interface FileRoutesById {
@@ -173,7 +188,7 @@ export interface FileRoutesById {
   '/analysis': typeof AnalysisRouteWithChildren
   '/calculators': typeof CalculatorsRouteWithChildren
   '/companies': typeof CompaniesRoute
-  '/learn': typeof LearnRoute
+  '/learn': typeof LearnRouteWithChildren
   '/saved': typeof SavedRouteWithChildren
   '/settings': typeof SettingsRoute
   '/sign-in': typeof SignInRoute
@@ -183,10 +198,12 @@ export interface FileRoutesById {
   '/calculators/retirement-dividend': typeof CalculatorsRetirementDividendRoute
   '/calculators/retirement4percent': typeof CalculatorsRetirement4percentRoute
   '/calculators/savings-goal': typeof CalculatorsSavingsGoalRoute
+  '/learn/quick-start-dividend': typeof LearnQuickStartDividendRoute
   '/saved/chowder': typeof SavedChowderRoute
   '/saved/ddm': typeof SavedDdmRoute
   '/analysis/': typeof AnalysisIndexRoute
   '/calculators/': typeof CalculatorsIndexRoute
+  '/learn/': typeof LearnIndexRoute
   '/saved/': typeof SavedIndexRoute
 }
 export interface FileRouteTypes {
@@ -206,16 +223,17 @@ export interface FileRouteTypes {
     | '/calculators/retirement-dividend'
     | '/calculators/retirement4percent'
     | '/calculators/savings-goal'
+    | '/learn/quick-start-dividend'
     | '/saved/chowder'
     | '/saved/ddm'
     | '/analysis/'
     | '/calculators/'
+    | '/learn/'
     | '/saved/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/companies'
-    | '/learn'
     | '/settings'
     | '/sign-in'
     | '/analysis/chowder'
@@ -224,10 +242,12 @@ export interface FileRouteTypes {
     | '/calculators/retirement-dividend'
     | '/calculators/retirement4percent'
     | '/calculators/savings-goal'
+    | '/learn/quick-start-dividend'
     | '/saved/chowder'
     | '/saved/ddm'
     | '/analysis'
     | '/calculators'
+    | '/learn'
     | '/saved'
   id:
     | '__root__'
@@ -245,10 +265,12 @@ export interface FileRouteTypes {
     | '/calculators/retirement-dividend'
     | '/calculators/retirement4percent'
     | '/calculators/savings-goal'
+    | '/learn/quick-start-dividend'
     | '/saved/chowder'
     | '/saved/ddm'
     | '/analysis/'
     | '/calculators/'
+    | '/learn/'
     | '/saved/'
   fileRoutesById: FileRoutesById
 }
@@ -257,7 +279,7 @@ export interface RootRouteChildren {
   AnalysisRoute: typeof AnalysisRouteWithChildren
   CalculatorsRoute: typeof CalculatorsRouteWithChildren
   CompaniesRoute: typeof CompaniesRoute
-  LearnRoute: typeof LearnRoute
+  LearnRoute: typeof LearnRouteWithChildren
   SavedRoute: typeof SavedRouteWithChildren
   SettingsRoute: typeof SettingsRoute
   SignInRoute: typeof SignInRoute
@@ -328,6 +350,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SavedIndexRouteImport
       parentRoute: typeof SavedRoute
     }
+    '/learn/': {
+      id: '/learn/'
+      path: '/'
+      fullPath: '/learn/'
+      preLoaderRoute: typeof LearnIndexRouteImport
+      parentRoute: typeof LearnRoute
+    }
     '/calculators/': {
       id: '/calculators/'
       path: '/'
@@ -355,6 +384,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/saved/chowder'
       preLoaderRoute: typeof SavedChowderRouteImport
       parentRoute: typeof SavedRoute
+    }
+    '/learn/quick-start-dividend': {
+      id: '/learn/quick-start-dividend'
+      path: '/quick-start-dividend'
+      fullPath: '/learn/quick-start-dividend'
+      preLoaderRoute: typeof LearnQuickStartDividendRouteImport
+      parentRoute: typeof LearnRoute
     }
     '/calculators/savings-goal': {
       id: '/calculators/savings-goal'
@@ -437,6 +473,18 @@ const CalculatorsRouteWithChildren = CalculatorsRoute._addFileChildren(
   CalculatorsRouteChildren,
 )
 
+interface LearnRouteChildren {
+  LearnQuickStartDividendRoute: typeof LearnQuickStartDividendRoute
+  LearnIndexRoute: typeof LearnIndexRoute
+}
+
+const LearnRouteChildren: LearnRouteChildren = {
+  LearnQuickStartDividendRoute: LearnQuickStartDividendRoute,
+  LearnIndexRoute: LearnIndexRoute,
+}
+
+const LearnRouteWithChildren = LearnRoute._addFileChildren(LearnRouteChildren)
+
 interface SavedRouteChildren {
   SavedChowderRoute: typeof SavedChowderRoute
   SavedDdmRoute: typeof SavedDdmRoute
@@ -456,7 +504,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnalysisRoute: AnalysisRouteWithChildren,
   CalculatorsRoute: CalculatorsRouteWithChildren,
   CompaniesRoute: CompaniesRoute,
-  LearnRoute: LearnRoute,
+  LearnRoute: LearnRouteWithChildren,
   SavedRoute: SavedRouteWithChildren,
   SettingsRoute: SettingsRoute,
   SignInRoute: SignInRoute,
