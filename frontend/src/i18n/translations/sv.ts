@@ -100,8 +100,7 @@ export const sv = {
           website2: 'Customstockalerts.com',
         },
         step6: {
-          title:
-            'Kolla payout ratio (en av de viktigare) – sv: utdelningsandel',
+          title: 'Kolla payout ratio (en av de viktigare nyckeltalen)',
           content:
             'Hur stor andel som betalas ut av intäkterna. Seeking Alpha räknar ut detta automatiskt. Consumer staples: <50% är hälsosamt, men >80% är risky. BDC och REIT måste dock paya ut >90% enligt lag.',
         },
