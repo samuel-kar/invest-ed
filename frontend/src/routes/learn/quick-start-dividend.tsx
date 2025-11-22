@@ -25,10 +25,7 @@ function QuickStartDividendPage() {
           {t('learn.guides.dividendAnalysis.title')}
         </h1>
 
-        <p
-          className="text-lg mb-8"
-          style={{ color: 'var(--text-secondary)' }}
-        >
+        <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>
           {t('learn.guides.dividendAnalysis.description')}
         </p>
 
@@ -105,12 +102,29 @@ function QuickStartDividendPage() {
             >
               5. {t('learn.guides.dividendAnalysis.step5.title')}
             </h2>
-            <p
+            <div
               className="text-base leading-relaxed"
               style={{ color: 'var(--text-secondary)' }}
             >
-              {t('learn.guides.dividendAnalysis.step5.content')}
-            </p>
+              <a
+                href="https://www.dividendchannel.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: 'var(--accent-color)' }}
+                className="hover:underline block mb-2"
+              >
+                {t('learn.guides.dividendAnalysis.step5.website1')}
+              </a>
+              <a
+                href="https://www.customstockalerts.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: 'var(--accent-color)' }}
+                className="hover:underline block"
+              >
+                {t('learn.guides.dividendAnalysis.step5.website2')}
+              </a>
+            </div>
           </Card>
 
           {/* Step 6 */}
@@ -166,7 +180,11 @@ function QuickStartDividendPage() {
                 className="list-disc list-inside space-y-1 ml-4"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                <li>{t('learn.guides.dividendAnalysis.step8.regularStocks.metrics.peRatio')}</li>
+                <li>
+                  {t(
+                    'learn.guides.dividendAnalysis.step8.regularStocks.metrics.peRatio',
+                  )}
+                </li>
                 <li>
                   {t(
                     'learn.guides.dividendAnalysis.step8.regularStocks.metrics.freeCashFlowToEquity',
@@ -220,7 +238,9 @@ function QuickStartDividendPage() {
                 className="list-disc list-inside space-y-1 ml-4"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                <li>{t('learn.guides.dividendAnalysis.step8.bdcs.metrics.nav')}</li>
+                <li>
+                  {t('learn.guides.dividendAnalysis.step8.bdcs.metrics.nav')}
+                </li>
                 <li>
                   {t(
                     'learn.guides.dividendAnalysis.step8.bdcs.metrics.netInterestIncome',

@@ -82,8 +82,9 @@ export const sv = {
         step5: {
           title:
             'Total return calculator (aktievärde + återinvesterade utdelningar)',
-          content:
-            'Dividendchannel.com. Customstockalerts.com (Kanske bara denna som är inkl DRIP?)',
+          content: 'Dividendchannel.com. Customstockalerts.com',
+          website1: 'Dividendchannel.com',
+          website2: 'Customstockalerts.com',
         },
         step6: {
           title:

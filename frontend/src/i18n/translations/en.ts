@@ -75,7 +75,9 @@ export const en = {
         },
         step5: {
           title: 'Total return calculator (stock value + reinvested dividends)',
-          content: 'Dividendchannel.com. Customstockalerts.com (Maybe only this one includes DRIP?)',
+          content: 'Dividendchannel.com. Customstockalerts.com',
+          website1: 'Dividendchannel.com',
+          website2: 'Customstockalerts.com',
         },
         step6: {
           title: 'Check payout ratio (one of the more important) – payout ratio',
