@@ -606,14 +606,14 @@ export const sv = {
   chowder: {
     about: 'Om Chowder-regeln',
     description:
-      'Chowder-regeln är en utdelnings tillväxtinvesteringsstrategi som hjälper till att identifiera kvalitetsutdelnings tillväxtaktier. Den kombinerar nuvarande avkastning och utdelnings tillväxttakt för att skapa ett "Chowder-nummer".',
-    formulaTitle: 'Chowder-nummerformel:',
+      'Chowder-regeln är en utdelnings tillväxtinvesteringsstrategi som hjälper till att identifiera kvalitetsutdelnings tillväxtaktier. Den kombinerar nuvarande avkastning och utdelnings tillväxttakt för att skapa ett "Chowder-tal".',
+    formulaTitle: 'Formel för Chowder-tal:',
     formula:
-      'Chowder-nummer = Nuvarande avkastning (%) + Utdelnings tillväxttakt (%)',
+      'Chowder-tal = Nuvarande avkastning (%) + Utdelnings tillväxttakt (%)',
     interpretation: 'Tolkning:',
-    interpretation1: 'Chowder-nummer ≥ 12: Stark utdelnings tillväxtkandidat',
-    interpretation2: 'Chowder-nummer 8-11: Bra utdelnings tillväxtkandidat',
-    interpretation3: 'Chowder-nummer < 8: Kan behöva förbättras',
+    interpretation1: 'Chowder-tal ≥ 12: Stark utdelnings tillväxtkandidat',
+    interpretation2: 'Chowder-tal 8-11: Bra utdelnings tillväxtkandidat',
+    interpretation3: 'Chowder-tal < 8: Kan behöva förbättras',
     searchPlaceholder: 'Ange aktiesymbol (t.ex. AAPL, MSFT)',
     searchButton: 'Sök',
     loadingData: 'Laddar företagsdata...',
@@ -621,7 +621,7 @@ export const sv = {
       'Backend-servern vaknar från viloläge. Detta kan ta några extra sekunder...',
     currentYield: 'Nuvarande avkastning (%)',
     dividendGrowthRate: 'Utdelnings tillväxttakt (%)',
-    chowderNumber: 'Chowder-nummer:',
+    chowderNumber: 'Chowder-tal:',
     currentPrice: 'Nuvarande pris:',
     annualDividend: 'Årlig utdelning:',
     saveAnalysis: 'Spara analys',
@@ -632,7 +632,7 @@ export const sv = {
     signInToSave: 'Logga in för att spara din analys',
     noData: 'Ingen data tillgänglig. Vänligen sök efter ett företag först.',
     breakdown: 'Uppdelning:',
-    chowderScoreFor: 'Chowder-nummer för {symbol}',
+    chowderScoreFor: 'Chowder-tal för {symbol}',
     yearsOfData: 'År av data:',
   },
   saved: {
