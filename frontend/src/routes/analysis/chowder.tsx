@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useTranslation } from 'react-i18next'
 import ChowderContainer from '../../components/analyses/analyses/ChowderContainer'
 import BackButton from '../../components/BackButton'
 
@@ -7,20 +8,20 @@ export const Route = createFileRoute('/analysis/chowder')({
 })
 
 function ChowderPage() {
+  const { t } = useTranslation()
   return (
     <div className="max-w-6xl mx-auto">
       <div className="p-6">
-        <BackButton to="/analysis" label="Back to Analysis" />
+        <BackButton to="/analysis" label={t('analysis.backToAnalysis')} />
         <h2
           className="text-2xl font-bold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          Chowder Rule
+          {t('analysis.routes.chowder.title')}
         </h2>
         <div className="flex justify-between items-top mb-6">
           <p style={{ color: 'var(--text-secondary)' }}>
-            Screen dividend stocks using the Chowder Rule to identify quality
-            dividend growth companies.
+            {t('analysis.routes.chowder.description')}
           </p>
           <span className="text-6xl">🥣</span>
         </div>

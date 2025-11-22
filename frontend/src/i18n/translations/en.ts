@@ -364,6 +364,30 @@ export const en = {
       'Start with the Compound Interest Calculator to understand the power of long-term investing, then use the Savings Goal Calculator to set specific targets. For retirement planning, compare both the 4% rule and dividend strategies to find what works best for your situation.',
   },
   calculator: {
+    backToCalculators: 'Back to Calculators',
+    formulaUsed: 'Formula Used',
+    routes: {
+      compoundInterest: {
+        title: 'Compound Interest',
+        description:
+          'Calculate how your investment will grow over time with compound interest and regular monthly contributions.',
+      },
+      savingsGoal: {
+        title: 'Savings Goal Calculator',
+        description:
+          'Determine how long it will take to reach your financial goals with regular monthly contributions.',
+      },
+      retirement4Percent: {
+        title: 'Retirement (4% Rule)',
+        description:
+          'Estimate your retirement savings and monthly income using the proven 4% withdrawal rule.',
+      },
+      retirementDividend: {
+        title: 'Retirement (Dividend)',
+        description:
+          'Calculate the portfolio size needed for dividend income retirement. Focus on dividend-paying stocks for passive income.',
+      },
+    },
     investmentParameters: 'Investment Parameters',
     investmentResults: 'Investment Results',
     goalParameters: 'Goal Parameters',
@@ -480,9 +504,22 @@ export const en = {
   },
   analysis: {
     title: 'Investment Analysis',
+    backToAnalysis: 'Back to Analysis',
     ddm: 'DDM Analysis',
     chowder: 'Chowder Rule',
     swipeToBrowse: 'Swipe to browse analyses',
+    routes: {
+      ddm: {
+        title: 'DDM Analysis',
+        description:
+          'Analyze dividend-paying stocks using the Dividend Discount Model to determine fair value.',
+      },
+      chowder: {
+        title: 'Chowder Rule',
+        description:
+          'Screen dividend stocks using the Chowder Rule to identify quality dividend growth companies.',
+      },
+    },
     overviewTitle: 'Investment Analysis Tools',
     overviewDescription:
       'Advanced analysis tools to help you evaluate investment opportunities and make informed decisions.',
@@ -512,13 +549,13 @@ export const en = {
     formulaNote: 'Note: r must be greater than g',
     interpretation: 'Interpretation:',
     interpretation1:
-      '• If intrinsic value > current price: Stock is undervalued (potential buy)',
+      'If intrinsic value > current price: Stock is undervalued (potential buy)',
     interpretation2:
-      '• If intrinsic value < current price: Stock is overvalued (potential sell)',
+      'If intrinsic value < current price: Stock is overvalued (potential sell)',
     interpretation3:
-      '• If intrinsic value ≈ current price: Stock is fairly valued',
+      'If intrinsic value ≈ current price: Stock is fairly valued',
     interpretation4:
-      '• The model assumes constant dividend growth, which may not hold for all companies',
+      'The model assumes constant dividend growth, which may not hold for all companies',
     searchPlaceholder: 'Enter stock symbol (e.g., AAPL, MSFT)',
     searchButton: 'Search',
     loadingData: 'Loading company data...',
@@ -555,9 +592,9 @@ export const en = {
     formulaTitle: 'Chowder Number Formula:',
     formula: 'Chowder Number = Current Yield (%) + Dividend Growth Rate (%)',
     interpretation: 'Interpretation:',
-    interpretation1: '• Chowder Number ≥ 12: Strong dividend growth candidate',
-    interpretation2: '• Chowder Number 8-11: Good dividend growth candidate',
-    interpretation3: '• Chowder Number < 8: May need improvement',
+    interpretation1: 'Chowder Number ≥ 12: Strong dividend growth candidate',
+    interpretation2: 'Chowder Number 8-11: Good dividend growth candidate',
+    interpretation3: 'Chowder Number < 8: May need improvement',
     searchPlaceholder: 'Enter stock symbol (e.g., AAPL, MSFT)',
     searchButton: 'Search',
     loadingData: 'Loading company data...',

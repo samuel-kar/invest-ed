@@ -384,6 +384,30 @@ export const sv = {
       'Börja med Ränta på ränta-kalkylatorn för att förstå kraften i långsiktig investering, använd sedan Sparmålskalkylatorn för att sätta specifika mål. För pensionsplanering, jämför både 4%-regeln och utdelningsstrategier för att hitta vad som fungerar bäst för din situation.',
   },
   calculator: {
+    backToCalculators: 'Tillbaka till Kalkylatorer',
+    formulaUsed: 'Formel som används',
+    routes: {
+      compoundInterest: {
+        title: 'Ränta på ränta',
+        description:
+          'Beräkna hur din investering kommer att växa över tid med ränta på ränta och regelbundna månadsbidrag.',
+      },
+      savingsGoal: {
+        title: 'Sparmålskalkylator',
+        description:
+          'Bestäm hur lång tid det tar att nå dina finansiella mål med regelbundna månadsbidrag.',
+      },
+      retirement4Percent: {
+        title: 'Pension (4%-regeln)',
+        description:
+          'Uppskatta dina pensionsbesparingar och månadsinkomst med den beprövade 4%-uttagsregeln.',
+      },
+      retirementDividend: {
+        title: 'Pension (Utdelning)',
+        description:
+          'Beräkna portföljstorleken som behövs för utdelningsinkomstpension. Fokusera på utdelningsaktier för passiv inkomst.',
+      },
+    },
     investmentParameters: 'Investeringsparametrar',
     investmentResults: 'Investeringsresultat',
     goalParameters: 'Målparametrar',
@@ -497,9 +521,22 @@ export const sv = {
   },
   analysis: {
     title: 'Investeringsanalys',
+    backToAnalysis: 'Tillbaka till Analys',
     ddm: 'DDM-analys',
     chowder: 'Chowder-regeln',
     swipeToBrowse: 'Svep för att bläddra bland analyser',
+    routes: {
+      ddm: {
+        title: 'DDM-analys',
+        description:
+          'Analysera utdelningsaktier med hjälp av utdelningsrabattmodellen för att bestämma rättvist värde.',
+      },
+      chowder: {
+        title: 'Chowder-regeln',
+        description:
+          'Screena utdelningsaktier med hjälp av Chowder-regeln för att identifiera kvalitetsutdelnings tillväxtföretag.',
+      },
+    },
     overviewTitle: 'Investeringsanalysverktyg',
     overviewDescription:
       'Avancerade analysverktyg för att hjälpa dig utvärdera investeringsmöjligheter och fatta välgrundade beslut.',
@@ -529,13 +566,13 @@ export const sv = {
     formulaNote: 'Obs: r måste vara större än g',
     interpretation: 'Tolkning:',
     interpretation1:
-      '• Om egenvärde > nuvarande pris: Aktien är undervärderad (potentiell köp)',
+      'Om egenvärde > nuvarande pris: Aktien är undervärderad (potentiell köp)',
     interpretation2:
-      '• Om egenvärde < nuvarande pris: Aktien är övervärderad (potentiell sälj)',
+      'Om egenvärde < nuvarande pris: Aktien är övervärderad (potentiell sälj)',
     interpretation3:
-      '• Om egenvärde ≈ nuvarande pris: Aktien är rättvist värderad',
+      'Om egenvärde ≈ nuvarande pris: Aktien är rättvist värderad',
     interpretation4:
-      '• Modellen antar konstant utdelnings tillväxt, vilket kanske inte gäller för alla företag',
+      'Modellen antar konstant utdelnings tillväxt, vilket kanske inte gäller för alla företag',
     searchPlaceholder: 'Ange aktiesymbol (t.ex. AAPL, MSFT)',
     searchButton: 'Sök',
     loadingData: 'Laddar företagsdata...',
@@ -574,9 +611,9 @@ export const sv = {
     formula:
       'Chowder-nummer = Nuvarande avkastning (%) + Utdelnings tillväxttakt (%)',
     interpretation: 'Tolkning:',
-    interpretation1: '• Chowder-nummer ≥ 12: Stark utdelnings tillväxtkandidat',
-    interpretation2: '• Chowder-nummer 8-11: Bra utdelnings tillväxtkandidat',
-    interpretation3: '• Chowder-nummer < 8: Kan behöva förbättras',
+    interpretation1: 'Chowder-nummer ≥ 12: Stark utdelnings tillväxtkandidat',
+    interpretation2: 'Chowder-nummer 8-11: Bra utdelnings tillväxtkandidat',
+    interpretation3: 'Chowder-nummer < 8: Kan behöva förbättras',
     searchPlaceholder: 'Ange aktiesymbol (t.ex. AAPL, MSFT)',
     searchButton: 'Sök',
     loadingData: 'Laddar företagsdata...',
