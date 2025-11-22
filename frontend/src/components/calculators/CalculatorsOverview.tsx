@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next'
 import { Link } from '@tanstack/react-router'
 import Card from '../shared/Card'
 
 export default function CalculatorsOverview() {
+  const { t } = useTranslation()
   return (
     <div className="max-w-6xl mx-auto">
       <div className="p-4 md:p-6">
@@ -9,11 +11,10 @@ export default function CalculatorsOverview() {
           className="text-2xl font-bold mb-6"
           style={{ color: 'var(--text-primary)' }}
         >
-          Investment Calculators
+          {t('calculators.overviewTitle')}
         </h2>
         <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
-          Choose from a comprehensive set of financial calculators to help you
-          plan and optimize your savings strategy.
+          {t('calculators.overviewDescription')}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -23,22 +24,20 @@ export default function CalculatorsOverview() {
                 className="text-lg font-semibold mb-3"
                 style={{ color: 'var(--text-primary)' }}
               >
-                📈 Compound Interest Calculator
+                {t('calculators.compoundInterestTitle')}
               </h3>
               <p
                 className="text-sm mb-4"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                Calculate how your investments will grow over time with compound
-                interest and regular monthly contributions. Perfect for
-                long-term investment planning.
+                {t('calculators.compoundInterestDescription')}
               </p>
               <div
                 className="text-xs"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                <strong>Best for:</strong> Long-term investments, retirement
-                planning, understanding compound growth
+                <strong>{t('calculators.bestFor')}:</strong>{' '}
+                {t('calculators.compoundInterestBestFor')}
               </div>
             </Card>
           </Link>
@@ -49,22 +48,20 @@ export default function CalculatorsOverview() {
                 className="text-lg font-semibold mb-3"
                 style={{ color: 'var(--text-primary)' }}
               >
-                🎯 Savings Goal Calculator
+                {t('calculators.savingsGoalTitle')}
               </h3>
               <p
                 className="text-sm mb-4"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                Determine how long it will take to reach your financial goals
-                with regular monthly contributions. Set realistic timelines for
-                your objectives.
+                {t('calculators.savingsGoalDescription')}
               </p>
               <div
                 className="text-xs"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                <strong>Best for:</strong> Short-term goals, vacation planning,
-                emergency fund building
+                <strong>{t('calculators.bestFor')}:</strong>{' '}
+                {t('calculators.savingsGoalBestFor')}
               </div>
             </Card>
           </Link>
@@ -75,22 +72,20 @@ export default function CalculatorsOverview() {
                 className="text-lg font-semibold mb-3"
                 style={{ color: 'var(--text-primary)' }}
               >
-                🏖️ Retirement (4% Rule)
+                {t('calculators.retirement4PercentTitle')}
               </h3>
               <p
                 className="text-sm mb-4"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                Estimate your retirement savings and monthly income using the
-                proven 4% withdrawal rule. Plan for a financially secure
-                retirement.
+                {t('calculators.retirement4PercentDescription')}
               </p>
               <div
                 className="text-xs"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                <strong>Best for:</strong> Retirement planning, FIRE movement,
-                traditional retirement strategies
+                <strong>{t('calculators.bestFor')}:</strong>{' '}
+                {t('calculators.retirement4PercentBestFor')}
               </div>
             </Card>
           </Link>
@@ -101,21 +96,20 @@ export default function CalculatorsOverview() {
                 className="text-lg font-semibold mb-3"
                 style={{ color: 'var(--text-primary)' }}
               >
-                💰 Retirement (Dividend)
+                {t('calculators.retirementDividendTitle')}
               </h3>
               <p
                 className="text-sm mb-4"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                Calculate the portfolio size needed for dividend income
-                retirement. Focus on dividend-paying stocks for passive income.
+                {t('calculators.retirementDividendDescription')}
               </p>
               <div
                 className="text-xs"
                 style={{ color: 'var(--text-secondary)' }}
               >
-                <strong>Best for:</strong> Dividend investing, passive income
-                strategies, income-focused retirement
+                <strong>{t('calculators.bestFor')}:</strong>{' '}
+                {t('calculators.retirementDividendBestFor')}
               </div>
             </Card>
           </Link>
@@ -132,14 +126,10 @@ export default function CalculatorsOverview() {
             className="font-semibold mb-2"
             style={{ color: 'var(--text-primary)' }}
           >
-            💡 Pro Tip
+            {t('calculators.proTipTitle')}
           </h4>
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-            Start with the <strong>Compound Interest Calculator</strong> to
-            understand the power of long-term investing, then use the{' '}
-            <strong>Savings Goal Calculator</strong> to set specific targets.
-            For retirement planning, compare both the 4% rule and dividend
-            strategies to find what works best for your situation.
+            {t('calculators.proTipText')}
           </p>
         </div>
       </div>

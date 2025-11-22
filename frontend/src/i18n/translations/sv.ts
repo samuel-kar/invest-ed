@@ -57,6 +57,33 @@ export const sv = {
     retirement4Percent: 'Pension (4%-regeln)',
     retirementDividend: 'Pension (utdelning)',
     swipeToExplore: 'Svep för att utforska kalkylatorer',
+    overviewTitle: 'Investeringskalkylatorer',
+    overviewDescription:
+      'Välj bland en omfattande uppsättning finansiella kalkylatorer för att hjälpa dig planera och optimera din sparstrategi.',
+    bestFor: 'Bäst för',
+    compoundInterestTitle: '📈 Ränta på ränta-kalkylator',
+    compoundInterestDescription:
+      'Beräkna hur dina investeringar kommer att växa över tid med ränta på ränta och regelbundna månadsbidrag. Perfekt för långsiktig investeringsplanering.',
+    compoundInterestBestFor:
+      'Långsiktiga investeringar, pensionsplanering, förståelse för sammansatt tillväxt',
+    savingsGoalTitle: '🎯 Sparmålskalkylator',
+    savingsGoalDescription:
+      'Bestäm hur lång tid det tar att nå dina finansiella mål med regelbundna månadsbidrag. Sätt realistiska tidslinjer för dina mål.',
+    savingsGoalBestFor:
+      'Kortsiktiga mål, semesterplanering, byggande av nödfond',
+    retirement4PercentTitle: '🏖️ Pension (4%-regeln)',
+    retirement4PercentDescription:
+      'Uppskatta dina pensionsbesparingar och månadsinkomst med den beprövade 4%-uttagsregeln. Planera för en ekonomiskt säker pension.',
+    retirement4PercentBestFor:
+      'Pensionsplanering, FIRE-rörelsen, traditionella pensionsstrategier',
+    retirementDividendTitle: '💰 Pension (Utdelning)',
+    retirementDividendDescription:
+      'Beräkna portföljstorleken som behövs för utdelningsinkomstpension. Fokusera på utdelningsaktier för passiv inkomst.',
+    retirementDividendBestFor:
+      'Utdelningsinvesteringar, passiva inkomststrategier, inkomstfokuserad pension',
+    proTipTitle: '💡 Proffstips',
+    proTipText:
+      'Börja med Ränta på ränta-kalkylatorn för att förstå kraften i långsiktig investering, använd sedan Sparmålskalkylatorn för att sätta specifika mål. För pensionsplanering, jämför både 4%-regeln och utdelningsstrategier för att hitta vad som fungerar bäst för din situation.',
   },
   calculator: {
     investmentParameters: 'Investeringsparametrar',
@@ -175,6 +202,23 @@ export const sv = {
     ddm: 'DDM-analys',
     chowder: 'Chowder-regeln',
     swipeToBrowse: 'Svep för att bläddra bland analyser',
+    overviewTitle: 'Investeringsanalysverktyg',
+    overviewDescription:
+      'Avancerade analysverktyg för att hjälpa dig utvärdera investeringsmöjligheter och fatta välgrundade beslut.',
+    bestFor: 'Bäst för',
+    ddmTitle: '📊 DDM-analys',
+    ddmDescription:
+      'Dividend Discount Model-analys för att utvärdera aktier baserat på deras utdelningsbetalningar och tillväxtpotential.',
+    ddmBestFor:
+      'Utdelningsaktieanalys, värdeinvesteringar, långsiktig inkomstutvärdering',
+    chowderTitle: '🥣 Chowder-regeln',
+    chowderDescription:
+      'Chowder-regeln kombinerar utdelningsavkastning och utdelnings tillväxttakt för att identifiera kvalitetsutdelningsaktier.',
+    chowderBestFor:
+      'Utdelnings tillväxtaktier, kvalitetsscreening, utdelningshållbarhetsanalys',
+    proTipTitle: '💡 Proffstips',
+    proTipText:
+      'Använd DDM-analysen för att beräkna rättvärde för utdelningsaktier, applicera sedan Chowder-regeln för att screena efter kvalitetsutdelnings tillväxtföretag. Dessa verktyg fungerar bäst tillsammans för omfattande utdelningsaktieutvärdering.',
   },
   ddm: {
     about: 'Om DDM-analys',

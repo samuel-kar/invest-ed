@@ -57,6 +57,33 @@ export const en = {
     retirement4Percent: 'Retirement (4% rule)',
     retirementDividend: 'Retirement (dividend)',
     swipeToExplore: 'Swipe to explore calculators',
+    overviewTitle: 'Investment Calculators',
+    overviewDescription:
+      'Choose from a comprehensive set of financial calculators to help you plan and optimize your savings strategy.',
+    bestFor: 'Best for',
+    compoundInterestTitle: '📈 Compound Interest Calculator',
+    compoundInterestDescription:
+      'Calculate how your investments will grow over time with compound interest and regular monthly contributions. Perfect for long-term investment planning.',
+    compoundInterestBestFor:
+      'Long-term investments, retirement planning, understanding compound growth',
+    savingsGoalTitle: '🎯 Savings Goal Calculator',
+    savingsGoalDescription:
+      'Determine how long it will take to reach your financial goals with regular monthly contributions. Set realistic timelines for your objectives.',
+    savingsGoalBestFor:
+      'Short-term goals, vacation planning, emergency fund building',
+    retirement4PercentTitle: '🏖️ Retirement (4% Rule)',
+    retirement4PercentDescription:
+      'Estimate your retirement savings and monthly income using the proven 4% withdrawal rule. Plan for a financially secure retirement.',
+    retirement4PercentBestFor:
+      'Retirement planning, FIRE movement, traditional retirement strategies',
+    retirementDividendTitle: '💰 Retirement (Dividend)',
+    retirementDividendDescription:
+      'Calculate the portfolio size needed for dividend income retirement. Focus on dividend-paying stocks for passive income.',
+    retirementDividendBestFor:
+      'Dividend investing, passive income strategies, income-focused retirement',
+    proTipTitle: '💡 Pro Tip',
+    proTipText:
+      'Start with the Compound Interest Calculator to understand the power of long-term investing, then use the Savings Goal Calculator to set specific targets. For retirement planning, compare both the 4% rule and dividend strategies to find what works best for your situation.',
   },
   calculator: {
     investmentParameters: 'Investment Parameters',
@@ -178,6 +205,23 @@ export const en = {
     ddm: 'DDM Analysis',
     chowder: 'Chowder Rule',
     swipeToBrowse: 'Swipe to browse analyses',
+    overviewTitle: 'Investment Analysis Tools',
+    overviewDescription:
+      'Advanced analysis tools to help you evaluate investment opportunities and make informed decisions.',
+    bestFor: 'Best for',
+    ddmTitle: '📊 DDM Analysis',
+    ddmDescription:
+      'Dividend Discount Model analysis to evaluate stocks based on their dividend payments and growth potential.',
+    ddmBestFor:
+      'Dividend stock analysis, value investing, long-term income evaluation',
+    chowderTitle: '🥣 Chowder Rule',
+    chowderDescription:
+      'The Chowder Rule combines dividend yield and dividend growth rate to identify quality dividend stocks.',
+    chowderBestFor:
+      'Dividend growth stocks, quality screening, dividend sustainability analysis',
+    proTipTitle: '💡 Pro Tip',
+    proTipText:
+      'Use the DDM Analysis to calculate fair value for dividend-paying stocks, then apply the Chowder Rule to screen for quality dividend growth companies. These tools work best together for comprehensive dividend stock evaluation.',
   },
   ddm: {
     about: 'About DDM Analysis',

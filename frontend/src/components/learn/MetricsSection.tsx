@@ -35,10 +35,10 @@ export default function MetricsSection() {
           className="text-2xl font-bold mb-4"
           style={{ color: 'var(--text-primary)' }}
         >
-          {t('learn.financialMetricsDictionary')}
+          {t('learn.metricsDictionary')}
         </h2>
         <p className="text-lg mb-6" style={{ color: 'var(--text-secondary)' }}>
-          {t('learn.financialMetricsDescription')}
+          {t('learn.metricsDescription')}
         </p>
       </div>
 
@@ -80,7 +80,7 @@ export default function MetricsSection() {
       {/* Results Count */}
       <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
         {t('learn.showingMetrics', {
-          showing: filteredMetrics.length.toString(),
+          count: filteredMetrics.length.toString(),
           total: financialMetrics.length.toString(),
         })}
       </div>
