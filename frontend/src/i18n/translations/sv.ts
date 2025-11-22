@@ -16,6 +16,7 @@ export const sv = {
     year: 'år',
     month: 'månad',
     note: 'Obs',
+    comingSoon: 'Kommer snart',
   },
   navigation: {
     home: 'Hem',
@@ -41,7 +42,7 @@ export const sv = {
   learn: {
     title: 'Lär dig investera smartare',
     subtitle:
-      'Bemästra grunderna i investeringar med våra omfattande guider och finansiella nyckeltalsordbok. Bygg den kunskap du behöver för att fatta välgrundade investeringsbeslut.',
+      'Bemästra grunderna i investeringar med omfattande guider och en finansiell nyckeltalsordbok. Bygg den kunskap du behöver för att fatta välgrundade investeringsbeslut.',
     featuredGuides: 'Utvalda lärandeguider',
     metricsDictionary: 'Finansiell nyckeltalsordbok',
     metricsDescription:
@@ -51,6 +52,18 @@ export const sv = {
     noMetricsFound: 'Inga nyckeltal hittades som matchar dina sökkriterier.',
     all: 'Alla',
     backToLearn: 'Tillbaka till Lär dig',
+    interpretation: 'Tolkning:',
+    goodRange: 'Bra intervall:',
+    example: 'Exempel:',
+    clickToExpand: 'Klicka för att expandera',
+    clickToCollapse: 'Klicka för att dölja',
+    articles: {
+      portfolioBuildingFundamentals: {
+        title: 'Grundläggande portföljbyggande',
+        description:
+          'Bemästra grunderna i att bygga en väl diversifierad investeringsportfölj som matchar din risktolerans och mål.',
+      },
+    },
     guides: {
       dividendAnalysis: {
         title: 'Snabbstartsguide för att analysera utdelningsföretag',
@@ -142,6 +155,196 @@ export const sv = {
         step12: {
           title: 'Kolla trender och nyheter i branschen där de är aktiva.',
         },
+      },
+    },
+    metrics: {
+      categories: {
+        valuationRatios: 'Värderingskvoter',
+        dividendAnalysis: 'Utdelningsanalys',
+        profitabilityMargins: 'Lönsamhetsmarginaler',
+        liquidityRatios: 'Likviditetskvoter',
+        leverageRatios: 'Belåningskvoter',
+        efficiencyRatios: 'Effektivitetskvoter',
+        perShareMetrics: 'Per-aktie nyckeltal',
+      },
+      peRatio: {
+        name: 'Pris/vinstkvot (P/E)',
+        category: 'Värderingskvoter',
+        formula: 'Marknadspris per aktie / Vinst per aktie',
+        description:
+          'Mäter hur mycket investerare är villiga att betala för varje dollar i vinst.',
+        interpretation:
+          'Lägre P/E kan indikera undervärdering, men överväg branschgenomsnitt och tillväxtutsikter.',
+        goodRange: 'Varierar per bransch, typiskt 15-25 för mogna företag',
+        example: 'Om en aktie handlas till $50 och har EPS på $2, P/E = 25',
+      },
+      pbRatio: {
+        name: 'Pris/bokfört värde (P/B)',
+        category: 'Värderingskvoter',
+        formula: 'Marknadspris per aktie / Bokfört värde per aktie',
+        description:
+          'Jämför marknadsvärde med bokfört värde, vilket indikerar om en aktie är över- eller undervärderad.',
+        interpretation:
+          'P/B < 1 kan indikera undervärdering, men överväg tillgångskvalitet och bransch.',
+        goodRange: 'Generellt 1-3, varierar per bransch',
+        example:
+          'Aktie till $30 med bokfört värde på $20 per aktie = P/B på 1,5',
+      },
+      psRatio: {
+        name: 'Pris/omsättningskvot (P/S)',
+        category: 'Värderingskvoter',
+        formula: 'Marknadspris per aktie / Intäkter per aktie',
+        description:
+          'Mäter hur mycket investerare betalar för varje dollar i företagsförsäljning.',
+        interpretation:
+          'Lägre P/S kan indikera undervärdering, särskilt för tillväxtföretag.',
+        goodRange: 'Typiskt 1-5, varierar betydligt per bransch',
+        example: 'Aktie till $100 med $20 intäkter per aktie = P/S på 5',
+      },
+      evEbitda: {
+        name: 'Enterprise Value till EBITDA (EV/EBITDA)',
+        category: 'Värderingskvoter',
+        formula: 'Enterprise Value / EBITDA',
+        description:
+          'Mäter företagsvärdering i förhållande till dess resultat före räntor, skatter, avskrivningar och amorteringar.',
+        interpretation:
+          'Lägre kvoter kan indikera bättre värde, men överväg branschnormer.',
+        goodRange: 'Generellt 8-15, varierar per bransch',
+        example:
+          'Företag med EV på $1 miljard och EBITDA på $100 miljoner = EV/EBITDA på 10',
+      },
+      ddm: {
+        name: 'Dividend Discount Model (DDM)',
+        category: 'Värderingskvoter',
+        formula: 'Egenvärde = D × (1 + g) / (r - g)',
+        description:
+          'Beräknar egenvärdet av en aktie baserat på förväntade framtida utdelningar. D är den förväntade utdelningen nästa år, g är utdelnings tillväxttakten och r är den erforderliga avkastningskravet.',
+        interpretation:
+          'Om egenvärde > nuvarande pris kan aktien vara undervärderad. Om egenvärde < nuvarande pris kan den vara övervärderad. Obs: r måste vara större än g.',
+        goodRange: 'Jämför egenvärde med nuvarande marknadspris',
+        example:
+          'Aktie med $2 förväntad utdelning, 5% tillväxttakt, 10% erforderlig avkastning = $2 × 1,05 / (0,10 - 0,05) = $42 egenvärde',
+      },
+      chowderRule: {
+        name: 'Chowder-regeln',
+        category: 'Utdelningsanalys',
+        formula:
+          'Chowder-poäng = Utdelningsavkastning (%) + Utdelnings CAGR (%)',
+        description:
+          'Utvärderar utdelningsaktier genom att kombinera nuvarande utdelningsavkastning med historisk utdelnings tillväxttakt (5-års CAGR). Ger ett enda nyckeltal för att bedöma utdelningsattraktivitet.',
+        interpretation:
+          'Poäng ≥15 är utmärkt, 12-15 är bra, 8-12 är acceptabelt, <8 är dåligt. Högre poäng indikerar aktier med stark utdelningsavkastning och konsekvent tillväxt.',
+        goodRange: 'Generellt 12-15 eller högre för kvalitetsutdelningsaktier',
+        example:
+          'Aktie med 3% utdelningsavkastning och 10% utdelnings CAGR = Chowder-poäng på 13 (Bra)',
+      },
+      grossMargin: {
+        name: 'Bruttomarginal',
+        category: 'Lönsamhetsmarginaler',
+        formula: '(Intäkter - Kostnad för sålda varor) / Intäkter × 100',
+        description:
+          'Visar procentandelen av intäkter som återstår efter direkta kostnader för att producera varor/tjänster.',
+        interpretation:
+          'Högre marginaler indikerar bättre prissättningskraft och operativ effektivitet.',
+        goodRange: 'Varierar per bransch, generellt 20-60%',
+        example:
+          'Företag med $1 miljon intäkter och $600K KGS = 40% bruttomarginal',
+      },
+      operatingMargin: {
+        name: 'Rörelsemarginal',
+        category: 'Lönsamhetsmarginaler',
+        formula: 'Rörelseresultat / Intäkter × 100',
+        description:
+          'Mäter effektiviteten i kärnverksamheten före räntor och skatter.',
+        interpretation:
+          'Högre marginaler indikerar bättre operativ effektivitet och kostnadskontroll.',
+        goodRange: 'Generellt 10-20%, varierar per bransch',
+        example:
+          'Företag med $1 miljon intäkter och $150K rörelseresultat = 15% rörelsemarginal',
+      },
+      netMargin: {
+        name: 'Nettomarginal',
+        category: 'Lönsamhetsmarginaler',
+        formula: 'Nettoresultat / Intäkter × 100',
+        description:
+          'Visar procentandelen av intäkter som blir vinst efter alla kostnader.',
+        interpretation:
+          'Högre nettomarginaler indikerar bättre total lönsamhet och effektivitet.',
+        goodRange: 'Generellt 5-15%, varierar per bransch',
+        example:
+          'Företag med $1 miljon intäkter och $80K nettoresultat = 8% nettomarginal',
+      },
+      currentRatio: {
+        name: 'Omsättningskvot',
+        category: 'Likviditetskvoter',
+        formula: 'Omsättningstillgångar / Kortfristiga skulder',
+        description:
+          'Mäter förmågan att betala kortfristiga förpliktelser med kortfristiga tillgångar.',
+        interpretation:
+          'Kvot > 1 indikerar förmåga att täcka kortfristiga skulder, men för hög kan indikera ineffektiv användning av tillgångar.',
+        goodRange: 'Generellt 1,5-3,0',
+        example:
+          'Företag med $500K omsättningstillgångar och $200K kortfristiga skulder = 2,5 omsättningskvot',
+      },
+      quickRatio: {
+        name: 'Snabbkvot',
+        category: 'Likviditetskvoter',
+        formula: '(Omsättningstillgångar - Lager) / Kortfristiga skulder',
+        description:
+          'Mer konservativt mått på likviditet, exkluderar lager som kan vara svårt att omvandla till kontanter.',
+        interpretation:
+          'Högre kvoter indikerar bättre kortfristig likviditet utan att förlita sig på lagersäljning.',
+        goodRange: 'Generellt 1,0-2,0',
+        example:
+          'Företag med $400K snabba tillgångar och $200K kortfristiga skulder = 2,0 snabbkvot',
+      },
+      debtToEquity: {
+        name: 'Skuldsättningsgrad',
+        category: 'Belåningskvoter',
+        formula: 'Total skuld / Totalt eget kapital',
+        description:
+          'Mäter den relativa andelen skuldfinansiering och eget kapital.',
+        interpretation:
+          'Högre kvoter indikerar mer skuldfinansiering, vilket ökar risken men kan förstärka avkastningen.',
+        goodRange: 'Generellt 0,3-1,0, varierar per bransch',
+        example:
+          'Företag med $300K skuld och $500K eget kapital = 0,6 skuldsättningsgrad',
+      },
+      roe: {
+        name: 'Avkastning på eget kapital (ROE)',
+        category: 'Effektivitetskvoter',
+        formula: 'Nettoresultat / Eget kapital × 100',
+        description:
+          'Mäter hur effektivt ett företag använder eget kapital för att generera vinster.',
+        interpretation:
+          'Högre ROE indikerar mer effektiv användning av aktieägarkapital.',
+        goodRange: 'Generellt 10-20%, varierar per bransch',
+        example:
+          'Företag med $100K nettoresultat och $500K eget kapital = 20% ROE',
+      },
+      roa: {
+        name: 'Avkastning på tillgångar (ROA)',
+        category: 'Effektivitetskvoter',
+        formula: 'Nettoresultat / Totala tillgångar × 100',
+        description:
+          'Mäter hur effektivt ett företag använder sina tillgångar för att generera vinst.',
+        interpretation:
+          'Högre ROA indikerar bättre tillgångsutnyttjande och operativ effektivitet.',
+        goodRange: 'Generellt 5-15%, varierar per bransch',
+        example:
+          'Företag med $100K nettoresultat och $1 miljon tillgångar = 10% ROA',
+      },
+      eps: {
+        name: 'Vinst per aktie (EPS)',
+        category: 'Per-aktie nyckeltal',
+        formula: 'Nettoresultat / Antal utestående aktier',
+        description:
+          'Visar den del av företagets vinst som allokeras till varje utestående aktie.',
+        interpretation:
+          'Högre EPS indikerar generellt bättre lönsamhet per aktie.',
+        goodRange: 'Varierar efter företagsstorlek och bransch',
+        example:
+          'Företag med $1 miljon nettoresultat och 100K aktier = $10 EPS',
       },
     },
   },

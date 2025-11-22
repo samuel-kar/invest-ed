@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Card from './Card'
 
 interface MetricCardProps {
+  metricId?: string
   name: string
   category: string
   formula?: string
@@ -12,6 +14,7 @@ interface MetricCardProps {
 }
 
 export default function MetricCard({
+  metricId,
   name,
   category,
   formula,
@@ -20,6 +23,7 @@ export default function MetricCard({
   goodRange,
   example,
 }: MetricCardProps) {
+  const { t } = useTranslation()
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
@@ -71,7 +75,7 @@ export default function MetricCard({
                 className="text-xs font-semibold"
                 style={{ color: 'var(--text-primary)' }}
               >
-                Interpretation:
+                {t('learn.interpretation')}
               </span>
               <p
                 className="text-xs mt-1"
@@ -88,7 +92,7 @@ export default function MetricCard({
                 className="text-xs font-semibold"
                 style={{ color: 'var(--text-primary)' }}
               >
-                Good Range:
+                {t('learn.goodRange')}
               </span>
               <p
                 className="text-xs mt-1"
@@ -105,7 +109,7 @@ export default function MetricCard({
                 className="text-xs font-semibold"
                 style={{ color: 'var(--text-primary)' }}
               >
-                Example:
+                {t('learn.example')}
               </span>
               <p
                 className="text-xs mt-1"
@@ -119,7 +123,7 @@ export default function MetricCard({
       )}
 
       <div className="mt-2 text-xs" style={{ color: 'var(--accent-color)' }}>
-        {isExpanded ? 'Click to collapse' : 'Click to expand'}
+        {isExpanded ? t('learn.clickToCollapse') : t('learn.clickToExpand')}
       </div>
     </Card>
   )

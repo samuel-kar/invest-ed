@@ -1,4 +1,5 @@
 export interface FinancialMetric {
+  id: string
   name: string
   category: string
   formula?: string
@@ -11,6 +12,7 @@ export interface FinancialMetric {
 export const financialMetrics: FinancialMetric[] = [
   // Valuation Ratios
   {
+    id: 'peRatio',
     name: 'Price-to-Earnings Ratio (P/E)',
     category: 'Valuation Ratios',
     formula: 'Market Price per Share / Earnings per Share',
@@ -22,6 +24,7 @@ export const financialMetrics: FinancialMetric[] = [
     example: 'If a stock trades at $50 and has EPS of $2, P/E = 25',
   },
   {
+    id: 'pbRatio',
     name: 'Price-to-Book Ratio (P/B)',
     category: 'Valuation Ratios',
     formula: 'Market Price per Share / Book Value per Share',
@@ -33,6 +36,7 @@ export const financialMetrics: FinancialMetric[] = [
     example: 'Stock at $30 with book value of $20 per share = P/B of 1.5',
   },
   {
+    id: 'psRatio',
     name: 'Price-to-Sales Ratio (P/S)',
     category: 'Valuation Ratios',
     formula: 'Market Price per Share / Revenue per Share',
@@ -44,6 +48,7 @@ export const financialMetrics: FinancialMetric[] = [
     example: 'Stock at $100 with $20 revenue per share = P/S of 5',
   },
   {
+    id: 'evEbitda',
     name: 'Enterprise Value to EBITDA (EV/EBITDA)',
     category: 'Valuation Ratios',
     formula: 'Enterprise Value / EBITDA',
@@ -55,6 +60,7 @@ export const financialMetrics: FinancialMetric[] = [
     example: 'Company with EV of $1B and EBITDA of $100M = EV/EBITDA of 10',
   },
   {
+    id: 'ddm',
     name: 'Dividend Discount Model (DDM)',
     category: 'Valuation Ratios',
     formula: 'Intrinsic Value = D × (1 + g) / (r - g)',
@@ -69,6 +75,7 @@ export const financialMetrics: FinancialMetric[] = [
 
   // Dividend Analysis
   {
+    id: 'chowderRule',
     name: 'Chowder Rule',
     category: 'Dividend Analysis',
     formula: 'Chowder Score = Dividend Yield (%) + Dividend CAGR (%)',
@@ -83,6 +90,7 @@ export const financialMetrics: FinancialMetric[] = [
 
   // Profitability Margins
   {
+    id: 'grossMargin',
     name: 'Gross Margin',
     category: 'Profitability Margins',
     formula: '(Revenue - Cost of Goods Sold) / Revenue × 100',
@@ -94,6 +102,7 @@ export const financialMetrics: FinancialMetric[] = [
     example: 'Company with $1M revenue and $600K COGS = 40% gross margin',
   },
   {
+    id: 'operatingMargin',
     name: 'Operating Margin',
     category: 'Profitability Margins',
     formula: 'Operating Income / Revenue × 100',
@@ -106,6 +115,7 @@ export const financialMetrics: FinancialMetric[] = [
       'Company with $1M revenue and $150K operating income = 15% operating margin',
   },
   {
+    id: 'netMargin',
     name: 'Net Margin',
     category: 'Profitability Margins',
     formula: 'Net Income / Revenue × 100',
@@ -119,6 +129,7 @@ export const financialMetrics: FinancialMetric[] = [
 
   // Liquidity Ratios
   {
+    id: 'currentRatio',
     name: 'Current Ratio',
     category: 'Liquidity Ratios',
     formula: 'Current Assets / Current Liabilities',
@@ -131,6 +142,7 @@ export const financialMetrics: FinancialMetric[] = [
       'Company with $500K current assets and $200K current liabilities = 2.5 current ratio',
   },
   {
+    id: 'quickRatio',
     name: 'Quick Ratio',
     category: 'Liquidity Ratios',
     formula: '(Current Assets - Inventory) / Current Liabilities',
@@ -145,6 +157,7 @@ export const financialMetrics: FinancialMetric[] = [
 
   // Leverage Ratios
   {
+    id: 'debtToEquity',
     name: 'Debt-to-Equity Ratio',
     category: 'Leverage Ratios',
     formula: 'Total Debt / Total Equity',
@@ -156,6 +169,7 @@ export const financialMetrics: FinancialMetric[] = [
     example: 'Company with $300K debt and $500K equity = 0.6 debt-to-equity',
   },
   {
+    id: 'roe',
     name: 'Return on Equity (ROE)',
     category: 'Efficiency Ratios',
     formula: "Net Income / Shareholders' Equity × 100",
@@ -167,6 +181,7 @@ export const financialMetrics: FinancialMetric[] = [
     example: 'Company with $100K net income and $500K equity = 20% ROE',
   },
   {
+    id: 'roa',
     name: 'Return on Assets (ROA)',
     category: 'Efficiency Ratios',
     formula: 'Net Income / Total Assets × 100',
@@ -180,6 +195,7 @@ export const financialMetrics: FinancialMetric[] = [
 
   // Per-Share Metrics
   {
+    id: 'eps',
     name: 'Earnings Per Share (EPS)',
     category: 'Per-Share Metrics',
     formula: 'Net Income / Number of Outstanding Shares',

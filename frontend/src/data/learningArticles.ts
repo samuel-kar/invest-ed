@@ -16,9 +16,8 @@ export const learningArticles: LearningArticle[] = [
   },
   {
     id: 'portfolio-building-fundamentals',
-    title: 'Portfolio Building Fundamentals',
-    description:
-      'Master the basics of constructing a well-diversified investment portfolio that matches your risk tolerance and goals.',
+    title: 'learn.articles.portfolioBuildingFundamentals.title',
+    description: 'learn.articles.portfolioBuildingFundamentals.description',
     comingSoon: true,
     category: 'Portfolio Management',
   },

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import Card from './Card'
 
 interface ArticleCardProps {
@@ -13,6 +14,7 @@ export default function ArticleCard({
   comingSoon = false,
   onClick,
 }: ArticleCardProps) {
+  const { t } = useTranslation()
   return (
     <Card
       className={`p-6 cursor-pointer transition-all duration-200 hover:shadow-lg ${
@@ -39,7 +41,7 @@ export default function ArticleCard({
             className="hidden md:block absolute top-0 right-0 bg-emerald-600 text-white text-xs px-2 py-1 rounded-bl-lg"
             style={{ backgroundColor: 'var(--accent-color)' }}
           >
-            Coming Soon
+            {t('common.comingSoon')}
           </div>
         )}
       </div>
