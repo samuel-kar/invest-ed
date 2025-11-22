@@ -119,7 +119,6 @@ export default function MetricsSection() {
           return (
             <MetricCard
               key={`${metric.id}-${index}`}
-              metricId={metric.id}
               name={t(`learn.metrics.${metric.id}.name`)}
               category={translatedCategory}
               formula={t(`learn.metrics.${metric.id}.formula`)}

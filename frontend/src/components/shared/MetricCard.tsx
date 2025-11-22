@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import Card from './Card'
 
 interface MetricCardProps {
-  metricId?: string
   name: string
   category: string
   formula?: string
@@ -14,7 +13,6 @@ interface MetricCardProps {
 }
 
 export default function MetricCard({
-  metricId,
   name,
   category,
   formula,
