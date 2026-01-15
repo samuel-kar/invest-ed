@@ -616,6 +616,10 @@ export const en = {
     breakdown: 'Breakdown:',
     chowderScoreFor: 'Chowder Score for {symbol}',
     yearsOfData: 'Years of Data:',
+    excellent: 'Excellent',
+    good: 'Good',
+    fair: 'Fair',
+    poor: 'Poor',
   },
   saved: {
     title: 'Saved Analyses',
@@ -624,6 +628,14 @@ export const en = {
     swipeToView: 'Swipe to view saved tools',
     loading: 'Loading...',
     noSavedAnalyses: 'No saved analyses found.',
+    confirmDelete: 'Are you sure you want to delete this analysis?',
+    deleteError: 'Failed to delete analysis',
+    loadError: 'Failed to load analyses',
+    noChowderAnalyses: 'No saved Chowder analyses found.',
+    noDdmAnalyses: 'No saved DDM analyses found.',
+    deleteAnalysis: 'Delete analysis',
+    coldStartMessage:
+      'Backend server is waking up from standby mode. This may take a few extra seconds...',
   },
   companies: {
     searchPlaceholder:

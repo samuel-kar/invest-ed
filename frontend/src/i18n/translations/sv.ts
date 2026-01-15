@@ -633,6 +633,10 @@ export const sv = {
     breakdown: 'Uppdelning:',
     chowderScoreFor: 'Chowder-tal för {symbol}',
     yearsOfData: 'År av data:',
+    excellent: 'Utmärkt',
+    good: 'Bra',
+    fair: 'Acceptabelt',
+    poor: 'Dåligt',
   },
   saved: {
     title: 'Sparade analyser',
@@ -641,6 +645,14 @@ export const sv = {
     swipeToView: 'Svep för att visa sparade verktyg',
     loading: 'Laddar...',
     noSavedAnalyses: 'Inga sparade analyser hittades.',
+    confirmDelete: 'Är du säker på att du vill ta bort denna analys?',
+    deleteError: 'Misslyckades med att ta bort analys',
+    loadError: 'Misslyckades med att ladda analyser',
+    noChowderAnalyses: 'Inga sparade Chowder-analyser hittades.',
+    noDdmAnalyses: 'Inga sparade DDM-analyser hittades.',
+    deleteAnalysis: 'Ta bort analys',
+    coldStartMessage:
+      'Backend-servern vaknar från viloläge. Detta kan ta några extra sekunder...',
   },
   companies: {
     searchPlaceholder:
