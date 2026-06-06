@@ -3,6 +3,7 @@ package com.example.backend.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class SavedDdmAnalysisRequestDto {
     private Double expectedDividend;
     
     @NotNull(message = "Growth rate is required")
-    @Positive(message = "Growth rate must be positive")
+    @PositiveOrZero(message = "Growth rate must be zero or positive")
     private Double growthRate;
     
     @NotNull(message = "Discount rate is required")
